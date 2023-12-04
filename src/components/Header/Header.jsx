@@ -33,7 +33,7 @@ const Header = () => {
         <div className="flex lg:flex-1">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
-            <img className="h-12 w-auto" src="src/img/fabric.png" alt="" />
+            <img className="h-12 w-auto" src="src/images/fabric.png" alt="" />
           </a>
         </div>
         <div className="flex lg:hidden">
@@ -123,9 +123,10 @@ const Header = () => {
               <span className="sr-only">Your Company</span>
               <img
                 className="h-8 w-auto"
-                src="src/img/fabric.png"                 alt=""
+                src="src/images/fabric.png"
+                alt=""
               />
-              
+
             </a>
             <button
               type="button"

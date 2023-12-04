@@ -1,4 +1,4 @@
-import sprite from '../../img/sprite.svg';
+import sprite from '../../images/sprite.svg';
 
 const Svg = ({
   id,

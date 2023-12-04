@@ -1,39 +1,44 @@
-@import 'node_modules/modern-normalize/modern-normalize.css';
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-body {
-  background-color: #000;
-  /* background-image: url('./assets/background.png'); */
-  background-size: auto 100%;
-  background-position: center center;
-  background-repeat: no-repeat;
-  font-family: 'Roboto', sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  color: #111111;
-  width: 100%;
-  height: 100vh;
-  margin: 0;
-}
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin-top: 0;
-}
-a {
-  text-decoration: none;
-}
-ul {
-  list-style: none;
+@import './assets/fonts/custom-fonts.css';
+
+@layer components {
+  .blue-gradient:hover {
+    background: linear-gradient(290deg, #419ef1 0%, #9bd0ff 107.89%);
+  }
+  .blue-gradient-full {
+    background: linear-gradient(290deg, #419ef1 0%, #9bd0ff 107.89%);
+  }
+
+  .orange-gradient:hover {background: linear-gradient(90deg,#FFDF48  0%, #FFC107 107.89%)
+}}
+
+.visually-hidden {
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  border: 0;
   padding: 0;
-  margin: 0;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  margin: -1px;
 }
-img {
-  display: block;
+.overflow-hidden {
+  overflow: hidden;
 }
-button {
-  cursor: pointer;
+
+/* auth shadow */
+.auth-box-shadow {
+  box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
+}
+
+input:hover,
+input:focus,
+input:active {
+  outline-color: #cce4fb;
+  outline-width: '1px';
 }

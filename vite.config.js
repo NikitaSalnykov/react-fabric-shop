@@ -8,6 +8,7 @@ export default defineConfig({
         alias: {
           src: '/src',
           components: '/src/components',
+          pages: '/src/pages',
         },
       },
       base: '/react-fabric-shop/',

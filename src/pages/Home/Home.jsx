@@ -1,14 +1,14 @@
 import Hero from "../../components/Hero/Hero"
 import ProductList from "../../components/ProductList/ProductList";
 
-const FirstPage = () => {
+const Home = () => {
   return (
-    <>
+    <div className="container">
     <Hero/>
 <ProductList/>
-</>
+</div>
 
   );
 };
 
-export default FirstPage;
+export default Home;

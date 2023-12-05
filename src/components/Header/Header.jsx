@@ -7,11 +7,12 @@ import {
 } from '@heroicons/react/24/outline'
 import Svg from '../Svg/Svg'
 import { ChevronDownIcon, PhoneIcon, PlayCircleIcon } from '@heroicons/react/20/solid'
+import { Link } from 'react-router-dom'
 
 const products = [
   { name: 'Основные ткани', description: 'Огромный выбор основных тканей', href: '#', icon: 'icon-main-fabric' },
   { name: 'Аксессуары', description: 'Создавайте незабываемые образы', href: '#', icon: 'icon-accessories' },
-  { name: 'Все категории', description: 'Просмотреть все категории товаров', href: '#', icon: 'icon-search' },
+  { name: 'Все категории', description: 'Просмотреть все категории товаров', href: '/products', icon: 'icon-search' },
   { name: 'Акционные предложения', description: 'Покупайте по выгодным ценам', href: '#', icon: 'icon-sale' },
   { name: 'Условия доставки', description: 'Доставим товар удобным Вам способом', href: '#', icon: "icon-delivery" }]
 
@@ -31,10 +32,11 @@ const Header = () => {
     <header className="bg-white">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <Link to='/' className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
-            <img className="h-12 w-auto" src="src/images/fabric.png" alt="" />
-          </a>
+            {/* <img className="h-12 w-auto" src="src/images/fabric.png" alt="" /> */}
+            <Svg id={"logo"} size={42}></Svg>
+          </Link>
         </div>
         <div className="flex lg:hidden">
           <button
@@ -74,10 +76,10 @@ const Header = () => {
                       <Svg id={item.icon} size={24}></Svg>
                       </div>
                       <div className="flex-auto">
-                        <a href={item.href} className="block font-semibold text-gray-900">
+                        <Link to={item.href} className="block font-semibold text-gray-900">
                           {item.name}
                           <span className="absolute inset-0" />
-                        </a>
+                        </Link>
                         <p className="mt-1 text-gray-600">{item.description}</p>
                       </div>
                     </div>
@@ -85,14 +87,14 @@ const Header = () => {
                 </div>
                 <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
                   {callsToAction.map((item) => (
-                    <a
+                    <Link
                       key={item.name}
-                      href={item.href}
+                      to={item.href}
                       className="flex items-center justify-center gap-x-2.5 p-3 font-semibold leading-6 text-gray-900 hover:bg-gray-100"
                     >
                       <item.icon className="h-5 w-5 flex-none text-gray-400" aria-hidden="true" />
                       {item.name}
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </Popover.Panel>
@@ -119,15 +121,15 @@ const Header = () => {
         <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
-            <a href="#" className="-m-1.5 p-1.5">
+            <Link to="/" className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
-              <img
+              {/* <img
                 className="h-8 w-auto"
                 src="src/images/fabric.png"
                 alt=""
-              />
+              /> */}
 
-            </a>
+            </Link>
             <button
               type="button"
               className="-m-2.5 rounded-md p-2.5 text-gray-700"
@@ -152,14 +154,13 @@ const Header = () => {
                       </Disclosure.Button>
                       <Disclosure.Panel className="mt-2 space-y-2">
                         {[...products, ...callsToAction].map((item) => (
-                          <Disclosure.Button
+                          <Link
                             key={item.name}
-                            as="a"
-                            href={item.href}
+                            to={item.href}
                             className="block rounded-lg py-2 pl-6 pr-3 font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                           >
                             {item.name}
-                          </Disclosure.Button>
+                          </Link>
                         ))}
                       </Disclosure.Panel>
                     </>

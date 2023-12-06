@@ -1,11 +1,11 @@
 import Hero from "../../components/Hero/Hero"
-import ProductList from "../../components/ProductList/ProductList";
+import CategoriesList from "../../components/CategoriesList/CategoriesList";
 
 const Home = () => {
   return (
     <div className="container">
     <Hero/>
-<ProductList/>
+    <CategoriesList title='Категории'/>
 </div>
 
   );

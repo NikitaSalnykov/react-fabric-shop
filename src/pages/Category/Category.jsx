@@ -1,9 +1,11 @@
-import ProductList from "../../components/ProductList/ProductList"
+import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs"
+import ProductList from "../../components/ProductsList/ProductsList"
 
 const Category = () => {
   return (
     <div className="container">
-    <ProductList/>
+    <Breadcrumbs/>
+    <ProductList title='Весь католог:'/>
     </div>
   )
 }

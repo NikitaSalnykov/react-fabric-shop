@@ -2,10 +2,10 @@ import { Route, Routes } from 'react-router-dom';
 import SharedLayout from 'components/SharedLayout/SharedLayout';
 import Home from 'pages/Home/Home';
 import SecondPage from 'pages/SecondPage/SecondPage';
-import HalfPage from 'pages/HalfPage/HalfPage';
+import Product from 'pages/Product/Product';
 import ErrorPage from 'pages/ErrorPage/ErrorPage';
 import Category from 'pages/Category/Category'
-import Products from 'pages/Products/Products'
+import Categories from 'pages/Categories/Categories'
 
 
 function App() {
@@ -14,14 +14,13 @@ function App() {
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
-          <Route path="/first" element={<Home />} />
-          <Route path="/second" element={<SecondPage />}>
-            <Route path=":half" element={<HalfPage />} />
-          </Route>
-          <Route path="/products" element={<Products />}/>
-            <Route path="/products/:category" element={<Category />}>
-              <Route path=":id" element={<HalfPage />} />
-            </Route>
+          <Route path="/home" element={<Home />} />
+          <Route path="/second" element={<SecondPage />}/>
+          <Route path="/categories" element={<Categories />}/>
+          <Route path="/categories/:category" element={<Category />}/>
+          <Route path="/categories/:category/:id" element={<Product />} />
+
+
           <Route path="*" element={<ErrorPage />} />
         </Route>
       </Routes>

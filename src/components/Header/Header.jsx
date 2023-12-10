@@ -13,31 +13,31 @@ const products = [
   {
     name: 'Основные ткани',
     description: 'Огромный выбор основных тканей',
-    href: '#',
+    href: '/categories',
     icon: 'icon-main-fabric',
   },
   {
     name: 'Аксессуары',
     description: 'Создавайте незабываемые образы',
-    href: '#',
+    href: '/categories#',
     icon: 'icon-accessories',
   },
   {
     name: 'Все категории',
     description: 'Просмотреть все категории товаров',
-    href: '/products',
+    href: '/categories',
     icon: 'icon-search',
   },
   {
     name: 'Акционные предложения',
     description: 'Покупайте по выгодным ценам',
-    href: '#',
+    href: '/categories',
     icon: 'icon-sale',
   },
   {
     name: 'Условия доставки',
     description: 'Доставим товар удобным Вам способом',
-    href: '#',
+    href: '/about',
     icon: 'icon-delivery',
   },
 ];
@@ -194,6 +194,9 @@ const Header = () => {
                       <Disclosure.Panel className="mt-2 space-y-2">
                         {[...products, ...callsToAction].map((item) => (
                           <Link
+                            onClick={() => {
+                              setMobileMenuOpen(false);
+                            }}
                             key={item.name}
                             to={item.href}
                             className="block rounded-lg py-2 pl-6 pr-3 font-semibold leading-7 text-gray-900 hover:bg-gray-50"
@@ -206,31 +209,45 @@ const Header = () => {
                   )}
                 </Disclosure>
                 <Link
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                  }}
                   to="/new"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Новинки
                 </Link>
                 <Link
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                  }}
                   to="/blog"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Блог
                 </Link>
                 <Link
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                  }}
                   to="/about"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   О нас
                 </Link>
               </div>
-              <div className="py-6">
-                <a
-                  href="#"
+              <div
+                className="py-6"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                }}
+              >
+                <Link
+                  to="/login"
                   className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Авторизация
-                </a>
+                </Link>
               </div>
             </div>
           </div>

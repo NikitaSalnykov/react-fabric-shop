@@ -1,6 +1,6 @@
 const BlogCard = () => {
   return (
-    <li className="flex flex-col items-start col-span-12 space-y-3 sm:col-span-16 md:col-span-4 xl:col-span-4">
+    <li className="flex flex-col items-start col-span-12 space-y-3 sm:col-span-16 md:col-span-4 xl:col-span-4 max-w-[300px] md:max-w-[340px]">
       <img
         src="https://elenanovias.com/images/stories/virtuemart/product/221%20%20%20%20(1)%20copy.jpg"
         className="object-cover w-full mb-2 overflow-hidden rounded-lg shadow-sm max-h-56 btn-"

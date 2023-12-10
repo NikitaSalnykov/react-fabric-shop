@@ -159,7 +159,7 @@ const Faq = () => {
             </div>
             <div>
               <h3 className="text-xl font-bold text-gray-700">
-                Гарантия качества и клиентоориентированность
+                Гарантия качества
               </h3>
               <p className="text-gray-600 my-2">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,

@@ -1,9 +1,11 @@
+import Svg from '../Svg/Svg';
+
 const Faq = () => {
   return (
     <div className="container">
       <div className=" py-8">
         <h4 className="text-4xl font-bold text-gray-800 tracking-widest uppercase text-center">
-          FAQ
+          Наши услуги
         </h4>
         <p className="text-center text-gray-600 text-sm mt-2">
           Here are some of the frequently asked questions
@@ -11,27 +13,10 @@ const Faq = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 xl:gap-12 px-2 xl:px-12 mt-4">
           <div className="flex space-x-8 mt-8">
             <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-12 w-12 text-blue-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
-                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"
-                ></path>
-              </svg>
+              <Svg id={'icon-fabric-about '} fill={'black'} size={32}></Svg>
             </div>
             <div>
-              <h4 className="text-xl font-bold text-gray-700">
-                Lorem ipsum dolor sit amet?
-              </h4>
+              <h3 className="text-xl font-bold text-gray-700">Продукция</h3>
               <p className="text-gray-600 my-2">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
                 dignissimos. Neque eos, dignissimos provident reiciendis debitis
@@ -50,25 +35,10 @@ const Faq = () => {
 
           <div className="flex space-x-8 mt-8">
             <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-12 w-12 text-blue-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                ></path>
-              </svg>
+              <Svg id={'icon-delivery'} size={38}></Svg>
             </div>
             <div>
-              <h4 className="text-xl font-bold text-gray-700">
-                Consectetur adipisicing elit?
-              </h4>
+              <h3 className="text-xl font-bold text-gray-700">Доставка</h3>
               <p className="text-gray-600 my-2">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
                 dignissimos. Neque eos, dignissimos provident reiciendis debitis
@@ -87,25 +57,36 @@ const Faq = () => {
 
           <div className="flex space-x-8 mt-8">
             <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-12 w-12 text-blue-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
-                ></path>
-              </svg>
+              <Svg id={'icon-boxes'} size={38}></Svg>
             </div>
             <div>
-              <h4 className="text-xl font-bold text-gray-700">
-                Neque eos, dignissimos provident reiciendis debitis?
-              </h4>
+              <h3 className="text-xl font-bold text-gray-700">
+                Самовывоз с нашего склада
+              </h3>
+              <p className="text-gray-600 my-2">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
+                dignissimos. Neque eos, dignissimos provident reiciendis debitis
+                repudiandae commodi perferendis et itaque, similique fugiat
+                cumque impedit iusto vitae dolorum. Nostrum, fugit!
+              </p>
+              <a
+                href="#"
+                className="text-blue-600 hover:text-blue-800 hover:underline capitalize"
+                title="Read More"
+              >
+                Read More
+              </a>
+            </div>
+          </div>
+
+          <div className="flex space-x-8 mt-8">
+            <div>
+              <Svg id={'icon-wholesale'} size={38}></Svg>
+            </div>
+            <div>
+              <h3 className="text-xl font-bold text-gray-700">
+                Покупайте оптом и в розницу
+              </h3>
               <p className="text-gray-600 my-2">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
                 dignissimos. Neque eos, dignissimos provident reiciendis debitis
@@ -140,9 +121,9 @@ const Faq = () => {
               </svg>
             </div>
             <div>
-              <h4 className="text-xl font-bold text-gray-700">
-                Repudiandae commodi perferendis et itaque?
-              </h4>
+              <h3 className="text-xl font-bold text-gray-700">
+                Акционные предложения постоянным покупателям
+              </h3>
               <p className="text-gray-600 my-2">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
                 dignissimos. Neque eos, dignissimos provident reiciendis debitis
@@ -177,46 +158,9 @@ const Faq = () => {
               </svg>
             </div>
             <div>
-              <h4 className="text-xl font-bold text-gray-700">
-                Similique fugiat cumque?
-              </h4>
-              <p className="text-gray-600 my-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                dignissimos. Neque eos, dignissimos provident reiciendis debitis
-                repudiandae commodi perferendis et itaque, similique fugiat
-                cumque impedit iusto vitae dolorum. Nostrum, fugit!
-              </p>
-              <a
-                href="#"
-                className="text-blue-600 hover:text-blue-800 hover:underline capitalize"
-                title="Read More"
-              >
-                Read More
-              </a>
-            </div>
-          </div>
-
-          <div className="flex space-x-8 mt-8">
-            <div>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-12 w-12 text-blue-600"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
-                ></path>
-              </svg>
-            </div>
-            <div>
-              <h4 className="text-xl font-bold text-gray-700">
-                Impedit iusto vitae dolorum, nostrum fugit?
-              </h4>
+              <h3 className="text-xl font-bold text-gray-700">
+                Гарантия качества и клиентоориентированность
+              </h3>
               <p className="text-gray-600 my-2">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
                 dignissimos. Neque eos, dignissimos provident reiciendis debitis

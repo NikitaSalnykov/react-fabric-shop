@@ -55,9 +55,9 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className=" bg-[white]">
+    <header className=" bg-[white] ">
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 "
+        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 border-b-[1px] border-gray"
         aria-label="Global"
       >
         <div className="flex lg:flex-1 ">
@@ -137,20 +137,20 @@ const Header = () => {
             </Transition>
           </Popover>
 
-          <a href="#" className="font-semibold leading-6 text-gray-900">
+          <Link to="/new" className="font-semibold leading-6 text-gray-900">
             Новинки
-          </a>
-          <a href="#" className="font-semibold leading-6 text-gray-900">
+          </Link>
+          <Link to="/blog" className="font-semibold leading-6 text-gray-900">
             Блог
-          </a>
+          </Link>
           <Link to="/about" className="font-semibold leading-6 text-gray-900">
             О нас
           </Link>
         </Popover.Group>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <a href="#" className="font-semibold leading-6 text-gray-900">
+          <Link to="/login" className="font-semibold leading-6 text-gray-900">
             Авторизация <span aria-hidden="true">&rarr;</span>
-          </a>
+          </Link>
         </div>
       </nav>
 
@@ -205,18 +205,18 @@ const Header = () => {
                     </>
                   )}
                 </Disclosure>
-                <a
-                  href="#"
+                <Link
+                  to="/new"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Новинки
-                </a>
-                <a
-                  href="#"
+                </Link>
+                <Link
+                  to="/blog"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                 >
                   Блог
-                </a>
+                </Link>
                 <Link
                   to="/about"
                   className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"

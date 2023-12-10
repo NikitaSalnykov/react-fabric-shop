@@ -6,6 +6,10 @@ import ErrorPage from 'pages/ErrorPage/ErrorPage';
 import Category from 'pages/Category/Category';
 import Categories from 'pages/Categories/Categories';
 import About from './pages/About/About';
+import Blog from './pages/Blog/Blog';
+import NewItems from './pages/NewItems/NewItems';
+import LoginPage from './pages/LoginPage/LoginPage';
+import RegistrationPage from './pages/RegisterPage/RegisterPage';
 
 function App() {
   return (
@@ -16,6 +20,10 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/categories" element={<Categories />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/new" element={<NewItems />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/registration" element={<RegistrationPage />} />
           <Route path="/categories/:category" element={<Category />} />
           <Route path="/categories/:category/:id" element={<Product />} />
 

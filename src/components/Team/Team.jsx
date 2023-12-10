@@ -1,12 +1,12 @@
 const people = [
   {
-    name: 'Leslie Alexander',
+    name: 'Михаил Сальников',
     role: 'Co-Founder',
     imageUrl:
       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
   {
-    name: 'Leslie Alexander',
+    name: 'Ксения Сальникова',
     role: 'Co-Founder',
     imageUrl:
       'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
@@ -20,7 +20,7 @@ const Team = () => {
       <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 lg:grid-cols-2 items-center">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-            Meet our leadership
+            Наша команда
           </h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae

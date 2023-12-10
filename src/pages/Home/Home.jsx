@@ -3,7 +3,7 @@ import CategoriesList from '../../components/CategoriesList/CategoriesList';
 
 const Home = () => {
   return (
-    <div className="container pt-12">
+    <div className="container ">
       <Hero />
       <CategoriesList title="Категории" />
     </div>

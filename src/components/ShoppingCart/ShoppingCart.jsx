@@ -6,8 +6,8 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
 
   useEffect(() => {
     const handleEsc = (event) => {
-      setAnimationClose(true);
       if (event.key === 'Escape') {
+        setAnimationClose(true);
         setTimeout(() => {
           onToggleBasket();
         }, 250);
@@ -17,9 +17,9 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
     const handleClickOutside = (event) => {
       if (modalRef.current && !modalRef.current.contains(event.target)) {
         setAnimationClose(true);
-
         setTimeout(() => {
           onToggleBasket();
+
         }, 250);
       }
     };
@@ -37,10 +37,18 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
     };
   }, [isBasketOpen, onToggleBasket]);
 
+  const handleClickClose = (event) => {
+    setAnimationClose(true);
+    setTimeout(() => {
+      onToggleBasket();
+
+    }, 250);
+};
+
   return (
     <div>
       <div
-        className={`w-full h-full bg-black bg-opacity-90 top-0 overflow-y-auto overflow-x-hidden fixed sticky-0 ${
+        className={`w-full h-full  bg-opacity-90 top-0 overflow-y-auto overflow-x-hidden fixed sticky-0 ${
           isBasketOpen && 'open'
         }
             ${animationClose && 'closed'}
@@ -48,11 +56,11 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
         id="modal-basket-backdrop"
       >
         <div
-          className="w-full absolute z-10 right-0 h-full overflow-x-hidden transform translate-x-0 transition ease-in-out duration-700"
+          className="w-full bg-black absolute z-10 right-0 h-full overflow-x-hidden"
           id="checkout"
         >
           <div
-            className={`flex items-end lg:flex-row flex-col justify-end ${
+            className={`flex items-end md:flex-row flex-col justify-end ${
               isBasketOpen && 'open'
             }
             ${animationClose && 'closed'}
@@ -60,7 +68,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
             id="modal-basket"
           >
             <div
-              className="lg:w-1/2 md:w-8/12 w-full lg:px-8 lg:py-14 md:px-6 px-4 md:py-8 py-4 bg-white dark:bg-gray-800 overflow-y-hidden overflow-x-hidden lg:h-screen h-auto"
+              className="md:w-1/2 md:w-8/12 w-full md:px-8 md:py-14 md:px-6 px-4 md:py-8 py-4 bg-white dark:bg-gray-800 overflow-y-hidden overflow-x-hidden md:h-screen h-auto"
               id="scroll"
               ref={modalRef}
             >
@@ -81,26 +89,26 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                   <polyline points="15 6 9 12 15 18" />
                 </svg>
                 <div
-                  onClick={() => onToggleBasket()}
+                  onClick={handleClickClose}
                   className="text-sm pl-2 leading-none dark:hover:text-gray-200"
                 >
                   Назад
                 </div>
               </div>
-              <p className="lg:text-4xl text-3xl font-black leading-10 text-gray-800 dark:text-white pt-3">
+              <p className="md:text-4xl text-3xl font-black leading-10 text-gray-800 dark:text-white pt-3">
                 Корзина
               </p>
-              <div className="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50">
-                <div className="md:w-4/12 2xl:w-1/4 w-full">
+              <div className="p-4 md:flex gap-8 items-strech py-8 md:py-8 border-t border-gray-50 ">
+                <div className="w-full lg:w-1/2 flex justify-center items-center">
                   <img
                     src="https://tkani-atlas.com.ua/assets/images/products/41273/f30e06fa9f63e4f5c0fa2147a9127e6cb252bcf4.webp"
                     alt="Black Leather Bag"
-                    className="h-full object-center object-cover md:block hidden"
+                    className="w-[400px] h-full object-center object-cover md:block hidden rounded-[20px]"
                   />
                   <img
                     src="https://tkani-atlas.com.ua/assets/images/products/41273/f30e06fa9f63e4f5c0fa2147a9127e6cb252bcf4.webp"
                     alt="Black Leather Bag"
-                    className="md:hidden w-full h-full object-center object-cover"
+                    className="w-full md:hidden lg:w-full h-full object-center object-cover rounded-[20px]"
                   />
                 </div>
                 <div className="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
@@ -145,10 +153,10 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                 </div>
               </div>
             </div>
-            <div className="lg:w-96 md:w-8/12 w-full bg-gray-100 dark:bg-gray-900 h-full">
-              <div className="flex flex-col lg:h-screen h-auto lg:px-8 md:px-7 px-4 lg:py-20 md:py-10 py-6 justify-between overflow-y-auto">
+            <div className="md:w-96 w-full bg-gray-100 dark:bg-gray-900 h-full">
+              <div className="flex flex-col md:h-screen h-auto md:px-8 md:px-7 px-4 md:py-20 md:py-10 py-6 justify-between overflow-y-auto">
                 <div>
-                  <p className="lg:text-4xl text-3xl font-black leading-9 text-gray-800 dark:text-white">
+                  <p className="md:text-4xl text-3xl font-black leading-9 text-gray-800 dark:text-white">
                     Заказ
                   </p>
                   <div className="flex items-center justify-between pt-16">
@@ -169,7 +177,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                   </div>
                 </div>
                 <div>
-                  <div className="flex items-center pb-6 justify-between lg:pt-5 pt-20">
+                  <div className="flex items-center pb-6 justify-between md:pt-5 pt-20">
                     <p className="text-2xl leading-normal text-gray-800 dark:text-white">
                       Общая стоимость
                     </p>

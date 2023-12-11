@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const LoginPage = () => {
   return (
-    <div className="contayner py-14">
+    <div className="contayner py-20 md:py-24 lg:py-40">
       <div className="flex justify-center w-full">
         <div className="max-w-2xl">
           <div className=" md:w-[600px] bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">

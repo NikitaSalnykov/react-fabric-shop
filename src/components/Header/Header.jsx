@@ -8,6 +8,8 @@ import {
 import Svg from '../Svg/Svg';
 import { ChevronDownIcon, PhoneIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
+import { createPortal } from 'react-dom';
+import ShoppingCart from '../ShoppingCart/ShoppingCart';
 
 const products = [
   {
@@ -51,8 +53,15 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
+const basketRoot = document.querySelector('#basket');
+
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isBasketOpen, setIsBasketOpen] = useState(false);
+
+  const onToggleBasket = () => {
+    setIsBasketOpen(!isBasketOpen);
+  };
 
   return (
     <header className=" bg-[white] ">
@@ -66,7 +75,15 @@ const Header = () => {
             <Svg id={'logo'} size={42}></Svg>
           </Link>
         </div>
-        <div className="flex lg:hidden">
+        <div className="flex lg:hidden gap-6 items-center">
+          <div className="flex gap-3">
+            <Link>
+              <Svg id={'icon-favorite'} size={22} />
+            </Link>
+            <div onClick={onToggleBasket} className=" cursor-pointer">
+              <Svg id={'icon-basket'} size={22} />
+            </div>
+          </div>
           <button
             type="button"
             className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
@@ -102,7 +119,10 @@ const Header = () => {
                       key={item.name}
                       className="group relative flex items-center gap-x-6 rounded-lg p-4 leading-6 hover:bg-gray-50"
                     >
-                      <div className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white">
+                      <div
+                        onClick={onToggleBasket}
+                        className="flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-gray-50 group-hover:bg-white"
+                      >
                         <Svg id={item.icon} size={24}></Svg>
                       </div>
                       <div className="flex-auto">
@@ -147,7 +167,13 @@ const Header = () => {
             О нас
           </Link>
         </Popover.Group>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-3 justify-center items-center">
+          <Link>
+            <Svg id={'icon-favorite'} size={22} />
+          </Link>
+          <Link>
+            <Svg id={'icon-basket'} size={22} />
+          </Link>
           <Link to="/login" className="font-semibold leading-6 text-gray-900">
             Авторизация <span aria-hidden="true">&rarr;</span>
           </Link>
@@ -253,6 +279,14 @@ const Header = () => {
           </div>
         </Dialog.Panel>
       </Dialog>
+      {isBasketOpen &&
+        createPortal(
+          <ShoppingCart
+            onToggleBasket={onToggleBasket}
+            isBasketOpen={isBasketOpen}
+          />,
+          basketRoot
+        )}
     </header>
   );
 };

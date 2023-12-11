@@ -1,7 +1,7 @@
 import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from 'components/Header/Header';
-import Footer from '../Footer/footer';
+import Footer from '../Footer/Footer';
 
 const SharedLayout = () => {
   const handleNavigate = () => {

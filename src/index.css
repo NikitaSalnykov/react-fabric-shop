@@ -12,8 +12,10 @@
     background: linear-gradient(290deg, #419ef1 0%, #9bd0ff 107.89%);
   }
 
-  .orange-gradient:hover {background: linear-gradient(90deg,#FFDF48  0%, #FFC107 107.89%)
-}}
+  .orange-gradient:hover {
+    background: linear-gradient(90deg, #ffdf48 0%, #ffc107 107.89%);
+  }
+}
 
 .visually-hidden {
   position: absolute;
@@ -41,4 +43,78 @@ input:focus,
 input:active {
   outline-color: #cce4fb;
   outline-width: '1px';
+}
+
+#modal-basket {
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Стили для открытого компонента */
+#modal-basket.open {
+  pointer-events: auto;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+#modal-basket {
+  animation: slideIn 0.3s ease-in-out;
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+#modal-basket.closed {
+  animation: slideOut 0.3s ease-in-out;
+}
+
+/* backdrop */
+
+#modal-basket-backdrop {
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* Стили для открытого компонента */
+#modal-basket-backdrop.open {
+  pointer-events: auto;
+}
+
+@keyframes slideInBackdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+#modal-basket-backdrop {
+  animation: slideInBackdrop 0.3s ease-in-out;
+}
+
+@keyframes slideOutBackdrop {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+#modal-basket-backdrop.closed {
+  animation: slideOutBackdrop 0.3s ease-in-out;
 }

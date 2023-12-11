@@ -10,6 +10,7 @@ import Blog from './pages/Blog/Blog';
 import NewItems from './pages/NewItems/NewItems';
 import LoginPage from './pages/LoginPage/LoginPage';
 import RegistrationPage from './pages/RegisterPage/RegisterPage';
+import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/new" element={<NewItems />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/basket" element={<ShoppingCart />} />
           <Route path="/registration" element={<RegistrationPage />} />
           <Route path="/categories/:category" element={<Category />} />
           <Route path="/categories/:category/:id" element={<Product />} />

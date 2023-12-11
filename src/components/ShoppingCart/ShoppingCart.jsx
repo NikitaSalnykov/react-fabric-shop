@@ -93,12 +93,12 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
               <div className="md:flex items-strech py-8 md:py-10 lg:py-8 border-t border-gray-50">
                 <div className="md:w-4/12 2xl:w-1/4 w-full">
                   <img
-                    src="https://i.ibb.co/SX762kX/Rectangle-36-1.png"
+                    src="https://tkani-atlas.com.ua/assets/images/products/41273/f30e06fa9f63e4f5c0fa2147a9127e6cb252bcf4.webp"
                     alt="Black Leather Bag"
                     className="h-full object-center object-cover md:block hidden"
                   />
                   <img
-                    src="https://i.ibb.co/g9xsdCM/Rectangle-37.pngg"
+                    src="https://tkani-atlas.com.ua/assets/images/products/41273/f30e06fa9f63e4f5c0fa2147a9127e6cb252bcf4.webp"
                     alt="Black Leather Bag"
                     className="md:hidden w-full h-full object-center object-cover"
                   />

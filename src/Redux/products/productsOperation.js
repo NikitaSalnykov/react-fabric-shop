@@ -3,33 +3,33 @@ import { instance } from '../auth/auth-operations';
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
-  async ({ category, query = '', page, limit }, thunkAPI) => {
+  async ({ query = '', page, limit }, thunkAPI) => {
     try {
       const params = new URLSearchParams({
         q: query,
         page: page,
         limit: limit,
       });
-      const response = await instance.get(`/api/products/${category}`, {
+      const response = await instance.get(`/api/products/`, {
         params,
       });
       return response.data;
     } catch (evt) {
       return thunkAPI.rejectWithValue(evt.message);
     }
-  },
+  }
 );
 
 export const getProductById = createAsyncThunk(
   'products/getProductsById',
   async (id, thunkAPI) => {
     try {
-      const response = await instance.get(`/api/products/id/${id}`);
+      const response = await instance.get(`/api/products/${id}`);
       return response.data;
     } catch (evt) {
       return thunkAPI.rejectWithValue(evt.message);
     }
-  },
+  }
 );
 
 export const createProduct = createAsyncThunk(
@@ -41,7 +41,7 @@ export const createProduct = createAsyncThunk(
     } catch (evt) {
       return thunkAPI.rejectWithValue(evt.message);
     }
-  },
+  }
 );
 
 export const deleteProduct = createAsyncThunk(
@@ -53,5 +53,5 @@ export const deleteProduct = createAsyncThunk(
     } catch (evt) {
       return thunkAPI.rejectWithValue(evt.message);
     }
-  },
+  }
 );

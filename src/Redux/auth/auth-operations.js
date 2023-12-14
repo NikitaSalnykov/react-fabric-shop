@@ -25,7 +25,7 @@ export const register = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.status);
     }
-  },
+  }
 );
 
 // login
@@ -47,7 +47,7 @@ export const login = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.status);
     }
-  },
+  }
 );
 
 // current
@@ -69,7 +69,7 @@ export const currentUser = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.status);
     }
-  },
+  }
 );
 
 // logout
@@ -99,5 +99,5 @@ export const update = createAsyncThunk(
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.status);
     }
-  },
+  }
 );

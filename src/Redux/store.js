@@ -11,7 +11,7 @@ import {
   PURGE,
   REGISTER,
 } from 'redux-persist';
-import { productsStateReducer } from './products/products';
+import { productsStateReducer } from './products/productsSlice';
 
 // auth persist config
 const authPersistConfig = {

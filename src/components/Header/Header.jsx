@@ -64,9 +64,9 @@ const Header = () => {
   };
 
   return (
-    <header className=" bg-[white] ">
+    <header className=" bg-[white] border-b-[1px] border-gray">
       <nav
-        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 border-b-[1px] border-gray"
+        className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 "
         aria-label="Global"
       >
         <div className="flex lg:flex-1 ">

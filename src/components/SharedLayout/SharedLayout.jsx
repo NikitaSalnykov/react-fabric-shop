@@ -2,6 +2,7 @@ import { Suspense, useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Header from 'components/Header/Header';
 import Footer from '../Footer/Footer';
+import Background from '../Background/Background';
 
 const SharedLayout = () => {
   const handleNavigate = () => {
@@ -16,6 +17,7 @@ const SharedLayout = () => {
   return (
     <>
       <Header />
+      <Background/>
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>

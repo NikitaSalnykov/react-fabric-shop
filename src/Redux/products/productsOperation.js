@@ -33,10 +33,14 @@ export const getProductById = createAsyncThunk(
 );
 
 export const createProduct = createAsyncThunk(
-  'products/postProducts',
+  'products/postProducts',  
   async (arg, thunkAPI) => {
     try {
-      const { data } = await instance.post('/api/products', arg);
+      const { data } = await instance.post('/api/products', arg, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       return data;
     } catch (evt) {
       return thunkAPI.rejectWithValue(evt.message);

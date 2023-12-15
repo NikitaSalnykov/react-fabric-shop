@@ -20,14 +20,14 @@ export const AddProductForm = ({ onCloseModal }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      category: '',
-      color: '',
-      price: '',
-      description: '',
-      article: '',
-      mainPhoto: '',
-      extraPhotos: '',
+      name: 'a',
+      category: 'a',
+      color: 'a',
+      price: 'a',
+      description: 'a',
+      article: 'a',
+      mainPhoto: null,
+      extraPhotos: null,
     },
 
     validateOnChange: false,
@@ -54,7 +54,6 @@ export const AddProductForm = ({ onCloseModal }) => {
         mainPhoto,
         extraPhotos,
       };
-      console.log('Submit clicked');
 
       const formData = createUserFormData(updateUser);
       dispatch(createProduct(formData));

@@ -1,4 +1,3 @@
-import Svg from '../../Svg/Svg';
 import { AddProductForm } from './AddProductForm';
 
 const AddProduct = ({ onCloseModal }) => {

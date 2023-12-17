@@ -41,7 +41,7 @@ const productsStateSlice = createSlice({
     builder.addCase(fetchProducts.pending, pendingFunc);
     builder.addCase(fetchProducts.fulfilled, (_, action) => {
       return {
-        items: [...action.payload.products],
+        items: action.payload,
         isLoading: false,
         error: null,
         total: action.payload.total,

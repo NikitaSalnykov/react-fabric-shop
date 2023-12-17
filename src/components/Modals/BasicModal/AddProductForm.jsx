@@ -1,15 +1,14 @@
 import { useFormik } from 'formik';
-import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import { ProductSchema } from './ProductSchema';
-import Svg from '../../Svg/Svg';
 import { useDispatch } from 'react-redux';
 import { createProduct } from '../../../Redux/products/productsOperation';
+import { useState } from 'react';
+import { categories } from '../../../assets/categories';
 
 const errorTextStyle =
   'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal top-6 left-[60px] xl:left-[85px]';
-const hoverStyle =
-  'transition duration-200 ease-in-out cursor-pointer hover:opaarticle-80';
+// const hoverStyle =
+//   'transition duration-200 ease-in-out cursor-pointer hover:opaarticle-80';
 const labelStyle =
   "text-neutral-900 text-sm font-semibold font-['Manrope'] tracking-wide mdOnly:text-[16px] ";
 const inputStyle =
@@ -17,11 +16,12 @@ const inputStyle =
 
 export const AddProductForm = ({ onCloseModal }) => {
   const dispatch = useDispatch();
+  const [isMyCategory, setMyCategory] = useState(false);
 
   const formik = useFormik({
     initialValues: {
       name: 'a',
-      category: 'a',
+      category: '',
       color: 'a',
       price: 'a',
       description: 'a',
@@ -76,8 +76,9 @@ export const AddProductForm = ({ onCloseModal }) => {
     formData.append('description', data.description);
     formData.append('article', data.article);
     formData.append('mainPhoto', data.mainPhoto);
-    formData.append('extraPhotos', data.extraPhotos);
-
+    [...data.extraPhotos].forEach((file) => {
+      formData.append('extraPhotos', file);
+    });
     return formData;
   };
 
@@ -88,7 +89,7 @@ export const AddProductForm = ({ onCloseModal }) => {
       className="flex flex-col flex-wrap-reverse"
       onSubmit={formik.handleSubmit}
     >
-      <div className="mdOnly:flex flex-row-reverse gap-[71px]">
+      <div className="flex-row-reverse gap-[71px]">
         {/* All text-fields */}
         <div className="flex flex-col gap-[20px]">
           {/* Name */}
@@ -111,23 +112,73 @@ export const AddProductForm = ({ onCloseModal }) => {
           </div>
 
           {/* category */}
-          <div className="flex justify-between w-full relative">
-            <label className={labelStyle} htmlFor="category">
-              Категория:
-            </label>
-            <input
-              className={`${inputStyle} ${
-                errors['category'] && 'border-rose-400'
-              }`}
-              type="text"
-              id="category"
-              name="category"
-              value={formikValues['category']}
-              onChange={formik.handleChange}
-            />
-            {errors['category'] && (
-              <p className={errorTextStyle}>{errors['category']}</p>
+          <div className="flex-col">
+            {isMyCategory ? (
+              <div className="flex justify-between w-full relative">
+                <label className={labelStyle} htmlFor="category">
+                  Категория:
+                </label>
+                <input
+                  className={`${inputStyle} ${
+                    errors['category'] && 'border-rose-400'
+                  }`}
+                  type="text"
+                  id="category"
+                  name="category"
+                  value={formikValues['category']}
+                  onChange={formik.handleChange}
+                />
+                {errors['category'] && (
+                  <p className={errorTextStyle}>{errors['category']}</p>
+                )}
+              </div>
+            ) : (
+              <div className="flex justify-between w-full relative">
+                <label className={labelStyle} htmlFor="category">
+                  Категория:
+                </label>
+                <select
+                  className={`${inputStyle} ${
+                    errors['category'] && 'border-rose-400'
+                  }`}
+                  type="text"
+                  id="category"
+                  name="category"
+                  value={formikValues['category']}
+                  onChange={formik.handleChange}
+                >
+                  {categories.map((el, index) => (
+                    <option key={index} value={el.name}>
+                      {el.name}
+                    </option>
+                  ))}
+                </select>
+                {errors['category'] && (
+                  <p className={errorTextStyle}>{errors['category']}</p>
+                )}
+              </div>
             )}
+            <div>
+              {!isMyCategory ? (
+                <button
+                  className="text-xs text-left"
+                  onClick={() => {
+                    setMyCategory(true);
+                  }}
+                >
+                  Добавить свою категорию
+                </button>
+              ) : (
+                <button
+                  className="text-xs"
+                  onClick={() => {
+                    setMyCategory(false);
+                  }}
+                >
+                  Выбрать категорию
+                </button>
+              )}
+            </div>
           </div>
 
           {/* color */}

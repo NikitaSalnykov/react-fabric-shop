@@ -13,8 +13,6 @@ const Breadcrumbs = ({ name }) => {
     setArr(filtered);
   }, []);
 
-  console.log(arr);
-
   function createNavLink(el) {
     switch (el) {
       case 'atlas':
@@ -23,16 +21,52 @@ const Breadcrumbs = ({ name }) => {
             Атлас
           </Link>
         );
+      case 'fatin':
+        return (
+          <Link to={'/categories/fatin'} className="p-[2px] md:p-1">
+            Фатин
+          </Link>
+        );
+      case 'podkladka':
+        return (
+          <Link to={'/categories/podkladka'} className="p-[2px] md:p-1">
+            Подкладочная ткань
+          </Link>
+        );
+      case 'organza':
+        return (
+          <Link to={'/categories/organza'} className="p-[2px] md:p-1">
+            Органза
+          </Link>
+        );
+      case 'setka':
+        return (
+          <Link to={'/categories/setka'} className="p-[2px] md:p-1">
+            Сетка
+          </Link>
+        );
+      case 'glitter':
+        return (
+          <Link to={'/categories/glitter'} className="p-[2px] md:p-1">
+            Глиттер
+          </Link>
+        );
+      case 'guipure':
+        return (
+          <Link to={'/categories/guipure'} className="p-[2px] md:p-1">
+            Гипюры и кружева
+          </Link>
+        );
       case 'categories':
         return (
           <Link to={'/categories'} className="p-[2px] md:p-1">
             Категории
           </Link>
         );
-      case 'fatin':
+      case 'furnitura':
         return (
-          <Link to={'/categories/fatin'} className="p-[2px] md:p-1">
-            Фатин
+          <Link to={'/categories/furnitura'} className="p-[2px] md:p-1">
+            Фурнитура
           </Link>
         );
       case 'blog':

@@ -3,16 +3,9 @@ import { instance } from '../auth/auth-operations';
 
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
-  async ({ query = '', page, limit }, thunkAPI) => {
+  async (thunkAPI) => {
     try {
-      const params = new URLSearchParams({
-        q: query,
-        page: page,
-        limit: limit,
-      });
-      const response = await instance.get(`/api/products/`, {
-        params,
-      });
+      const response = await instance.get(`/api/products/`);
       return response.data;
     } catch (evt) {
       return thunkAPI.rejectWithValue(evt.message);
@@ -33,7 +26,7 @@ export const getProductById = createAsyncThunk(
 );
 
 export const createProduct = createAsyncThunk(
-  'products/postProducts',  
+  'products/postProducts',
   async (arg, thunkAPI) => {
     try {
       const { data } = await instance.post('/api/products', arg, {

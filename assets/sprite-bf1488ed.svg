@@ -71,4 +71,8 @@
 			<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2" d="M25.333 6.667l-18.667 18.667M6.667 6.667l18.667 18.667"></path>
 		</symbol>
 	</defs>
+
+<symbol id="icon-arrow" viewBox="0 0 24 24" >
+<g  id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 12H18M18 12L13 7M18 12L13 17" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g>
+	</symbol>
 </svg>

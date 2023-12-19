@@ -29,16 +29,20 @@ export const SwiperComponent = ({ images, id, name }) => {
           loop={true}
           centeredSlides={true}
           autoplay={{
-            delay: 4000,
+            delay: 8000,
             disableOnInteraction: false,
           }}
         >
           {images.map((el) => (
             <SwiperSlide
               key={id}
-              className="mb-5 w-full h-[450px] flex items-center justify-center"
+              className="mb-5 w-full flex items-center justify-center"
             >
-              <img className="w-full md:w-[450px]" src={el} alt={name} />
+              <div 
+                            className="h-[450px] w-[450px] md:h-[550px]  md:w-[650px] flex items-center justify-center"
+                            >
+              <img className="w-full h-full overflow-hidden object-cover" src={el} alt={name} />
+              </div>
             </SwiperSlide>
           ))}
           <button
@@ -55,7 +59,7 @@ export const SwiperComponent = ({ images, id, name }) => {
             </div>
           </button>
           <button
-            className="flex justify-center items-center absolute z-10 top-[50%] w-[25px] h-[25px] bg-black  opacity-70 rounded-[50%] right-[10px]"
+            className="flex justify-center items-center absolute z-10 top-[50%] w-[25px] h-[25px] bg-black  opacity-70 rounded-[50%] right-[10px] "
             ref={nextRef}
             onClick={() => console.log(1)}
           >

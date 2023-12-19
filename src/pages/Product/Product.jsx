@@ -10,6 +10,7 @@ import {
 } from '../../Redux/products/productsOperation';
 import {
   getIsLoadingProducts,
+  getProducts,
   getSelectedProducts,
 } from '../../Redux/products/productsSelectors';
 import { SwiperComponent } from '../../components/Swiper/Swiper';
@@ -72,7 +73,7 @@ const Product = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const product = useSelector(getSelectedProducts);
-  const allProducts = useSelector(fetchProducts);
+  const allProducts = useSelector(getProducts);
   const isLoading = useSelector(getIsLoadingProducts);
 
   useEffect(() => {

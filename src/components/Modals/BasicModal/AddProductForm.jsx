@@ -21,7 +21,7 @@ export const AddProductForm = ({ onCloseModal }) => {
   const formik = useFormik({
     initialValues: {
       name: 'a',
-      category: '',
+      category: 'Фатин',
       color: 'a',
       price: 'a',
       description: 'a',

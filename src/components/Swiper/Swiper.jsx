@@ -18,24 +18,18 @@ export const SwiperComponent = ({ images, id, name }) => {
       {images && (
         <Swiper
           className="flex justify-center items-center lg:w-[800px]"
-          modules={[Navigation, Autoplay, Scrollbar, A11y]}
+          modules={[Navigation, Scrollbar, Navigation]}
           navigation={{
             prevEl: prevRef.current,
             nextEl: nextRef.current,
           }}
+          loop={true}
           spaceBetween={50}
           slidesPerView={1}
-          speed={940}
-          loop={true}
-          centeredSlides={true}
-          autoplay={{
-            delay: 8000,
-            disableOnInteraction: false,
-          }}
         >
-          {images.map((el) => (
+          {images.map((el, index) => (
             <SwiperSlide
-              key={id}
+              key={index}
               className="mb-5 w-full flex items-center justify-center"
             >
               <div 

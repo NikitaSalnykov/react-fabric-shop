@@ -16,9 +16,8 @@ const ProductList = ({ title }) => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, [dispatch]);
 
-  console.log(products);
+  }, [dispatch]);
 
   return (
     <div className="">

@@ -4,7 +4,7 @@ import backgroundImage from '../../images/beams-basic.png'
 const Background = () => {
   return (
     <>
-     <img src={backgroundImage} alt="" class="absolute left-1/4 top-0 -ml-[39rem] w-[100%] max-w-none -z-50 opacity-40 blur-xl" ></img>
+     <img src={backgroundImage} alt="" className="absolute left-1/4 top-0 -ml-[39rem] w-[100%] max-w-none -z-50 opacity-40 blur-xl" ></img>
      {/* <div
       className=" pointer-events-none absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
       aria-hidden="true"

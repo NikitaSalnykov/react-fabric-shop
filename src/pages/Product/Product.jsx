@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { StarIcon } from '@heroicons/react/20/solid';
 import { RadioGroup } from '@headlessui/react';
@@ -6,96 +6,37 @@ import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchProducts,
-  getProductById,
 } from '../../Redux/products/productsOperation';
 import {
   getIsLoadingProducts,
   getProducts,
-  getSelectedProducts,
 } from '../../Redux/products/productsSelectors';
 import { SwiperComponent } from '../../components/Swiper/Swiper';
 
-// const product = {
-//   name: 'Название продукта',
-//   price: '$192',
-//   href: '#',
-//   images: [
-//     {
-//       src: 'https://content1.rozetka.com.ua/goods/images/big/293707763.jpg',
-//       alt: 'Two each of gray, white, and black shirts laying flat.',
-//     },
-//     {
-//       src: 'https://content1.rozetka.com.ua/goods/images/big/293707768.jpg',
-//       alt: 'Model wearing plain black basic tee.',
-//     },
-//     {
-//       src: 'https://www.hussainrehar.com/cdn/shop/products/586769_2400x.jpg?v=1619068536',
-//       alt: 'Model wearing plain gray basic tee.',
-//     },
-//     {
-//       src: 'https://content1.rozetka.com.ua/goods/images/original/314034495.jpg',
-//       alt: 'Model wearing plain white basic tee.',
-//     },
-//   ],
-//   colors: [
-//     { name: 'White', class: 'bg-white', selectedClass: 'ring-gray-400' },
-//     { name: 'Gray', class: 'bg-gray-200', selectedClass: 'ring-gray-400' },
-//     { name: 'Black', class: 'bg-gray-900', selectedClass: 'ring-gray-900' },
-//   ],
-//   sizes: [
-//     { name: 'XXS', inStock: false },
-//     { name: 'XS', inStock: true },
-//     { name: 'S', inStock: true },
-//     { name: 'M', inStock: true },
-//     { name: 'L', inStock: true },
-//     { name: 'XL', inStock: true },
-//     { name: '2XL', inStock: true },
-//     { name: '3XL', inStock: true },
-//   ],
-//   description:
-//     'The Basic Tee 6-Pack allows you to fully express your vibrant personality with three grayscale options. Feeling adventurous? Put on a heather gray tee. Want to be a trendsetter? Try our exclusive colorway: "Black". Need to add an extra pop of color to your outfit? Our white tee has you covered.',
-//   highlights: [
-//     'Hand cut and sewn locally',
-//     'Dyed with our proprietary colors',
-//     'Pre-washed & pre-shrunk',
-//     'Ultra-soft 100% cotton',
-//   ],
-//   details:
-//     'The 6-Pack includes two black, two white, and two heather gray Basic Tees. Sign up for our subscription service and be the first to get new, exciting colors, like our upcoming "Charcoal Gray" limited release.',
-// };
-// const reviews = { href: '#', average: 4, totalCount: 117 };
-
-// function classNames(...classes) {
-//   return classes.filter(Boolean).join(' ');
-// }
 
 const Product = () => {
   const { id } = useParams();
+  const { category } = useParams();
   const dispatch = useDispatch();
-  const product = useSelector(getSelectedProducts);
-  const allProducts = useSelector(getProducts);
+  const products = useSelector(getProducts);
   const isLoading = useSelector(getIsLoadingProducts);
 
   useEffect(() => {
-    dispatch(getProductById(id));
     dispatch(fetchProducts());
-  }, [dispatch]);
-  console.log(product);
+  }, [dispatch ]);
 
-  // const anotherColors = allProducts.filter((el) => {
-  //   const isNotDuplicate = el._id !== product._id;
-  //   const sameType = isNotDuplicate.name === product.name;
-  //   return sameType;
-  // });
+  const product = products.find(el => el._id === id)
 
-  // console.log(anotherColors);
-  console.log(allProducts);
+  const anotherColors = products.filter((el) => 
+el._id !== product._id).filter(el => el.name === product.name).filter(el => el.category === product.category).filter(el => el.color !== product.color)
+  console.log(anotherColors);
+
   const [count, setCount] = useState(0);
 
   return (
     <div className="container">
-      {product && !isLoading && <Breadcrumbs name={product.name} />}
-      {product && !isLoading ? (
+      {!isLoading && product &&  <Breadcrumbs name={product.name} />}
+      {!isLoading && product ? (
         <div className="pt-6">
           {/* Image gallery */}
           <div className="">
@@ -120,39 +61,20 @@ const Product = () => {
                 {product.price}
               </p>
 
-              {/* Reviews */}
-              {/* <div className="mt-6">
-                <h3 className="sr-only">Reviews</h3>
-                <div className="flex items-center">
-                  <div className="flex items-center">
-                    {[0, 1, 2, 3, 4].map((rating) => (
-                      <StarIcon
-                        key={rating}
-                        className={classNames(
-                          reviews.average > rating
-                            ? 'text-gray-900'
-                            : 'text-gray-200',
-                          'h-5 w-5 flex-shrink-0'
-                        )}
-                        aria-hidden="true"
-                      />
-                    ))}
-                  </div>
-                  <p className="sr-only">{reviews.average} out of 5 stars</p>
-                  <a
-                    href={reviews.href}
-                    className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
-                  >
-                    {reviews.totalCount} reviews
-                  </a>
-                </div>
-              </div> */}
-
               <form className="mt-10">
                 {/* Colors */}
                 <div>
-                  <h3 className="text-sm font-medium text-gray-900">Color</h3>
-                  <div className="flex"></div>
+                  <h3 className="text-sm font-medium text-gray-900  mb-4">Расцветки и варианты:</h3>
+                  <div className="flex flex-wrap gap-4 ">
+                    {anotherColors ? 
+                    anotherColors.map(el => 
+                      <Link to={`/categories/${category}/${el._id}`} className='w-14 h-14 flex justify-center items-center rounded-[50%] overflow-hidden'>
+                        <img className='w-[50px] h-[50px] object-cover' src={el.mainPhoto} alt={el.name} />
+                      </Link>
+                    )
+                    :
+                    <div>Loading</div>}
+                  </div>
                 </div>
 
                 {/* Количество */}
@@ -180,12 +102,10 @@ const Product = () => {
                       >
                         <span className="m-auto text-2xl font-thin">−</span>
                       </button>
-                      <input
+                      <div
                         type="number"
-                        className="outline-none pointer-events-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
-                        name="custom-input-number"
-                        value={count}
-                      ></input>
+                        className="flex justify-center items-center pointer-events-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                      >{count}</div>
                       <button
                         onClick={(e) => {
                           e.preventDefault();

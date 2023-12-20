@@ -11,6 +11,7 @@ const initialProducts = {
   isLoading: false,
   error: null,
   selectedProduct: null,
+  isProductCreated: false,
   total: 0,
 };
 
@@ -34,7 +35,11 @@ const pendingFunc = (state) => {
 const productsStateSlice = createSlice({
   name: 'products',
   initialState: initialProducts,
-
+  reducers: {
+    resetProductCreated: (state) => {
+      state.isProductCreated = false;
+    },
+  },
   extraReducers: (builder) => {
     // fetch
 
@@ -70,6 +75,7 @@ const productsStateSlice = createSlice({
         items: [action.payload.data, ...state.items],
         isLoading: false,
         error: null,
+        isProductCreated: true,
       };
     });
     builder.addCase(createProduct.rejected, rejectFunc);
@@ -88,4 +94,5 @@ const productsStateSlice = createSlice({
   },
 });
 
+export const { resetProductCreated } = productsStateSlice.actions;
 export const productsStateReducer = productsStateSlice.reducer;

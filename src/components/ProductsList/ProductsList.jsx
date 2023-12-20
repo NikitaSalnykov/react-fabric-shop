@@ -7,6 +7,7 @@ import {
   getProducts,
 } from '../../Redux/products/productsSelectors';
 import { fetchProducts } from '../../Redux/products/productsOperation';
+import { categories } from '../../assets/categories';
 
 const ProductList = ({ title }) => {
   const { category } = useParams();
@@ -16,8 +17,30 @@ const ProductList = ({ title }) => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-
   }, [dispatch]);
+
+  const categoryURL = (category) => {
+    const result = categories.find((el) => el.name === category);
+
+    if (result) {
+      return result.category;
+    } else {
+      console.log(`Category not found for ${category}`);
+    }
+  };
+
+  const categoryName = (category) => {
+    const result = categories.find((el) => el.category === category);
+    if (result) {
+      return result.name;
+    } else {
+      console.log(`Category name not found for ${category}`);
+    }
+  };
+
+  const productsByCategory = products.filter(
+    (el) => el.category === categoryName(category)
+  );
 
   return (
     <div className="">
@@ -26,11 +49,13 @@ const ProductList = ({ title }) => {
           {title}
         </h2>
 
-        {products && !isLoading ? (
+        {productsByCategory && !isLoading ? (
           <div className=" grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {products.map((product) => (
+            {productsByCategory.map((product) => (
               <Link
-                to={`/categories/${category}/${product._id}`}
+                to={`/categories/${category || categoryURL(product.category)}/${
+                  product._id
+                }`}
                 key={product._id}
                 className="group"
               >

@@ -1,9 +1,14 @@
 import { useFormik } from 'formik';
 import 'react-datepicker/dist/react-datepicker.css';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createProduct } from '../../../Redux/products/productsOperation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { categories } from '../../../assets/categories';
+import {
+  getIsLoadingProducts,
+  getIsProductCreated,
+} from '../../../Redux/products/productsSelectors';
+import { resetProductCreated } from '../../../Redux/products/productsSlice';
 
 const errorTextStyle =
   'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal top-6 left-[60px] xl:left-[85px]';
@@ -16,7 +21,16 @@ const inputStyle =
 
 export const AddProductForm = ({ onCloseModal }) => {
   const dispatch = useDispatch();
+  const isLoading = useSelector(getIsLoadingProducts);
   const [isMyCategory, setMyCategory] = useState(false);
+  const isProductCreated = useSelector(getIsProductCreated);
+
+  useEffect(() => {
+    if (isProductCreated) {
+      onCloseModal();
+      dispatch(resetProductCreated());
+    }
+  }, [isProductCreated, onCloseModal, dispatch]);
 
   const formik = useFormik({
     initialValues: {
@@ -56,10 +70,11 @@ export const AddProductForm = ({ onCloseModal }) => {
       };
 
       const formData = createUserFormData(updateUser);
+
       dispatch(createProduct(formData));
 
       console.log(formData);
-      onCloseModal();
+      // if (!isLoading) onCloseModal();
     },
   });
 
@@ -190,7 +205,7 @@ export const AddProductForm = ({ onCloseModal }) => {
               className={`${inputStyle} ${
                 errors['color'] && 'border-rose-400'
               }`}
-              type="tel"
+              type="text"
               id="color"
               name="color"
               placeholder={'+380123456789'}
@@ -227,11 +242,11 @@ export const AddProductForm = ({ onCloseModal }) => {
             <label className={labelStyle} htmlFor="description">
               Описание:
             </label>
-            <input
-              className={`${inputStyle} ${
+            <textarea
+              className={` outline-offset-0 outline-0  border-blue outline-none text-neutral-900 text-xs font-normal font-['Manrope'] tracking-wide w-[190px] h-24 px-3 py-1 rounded-[20px] border border-blue-400 justify-start items-center gap-[191px] inline-flex md:w-[255px]  xl:w-[255px] resize-none' ${
                 errors['description'] && 'border-rose-400'
               }`}
-              type="text"
+              type="textarea"
               id="description"
               name="description"
               value={formikValues['description']}
@@ -306,13 +321,18 @@ export const AddProductForm = ({ onCloseModal }) => {
           </div>
         </div>
         <div className=" smOnly:flex smOnly:flex-col smOnly:items-center smOnly:gap-2 } mt-12 ">
-          <button
-            type="submit"
-            // onClick={onCloseModal}
-            className="Frame36 hover:blue-gradient hover:text-white smOnly:w-64 smOnly:h-10 w-32 h-10 px-5 py-2 rounded-3xl border-2 border-blue justify-center items-center gap-2 inline-flex  text-blue text-base font-bold font-['Manrope'] tracking-wide"
-          >
-            Добавить{' '}
-          </button>
+          {!isLoading ? (
+            <button
+              type="submit"
+              // onClick={onCloseModal}
+              disabled={false}
+              className={`"Frame36 hover:blue-gradient hover:text-white smOnly:w-64 smOnly:h-10 w-32 h-10 px-5 py-2 rounded-3xl border-2 border-blue justify-center items-center gap-2 inline-flex  text-blue text-base font-bold font-['Manrope'] tracking-wide"`}
+            >
+              Добавить{' '}
+            </button>
+          ) : (
+            <div>Loading</div>
+          )}
         </div>
       </div>
     </form>

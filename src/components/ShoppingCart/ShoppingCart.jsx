@@ -46,7 +46,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   return (
     <div>
       <div
-        className={`w-full h-full  bg-opacity-90 top-0 overflow-y-auto overflow-x-hidden fixed sticky-0 ${
+        className={`z-10 w-full h-full  bg-opacity-90 top-0 overflow-y-auto overflow-x-hidden fixed sticky-0 ${
           isBasketOpen && 'open'
         }
             ${animationClose && 'closed'}
@@ -54,7 +54,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
         id="modal-basket-backdrop"
       >
         <div
-          className="w-full bg-black absolute z-10 right-0 h-full overflow-x-hidden"
+          className="w-full bg-black absolute z-99 right-0 h-full overflow-x-hidden"
           id="checkout"
         >
           <div

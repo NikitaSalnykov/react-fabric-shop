@@ -4,15 +4,12 @@ import { StarIcon } from '@heroicons/react/20/solid';
 import { RadioGroup } from '@headlessui/react';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  fetchProducts,
-} from '../../Redux/products/productsOperation';
+import { fetchProducts } from '../../Redux/products/productsOperation';
 import {
   getIsLoadingProducts,
   getProducts,
 } from '../../Redux/products/productsSelectors';
 import { SwiperComponent } from '../../components/Swiper/Swiper';
-
 
 const Product = () => {
   const { id } = useParams();
@@ -23,19 +20,22 @@ const Product = () => {
 
   useEffect(() => {
     dispatch(fetchProducts());
-  }, [dispatch ]);
+  }, [dispatch]);
 
-  const product = products.find(el => el._id === id)
+  const product = products.find((el) => el._id === id);
 
-  const anotherColors = products.filter((el) => 
-el._id !== product._id).filter(el => el.name === product.name).filter(el => el.category === product.category).filter(el => el.color !== product.color)
+  const anotherColors = products
+    .filter((el) => el._id !== product._id)
+    .filter((el) => el.name === product.name)
+    .filter((el) => el.category === product.category)
+    .filter((el) => el.color !== product.color);
   console.log(anotherColors);
 
   const [count, setCount] = useState(0);
 
   return (
     <div className="container">
-      {!isLoading && product &&  <Breadcrumbs name={product.name} />}
+      {!isLoading && product && <Breadcrumbs name={product.name} />}
       {!isLoading && product ? (
         <div className="pt-6">
           {/* Image gallery */}
@@ -63,19 +63,32 @@ el._id !== product._id).filter(el => el.name === product.name).filter(el => el.c
 
               <form className="mt-10">
                 {/* Colors */}
-                <div>
-                  <h3 className="text-sm font-medium text-gray-900  mb-4">Расцветки и варианты:</h3>
-                  <div className="flex flex-wrap gap-4 ">
-                    {anotherColors ? 
-                    anotherColors.map(el => 
-                      <Link to={`/categories/${category}/${el._id}`} className='w-14 h-14 flex justify-center items-center rounded-[50%] overflow-hidden'>
-                        <img className='w-[50px] h-[50px] object-cover' src={el.mainPhoto} alt={el.name} />
-                      </Link>
-                    )
-                    :
-                    <div>Loading</div>}
+                {anotherColors && anotherColors.length > 0 && (
+                  <div>
+                    <h3 className="text-sm font-medium text-gray-900  mb-4">
+                      Расцветки и варианты:
+                    </h3>
+                    <div className="flex flex-wrap gap-4 ">
+                      {anotherColors ? (
+                        anotherColors.map((el) => (
+                          <Link
+                            key={el._id}
+                            to={`/categories/${category}/${el._id}`}
+                            className="w-14 h-14 flex justify-center items-center overflow-hidden"
+                          >
+                            <img
+                              className="w-[50px] h-[50px]  rounded-[90px]  object-cover"
+                              src={el.mainPhoto}
+                              alt={el.name}
+                            />
+                          </Link>
+                        ))
+                      ) : (
+                        <div>Loading</div>
+                      )}
+                    </div>
                   </div>
-                </div>
+                )}
 
                 {/* Количество */}
                 <div className="mt-10">
@@ -105,7 +118,9 @@ el._id !== product._id).filter(el => el.name === product.name).filter(el => el.c
                       <div
                         type="number"
                         className="flex justify-center items-center pointer-events-none focus:outline-none text-center w-full bg-gray-300 font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
-                      >{count}</div>
+                      >
+                        {count}
+                      </div>
                       <button
                         onClick={(e) => {
                           e.preventDefault();

@@ -12,6 +12,7 @@ import {
   REGISTER,
 } from 'redux-persist';
 import { productsStateReducer } from './products/productsSlice';
+import cartSlice from './cart/cartSlice';
 
 // auth persist config
 const authPersistConfig = {
@@ -20,10 +21,17 @@ const authPersistConfig = {
   whitelist: ['token'],
 };
 
+const cartPersistConfig = {
+  key: 'cart',
+  storage: storage,
+  whitelist: ['cart'],
+};
+
 const rootReduser = combineReducers({
   // redusers
   auth: persistReducer(authPersistConfig, authSlice.reducer),
   products: productsStateReducer,
+  cart: persistReducer(cartPersistConfig, cartSlice),
 });
 
 export const store = configureStore({

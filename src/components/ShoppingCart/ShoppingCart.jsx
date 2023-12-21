@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getCart } from '../../Redux/cart/cartSelectors';
+import ShoppingCartCard from './ShoppingCartCard';
 
 const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const modalRef = useRef(null);
   const [animationClose, setAnimationClose] = useState(false);
+  const products =  useSelector(getCart)
 
   useEffect(() => {
     const handleEsc = (event) => {
@@ -43,6 +47,13 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
     }, 250);
   };
 
+  const [total, setTotal] = useState(0)
+
+  const sumTotal = (price) => {
+    setTotal(total + price)
+    console.log(total);
+  }
+
   return (
     <div>
       <div
@@ -58,7 +69,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
           id="checkout"
         >
           <div
-            className={`flex items-end md:flex-row flex-col justify-end ${
+            className={`flex items-end lg:flex-row flex-col justify-end ${
               isBasketOpen && 'open'
             }
             ${animationClose && 'closed'}
@@ -66,7 +77,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
             id="modal-basket"
           >
             <div
-              className="md:w-1/2 md:w-8/12 w-full md:px-8 md:py-14 md:px-6 px-4 md:py-8 py-4 bg-white  overflow-y-hidden overflow-x-hidden md:h-screen h-auto"
+              className="lg:w-8/12 w-full lg:px-8 lg:py-14 lg:px-6 px-4 lg:py-8 py-4 bg-white  overflow-y-scroll overflow-x-hidden lg:h-screen h-auto"
               id="scroll"
               ref={modalRef}
             >
@@ -96,132 +107,40 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
               <p className="md:text-4xl text-3xl font-black leading-10 text-gray-800 pt-3">
                 Корзина
               </p>
-              {/* <div className="p-4 md:flex gap-8 items-strech py-8 md:py-8 border-t border-gray-50 ">
-                <div className="w-full lg:w-1/2 flex justify-center items-center">
-                  <img
-                    src="https://tkani-atlas.com.ua/assets/images/products/41273/f30e06fa9f63e4f5c0fa2147a9127e6cb252bcf4.webp"
-                    alt="Black Leather Bag"
-                    className="w-[400px] h-full object-center object-cover md:block hidden rounded-[20px]"
-                  />
-                  <img
-                    src="https://tkani-atlas.com.ua/assets/images/products/41273/f30e06fa9f63e4f5c0fa2147a9127e6cb252bcf4.webp"
-                    alt="Black Leather Bag"
-                    className="w-full md:hidden lg:w-full h-full object-center object-cover rounded-[20px]"
-                  />
-                </div>
-                <div className="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
-                  <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">
-                    Код товара
-                  </p>
-                  <div className="flex items-center justify-between w-full pt-1">
-                    <p className="text-base font-black leading-none text-gray-800 ">
-                      Фатин
-                    </p>
-                    <select
-                      aria-label="Select quantity"
-                      className="py-2 px-1 border border-gray-200 mr-6 focus:outline-none"
-                    >
-                      <option>01</option>
-                      <option>02</option>
-                      <option>03</option>
-                    </select>
-                  </div>
-                  <p className="text-xs leading-3 text-gray-600 pt-2">
-                    Длина: Метр на метр
-                  </p>
-                  <p className="text-xs leading-3 text-gray-600 py-4">
-                    Цвет: Розовый
-                  </p>
-                  <p className="w-96 text-xs leading-3 text-gray-600">
-                    Состав: 100%
-                  </p>
-                  <div className="flex items-center justify-between pt-5">
-                    <div className="flex itemms-center">
-                      <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">
-                        Добавить в избранное
-                      </p>
-                      <p className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">
-                        Удалить из корзины
-                      </p>
-                    </div>
-                    <p className="text-base font-black leading-none text-gray-800">
-                      10$
-                    </p>
-                  </div>
-                </div>
-              </div> */}
               <div className="mt-[24px]">
-                <div className="w-full min-h-[250px] p-5 border-[1px] border-lightgray rounded-[20px]  flex flex-col md:flex-row ">
-                  <div className="">
-                    <img
-                      src="https://tkani-atlas.com.ua/assets/images/products/41273/f30e06fa9f63e4f5c0fa2147a9127e6cb252bcf4.webp"
-                      alt="Black Leather Bag"
-                      className="w-[50px] h-[50px] md:p-5 md:w-[250px] md:min-w-[140px] md:h-full object-center object-cover md:block rounded-[50%] md:rounded-[20px]"
-                    />
-                  </div>
-                  <div className="md:pl-3 md:w-8/12 2xl:w-3/4 flex flex-col justify-center">
-                    <p className="text-xs leading-3 text-gray-800 md:pt-0 pt-4">
-                      Код товара
-                    </p>
-                    <div className="flex items-center justify-between w-full pt-1">
-                      <p className="text-base font-black leading-none text-gray-800 ">
-                        Фатин
-                      </p>
-                      <select
-                        aria-label="Select quantity"
-                        className="py-2 px-1 border border-gray-200 mr-6 focus:outline-none"
-                      >
-                        <option>01</option>
-                        <option>02</option>
-                        <option>03</option>
-                      </select>
-                    </div>
-                    <p className="text-xs leading-3 text-gray-600 pt-2">
-                      Длина: Метр на метр
-                    </p>
-                    <p className="text-xs leading-3 text-gray-600 py-4">
-                      Цвет: Розовый
-                    </p>
-                    <p className="w-96 text-xs leading-3 text-gray-600">
-                      Состав: 100%
-                    </p>
-                    <div className="flex items-center justify-between pt-5">
-                      <div className="flex itemms-center">
-                        <p className="text-xs leading-3 underline text-gray-800 cursor-pointer">
-                          Добавить в избранное
-                        </p>
-                        <p className="text-xs leading-3 underline text-red-500 pl-5 cursor-pointer">
-                          Удалить из корзины
-                        </p>
-                      </div>
-                      <p className="text-base font-black leading-none text-gray-800">
-                        10$
-                      </p>
-                    </div>
-                  </div>
-                </div>
+                <ul className='flex flex-col gap-4'>
+                 {products.map(el => (
+                    <li key={el.id}> 
+                      <ShoppingCartCard product={el} sumTotal={sumTotal}/>
+                     </li>
+                  ))}
+                </ul>
               </div>
             </div>
-            <div className="md:w-96 w-full bg-gray-100  h-full">
-              <div className="flex flex-col md:h-screen h-auto md:px-8 px-4 md:py-10 py-6 justify-between overflow-y-auto">
+            <div className="lg:w-96 w-full bg-gray-100  h-full">
+              <div className="flex flex-col lg:h-screen md:px-8 px-4 md:py-10 py-6 justify-between overflow-y-auto">
                 <div>
-                  <p className="md:text-4xl text-3xl font-black leading-9 text-gray-800">
+                  <p className="mdOnly:items-center md:text-4xl text-3xl font-black leading-9 text-gray-800">
                     Заказ
                   </p>
-                  <div className="flex items-center justify-between pt-16">
+                 <div className=" pt-16 mdOnly:pb-16">
+                 <div className="flex items-center justify-between">
                     <p className="text-base leading-none text-gray-800">
-                      Номер заказ
+                      Номер заказа
                     </p>
                     <p className="text-base leading-none text-gray-800">
-                      123151
+                      1
                     </p>
                   </div>
                   <div className="flex items-center justify-between pt-5">
                     <p className="text-base leading-none text-gray-800">
                       Количество товаров
                     </p>
-                    <p className="text-base leading-none text-gray-800">1</p>
+                    <p className="text-base leading-none text-gray-800">
+                      {products.length}
+                    </p>
                   </div>
+                 </div>
                 </div>
                 <div>
                   <div className="flex items-center pb-6 justify-between md:pt-5 pt-20">

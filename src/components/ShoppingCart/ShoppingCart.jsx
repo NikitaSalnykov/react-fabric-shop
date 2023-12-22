@@ -4,7 +4,7 @@ import { getCart } from '../../Redux/cart/cartSelectors';
 import ShoppingCartCard from './ShoppingCartCard';
 
 const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
-  const modalRef = useRef(null);
+  const cartListRef = useRef(null);
   const [animationClose, setAnimationClose] = useState(false);
   const products = useSelector(getCart);
 
@@ -19,7 +19,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
     };
 
     const handleClickOutside = (event) => {
-      if (modalRef.current && !modalRef.current.contains(event.target)) {
+      if (event.target.id === "modal-basket") {
         setAnimationClose(true);
         setTimeout(() => {
           onToggleBasket();
@@ -31,6 +31,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
       document.body.style.overflow = 'hidden';
       document.addEventListener('keydown', handleEsc);
       document.addEventListener('mousedown', handleClickOutside);
+      
     }
 
     return () => {
@@ -70,7 +71,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
         id="modal-basket-backdrop"
       >
         <div
-          className="w-full bg-black absolute z-99 right-0 h-full overflow-x-hidden"
+          className=" w-full bg-black absolute z-99 right-0 h-full overflow-x-hidden"
           id="checkout"
         >
           <div
@@ -80,11 +81,11 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
             ${animationClose && 'closed'}
             `}
             id="modal-basket"
+            ref={cartListRef}
           >
             <div
               className="lg:w-8/12 w-full lg:px-8 lg:py-14 lg:px-6 px-4 lg:py-8 py-4 bg-white  lg:overflow-y-scroll overflow-x-hidden lg:h-screen h-auto"
               id="scroll"
-              ref={modalRef}
             >
               <div className="flex items-center text-gray-500 hover:text-gray-600 cursor-pointer">
                 <svg
@@ -128,13 +129,14 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                 </div>
               )}
             </div>
-            <div className="lg:w-96 w-full bg-gray-100  h-full">
+            <form className="lg:w-96 w-full bg-gray-100  h-full"
+                      >
               <div className="flex flex-col lg:h-screen md:px-8 px-4 md:py-10 py-6 justify-between overflow-y-auto">
                 <div>
-                  <p className="mdOnly:items-center md:text-4xl text-3xl font-black leading-9 text-gray-800">
+                  <h3 className="mdOnly:items-center md:text-4xl text-3xl font-black leading-9 text-gray-800">
                     Заказ
-                  </p>
-                  <div className=" pt-16 mdOnly:pb-16">
+                  </h3>
+                  <div className="mt-8 md:mb-16">
                     <div className="flex items-center justify-between">
                       <p className="text-base leading-none text-gray-800">
                         Номер заказа
@@ -157,6 +159,28 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                     </div>
                   </div>
                 </div>
+                <div className="mt-8">
+                  <h3 className='mb-8 md:text-2xl text-2xl font-black leading-9 text-gray-800'>Контактные данные</h3>
+                   <div className="flex flex-col gap-4">
+                   <div className="">
+                      <label htmlFor="name">Имя</label>
+                      <input type="text" value={123}/>
+                    </div>
+                    <div className="">
+                      <label htmlFor="name">Фамилия</label>
+                      <input type="text" value={123}/>
+                    </div>
+                    <div className="">
+                      <label htmlFor="name">Номер</label>
+                      <input type="number" value={123}/>
+                    </div>
+                    <div className="">
+                      <label htmlFor="name">Имя</label>
+                      <textarea    className={`flex w-[100%] h-[100%] px-[16px] py-[8px] border border-blue rounded-[20px] resize-none : ''
+            }`} value={123}/>
+                    </div>
+                   </div>
+                </div>
                 <div>
                   <div className="flex items-center pb-6 justify-between md:pt-5 pt-20">
                     <p className="text-2xl leading-normal text-gray-800">
@@ -171,7 +195,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                   </button>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

@@ -10,8 +10,10 @@ import { ChevronDownIcon, PhoneIcon } from '@heroicons/react/20/solid';
 import { Link } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import ShoppingCart from '../ShoppingCart/ShoppingCart';
+import { useSelector } from 'react-redux';
+import { getCart } from '../../Redux/cart/cartSelectors';
 
-const products = [
+const links = [
   {
     name: 'Основные ткани',
     description: 'Огромный выбор основных тканей',
@@ -56,6 +58,7 @@ function classNames(...classes) {
 const basketRoot = document.querySelector('#basket');
 
 const Header = () => {
+  const cartProducts = useSelector(getCart);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isBasketOpen, setIsBasketOpen] = useState(false);
 
@@ -80,8 +83,13 @@ const Header = () => {
             <Link>
               <Svg id={'icon-favorite'} size={22} />
             </Link>
-            <div onClick={onToggleBasket} className=" cursor-pointer">
+            <div onClick={onToggleBasket} className="relative cursor-pointer">
               <Svg id={'icon-basket'} size={22} />
+              {cartProducts.length > 0 && (
+                <div className="text-white text-[10px] flex justify-center items-center rounded-[50%] w-4 h-4 absolute bg-red top-[-6px] right-[-8px]">
+                  {cartProducts.length}
+                </div>
+              )}
             </div>
           </div>
           <button
@@ -114,7 +122,7 @@ const Header = () => {
             >
               <Popover.Panel className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                 <div className="p-4">
-                  {products.map((item) => (
+                  {links.map((item) => (
                     <div
                       key={item.name}
                       className="group relative flex items-center gap-x-6 rounded-lg p-4 leading-6 hover:bg-gray-50"
@@ -171,9 +179,14 @@ const Header = () => {
           <Link>
             <Svg id={'icon-favorite'} size={22} />
           </Link>
-          <div onClick={onToggleBasket} className=" cursor-pointer">
-              <Svg id={'icon-basket'} size={22} />
-            </div>
+          <div onClick={onToggleBasket} className="relative cursor-pointer">
+            <Svg id={'icon-basket'} size={22} />
+            {cartProducts.length > 0 && (
+              <div className="text-white text-[10px] flex justify-center items-center rounded-[50%] w-4 h-4 absolute bg-red top-[-6px] right-[-8px]">
+                {cartProducts.length}
+              </div>
+            )}
+          </div>
           <Link to="/login" className="font-semibold leading-6 text-gray-900">
             Авторизация <span aria-hidden="true">&rarr;</span>
           </Link>
@@ -186,7 +199,7 @@ const Header = () => {
         open={mobileMenuOpen}
         onClose={setMobileMenuOpen}
       >
-        <div className="fixed inset-0 z-10"/>
+        <div className="fixed inset-0 z-10" />
         <Dialog.Panel className="fixed inset-y-0 right-0 z-10 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
           <div className="flex items-center justify-between">
             <Link to="/" className="-m-1.5 p-1.5">
@@ -218,7 +231,7 @@ const Header = () => {
                         />
                       </Disclosure.Button>
                       <Disclosure.Panel className="mt-2 space-y-2">
-                        {[...products, ...callsToAction].map((item) => (
+                        {[...links, ...callsToAction].map((item) => (
                           <Link
                             onClick={() => {
                               setMobileMenuOpen(false);

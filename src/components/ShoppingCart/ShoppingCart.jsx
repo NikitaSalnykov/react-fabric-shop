@@ -6,7 +6,7 @@ import ShoppingCartCard from './ShoppingCartCard';
 const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const modalRef = useRef(null);
   const [animationClose, setAnimationClose] = useState(false);
-  const products =  useSelector(getCart)
+  const products = useSelector(getCart);
 
   useEffect(() => {
     const handleEsc = (event) => {
@@ -47,12 +47,17 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
     }, 250);
   };
 
-  const [total, setTotal] = useState(0)
+  const totalPrice = () => {
+    let result = 0;
+    products.map((el) => {
+      result += el.product.price * el.count;
+    });
+    return result;
+  };
 
-  const sumTotal = (price) => {
-    setTotal(total + price)
-    console.log(total);
-  }
+  const total = totalPrice();
+
+  totalPrice();
 
   return (
     <div>
@@ -77,7 +82,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
             id="modal-basket"
           >
             <div
-              className="lg:w-8/12 w-full lg:px-8 lg:py-14 lg:px-6 px-4 lg:py-8 py-4 bg-white  overflow-y-scroll overflow-x-hidden lg:h-screen h-auto"
+              className="lg:w-8/12 w-full lg:px-8 lg:py-14 lg:px-6 px-4 lg:py-8 py-4 bg-white  lg:overflow-y-scroll overflow-x-hidden lg:h-screen h-auto"
               id="scroll"
               ref={modalRef}
             >
@@ -104,18 +109,24 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                   Назад
                 </div>
               </div>
-              <p className="md:text-4xl text-3xl font-black leading-10 text-gray-800 pt-3">
+              <h2 className="md:text-4xl text-3xl font-black leading-10 text-gray-800 pt-3">
                 Корзина
-              </p>
-              <div className="mt-[24px]">
-                <ul className='flex flex-col gap-4'>
-                 {products.map(el => (
-                    <li key={el.id}> 
-                      <ShoppingCartCard product={el} sumTotal={sumTotal}/>
-                     </li>
-                  ))}
-                </ul>
-              </div>
+              </h2>
+              {products.length > 0 ? (
+                <div className="mt-[24px]">
+                  <ul className="flex flex-col gap-4">
+                    {products.map((el) => (
+                      <li key={el.id}>
+                        <ShoppingCartCard product={el} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <div className="h-40 flex justify-center items-center">
+                  <p>У вас пока нет добавленных товаров.</p>
+                </div>
+              )}
             </div>
             <div className="lg:w-96 w-full bg-gray-100  h-full">
               <div className="flex flex-col lg:h-screen md:px-8 px-4 md:py-10 py-6 justify-between overflow-y-auto">
@@ -123,24 +134,28 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                   <p className="mdOnly:items-center md:text-4xl text-3xl font-black leading-9 text-gray-800">
                     Заказ
                   </p>
-                 <div className=" pt-16 mdOnly:pb-16">
-                 <div className="flex items-center justify-between">
-                    <p className="text-base leading-none text-gray-800">
-                      Номер заказа
-                    </p>
-                    <p className="text-base leading-none text-gray-800">
-                      1
-                    </p>
+                  <div className=" pt-16 mdOnly:pb-16">
+                    <div className="flex items-center justify-between">
+                      <p className="text-base leading-none text-gray-800">
+                        Номер заказа
+                      </p>
+                      {products.length > 0 ? (
+                        <p className="text-base leading-none text-gray-800">
+                          1
+                        </p>
+                      ) : (
+                        <p>-</p>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between pt-5">
+                      <p className="text-base leading-none text-gray-800">
+                        Количество товаров
+                      </p>
+                      <p className="text-base leading-none text-gray-800">
+                        {products.length}
+                      </p>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between pt-5">
-                    <p className="text-base leading-none text-gray-800">
-                      Количество товаров
-                    </p>
-                    <p className="text-base leading-none text-gray-800">
-                      {products.length}
-                    </p>
-                  </div>
-                 </div>
                 </div>
                 <div>
                   <div className="flex items-center pb-6 justify-between md:pt-5 pt-20">
@@ -148,7 +163,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                       Общая стоимость
                     </p>
                     <p className="text-2xl font-bold leading-normal text-right text-gray-800">
-                      10%
+                      {total}
                     </p>
                   </div>
                   <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white ">

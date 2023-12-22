@@ -16,7 +16,7 @@ const CategoriesList = ({ title }) => {
               key={category.id}
               className="group"
             >
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+              <div className="h-[250px] aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                 <img
                   src={category.img}
                   alt={category.category}

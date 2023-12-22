@@ -94,7 +94,7 @@ const Breadcrumbs = ({ name }) => {
   }
 
   return (
-    <div className="text-xs flex gap-1 w-full md:text-sm py-6">
+    <div className="text-xs flex flex-wrap gap-1 w-full md:text-sm py-6">
       <Link to={'/'} className="p-[2px] md:p-1">
         Главная
       </Link>

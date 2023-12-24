@@ -8,6 +8,7 @@ import {
 } from '../../Redux/products/productsSelectors';
 import { fetchProducts } from '../../Redux/products/productsOperation';
 import { categories } from '../../assets/categories';
+import SkeletonList from '../Loader/SkeletonList';
 
 const ProductList = ({ title }) => {
   const { category } = useParams();
@@ -74,7 +75,9 @@ const ProductList = ({ title }) => {
             ))}
           </div>
         ) : (
-          <div>is loading</div>
+          <div>
+            <SkeletonList />
+          </div>
         )}
       </div>
     </div>

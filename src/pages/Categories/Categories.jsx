@@ -1,5 +1,3 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import CategoriesList from '../../components/CategoriesList/CategoriesList';
 

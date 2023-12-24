@@ -19,7 +19,7 @@ const ShoppingCartCard = ({ product }) => {
             <img
               src={product.product.mainPhoto}
               alt="Black Leather Bag"
-              className="w-[200%] h-auto"
+              className="w-[100%] h-[100%] object-cover"
             />
           </div>
           <div
@@ -68,7 +68,7 @@ const ShoppingCartCard = ({ product }) => {
                       updateCart({
                         id: product.id,
                         product: product.product,
-                        count,
+                        count: count - 1,
                       })
                     );
                   }}
@@ -91,7 +91,7 @@ const ShoppingCartCard = ({ product }) => {
                       updateCart({
                         id: product.id,
                         product: product.product,
-                        count,
+                        count: count + 1,
                       })
                     );
                   }}

@@ -2,6 +2,11 @@ import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getCart } from '../../Redux/cart/cartSelectors';
 import ShoppingCartCard from './ShoppingCartCard';
+import { useFormik } from 'formik';
+import { orderShoppingCart } from '../../schemas/OrderShoppingCart';
+
+const errorTextStyle =
+  'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal top-[65px] left-0 xl:left-[85px]';
 
 const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const cartListRef = useRef(null);
@@ -19,7 +24,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
     };
 
     const handleClickOutside = (event) => {
-      if (event.target.id === "modal-basket") {
+      if (event.target.id === 'modal-basket') {
         setAnimationClose(true);
         setTimeout(() => {
           onToggleBasket();
@@ -31,7 +36,6 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
       document.body.style.overflow = 'hidden';
       document.addEventListener('keydown', handleEsc);
       document.addEventListener('mousedown', handleClickOutside);
-      
     }
 
     return () => {
@@ -58,7 +62,27 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
 
   const total = totalPrice();
 
-  totalPrice();
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      surname: '',
+      tel: '',
+      delivery: '',
+    },
+
+    validateOnChange: false,
+    validateOnBlur: true,
+    validationSchema: orderShoppingCart,
+
+    onSubmit: ({ name, surname, tel, delivery }) => {
+      const productList = { products };
+      const newOrder = { name, surname, tel, delivery, productList, total };
+      console.log(newOrder);
+    },
+  });
+
+  const errors = formik.errors;
+  const formikValues = formik.values;
 
   return (
     <div>
@@ -129,21 +153,25 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                 </div>
               )}
             </div>
-            <form className="lg:w-96 w-full bg-gray-100  h-full"
-                      >
+            <form
+              noValidate
+              autoComplete="off"
+              className="lg:w-96 w-full bg-gray-100  h-full"
+              onSubmit={formik.handleSubmit}
+            >
               <div className="flex flex-col lg:h-screen md:px-8 px-4 md:py-10 py-6 justify-between overflow-y-auto">
                 <div>
-                  <h3 className="mdOnly:items-center md:text-4xl text-3xl font-black leading-9 text-gray-800">
+                  <h3 className="mdOnly:items-center md:text-4xl text-3xl font-black leading-9 text-gray-800 text-center lg:text-start">
                     Заказ
                   </h3>
-                  <div className="mt-8 md:mb-16">
+                  <div className="mt-8  sm:w-[400px] mx-auto lg:w-full">
                     <div className="flex items-center justify-between">
                       <p className="text-base leading-none text-gray-800">
                         Номер заказа
                       </p>
                       {products.length > 0 ? (
                         <p className="text-base leading-none text-gray-800">
-                          1
+                          {1}
                         </p>
                       ) : (
                         <p>-</p>
@@ -151,38 +179,153 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                     </div>
                     <div className="flex items-center justify-between pt-5">
                       <p className="text-base leading-none text-gray-800">
-                        Количество товаров
+                        Количество позиций
                       </p>
                       <p className="text-base leading-none text-gray-800">
                         {products.length}
                       </p>
                     </div>
+                    <div className="flex items-center justify-between pt-5">
+                      <p className="text-base leading-none text-gray-800">
+                        Количество товаров
+                      </p>
+                      <p className="text-base leading-none text-gray-800">
+                        {products
+                          .map((el) => {
+                            let result = 0;
+                            result += el.count;
+                            return result;
+                          })
+                          .reduce(
+                            (accumulator, currentValue) =>
+                              accumulator + currentValue,
+                            0
+                          )}
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div className="mt-8">
-                  <h3 className='mb-8 md:text-2xl text-2xl font-black leading-9 text-gray-800'>Контактные данные</h3>
-                   <div className="flex flex-col gap-4">
-                   <div className="">
-                      <label htmlFor="name">Имя</label>
-                      <input type="text" value={123}/>
+                <div className="mt-8 w-full">
+                  <h3 className="mb-8 md:text-2xl text-2xl font-black leading-9 text-gray-800 text-center">
+                    Контактные данные
+                  </h3>
+                  <div className=" flex flex-col gap-4 sm:w-[400px] mx-auto lg:w-full">
+                    <div className="relative flex-col gap-[2px] flex">
+                      <label
+                        className={`${
+                          products.length <= 0 &&
+                          'opacity-50 pointer-events-none'
+                        }`}
+                        htmlFor="name"
+                      >
+                        Имя
+                      </label>
+                      <input
+                        id="name"
+                        name="name"
+                        type="text"
+                        placeholder="Имя"
+                        className={` flex w-[100%] h-[100%] px-[16px] py-[8px] border border-blue rounded-[20px] ${
+                          errors['name'] && 'border-rose-400'
+                        } ${
+                          products.length <= 0 &&
+                          'opacity-50 pointer-events-none'
+                        }`}
+                        value={formikValues['name']}
+                        onChange={formik.handleChange}
+                      />
+                      {errors['name'] && (
+                        <p className={errorTextStyle}>{errors['name']}</p>
+                      )}
                     </div>
-                    <div className="">
-                      <label htmlFor="name">Фамилия</label>
-                      <input type="text" value={123}/>
+                    <div className="relative flex-col gap-[2px] flex">
+                      <label
+                        className={`${
+                          products.length <= 0 &&
+                          'opacity-50 pointer-events-none'
+                        }`}
+                        htmlFor="surname"
+                      >
+                        Фамилия
+                      </label>
+                      <input
+                        id="surname"
+                        name="surname"
+                        type="text"
+                        placeholder="Фамилия"
+                        className={`flex w-[100%] h-[100%] px-[16px] py-[8px] border border-blue rounded-[20px] ${
+                          errors['surname'] && 'border-rose-400'
+                        } ${
+                          products.length <= 0 &&
+                          'opacity-50 pointer-events-none'
+                        }`}
+                        value={formikValues['surname']}
+                        onChange={formik.handleChange}
+                      />
+                      {errors['surname'] && (
+                        <p className={errorTextStyle}>{errors['surname']}</p>
+                      )}
                     </div>
-                    <div className="">
-                      <label htmlFor="name">Номер</label>
-                      <input type="number" value={123}/>
+                    <div className="relative flex-col gap-[2px] flex">
+                      <label
+                        className={`${
+                          products.length <= 0 &&
+                          'opacity-50 pointer-events-none'
+                        }`}
+                        htmlFor="number"
+                      >
+                        Номер
+                      </label>
+                      <input
+                        id="tel"
+                        name="tel"
+                        type="tel"
+                        placeholder="Номер телефона"
+                        className={`flex w-[100%] h-[100%] px-[16px] py-[8px] border border-blue rounded-[20px] ${
+                          errors['tel'] && 'border-rose-400'
+                        } ${
+                          products.length <= 0 &&
+                          'opacity-50 pointer-events-none'
+                        }`}
+                        value={formikValues['tel']}
+                        onChange={formik.handleChange}
+                      />
+                      {errors['tel'] && (
+                        <p className={errorTextStyle}>{errors['tel']}</p>
+                      )}
                     </div>
-                    <div className="">
-                      <label htmlFor="name">Имя</label>
-                      <textarea    className={`flex w-[100%] h-[100%] px-[16px] py-[8px] border border-blue rounded-[20px] resize-none : ''
-            }`} value={123}/>
+                    <div className="relative flex-col gap-[2px] flex">
+                      <label
+                        className={`${
+                          products.length <= 0 &&
+                          'opacity-50 pointer-events-none'
+                        }`}
+                        htmlFor="delivery"
+                      >
+                        Укажите адрес и способ доставки
+                      </label>
+                      <textarea
+                        id="delivery"
+                        name="delivery"
+                        type="text"
+                        placeholder="Город, почтовая служба, отделение"
+                        className={`flex w-[100%] h-[100%] px-[16px] py-[8px] border border-blue rounded-[20px] resize-none ${
+                          errors['delivery'] && 'border-rose-400'
+                        } ${
+                          products.length <= 0 &&
+                          'opacity-50 pointer-events-none'
+                        }`}
+                        value={formikValues['delivery']}
+                        onChange={formik.handleChange}
+                      />
+                      {errors['delivery'] && (
+                        <p className={errorTextStyle}>{errors['delivery']}</p>
+                      )}
                     </div>
-                   </div>
+                  </div>
                 </div>
-                <div>
-                  <div className="flex items-center pb-6 justify-between md:pt-5 pt-20">
+                <div className="sm:w-[400px] mx-auto lg:w-full">
+                  <div className="flex items-center pb-6 justify-between md:pt-5 pt-10 ">
                     <p className="text-2xl leading-normal text-gray-800">
                       Общая стоимость
                     </p>
@@ -190,7 +333,13 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                       {total}
                     </p>
                   </div>
-                  <button className="text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white ">
+                  <button
+                    type="submit"
+                    className={`"text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white " ${
+                      products.length <= 0 && 'opacity-50 pointer-events-none'
+                    }
+                    `}
+                  >
                     Оформить заказ
                   </button>
                 </div>

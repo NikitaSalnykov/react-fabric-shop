@@ -38,10 +38,11 @@
   box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
 }
 
+textarea:focus,
 input:hover,
 input:focus,
 input:active {
-  outline-color: #cce4fb;
+  outline-color: #00213f;
   outline-width: '1px';
 }
 

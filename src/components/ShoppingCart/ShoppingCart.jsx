@@ -75,8 +75,16 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
     validationSchema: orderShoppingCart,
 
     onSubmit: ({ name, surname, tel, delivery }) => {
-      const productList = { products };
-      const newOrder = { name, surname, tel, delivery, productList, total };
+      const info = products
+        .map((el, index) => {
+          return `${index + 1}) Название: ${el.product.name}, цвет: ${
+            el.product.color
+          }, категория: ${el.product.category}, количество: ${
+            el.count
+          }, цена: ${el.product.price}.`;
+        })
+        .join(' ');
+      const newOrder = { name, surname, tel, delivery, info, total, products };
       console.log(newOrder);
     },
   });

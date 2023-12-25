@@ -4,8 +4,15 @@ import { getCart } from '../../Redux/cart/cartSelectors';
 import ShoppingCartCard from './ShoppingCartCard';
 import { useFormik } from 'formik';
 import { orderShoppingCart } from '../../schemas/OrderShoppingCart';
-import { createOrder } from '../../Redux/orders/ordersOperation';
-import { getIsOrderCreated } from '../../Redux/orders/ordersSelectors';
+import {
+  createOrder,
+  fetchOrdersCount,
+} from '../../Redux/orders/ordersOperation';
+import {
+  getIsLoadingOrders,
+  getIsOrderCreated,
+  getOrdersCount,
+} from '../../Redux/orders/ordersSelectors';
 import { resetOrderCreated } from '../../Redux/orders/ordersSlice';
 import { resetCart } from '../../Redux/cart/cartSlice';
 import { BasicModal } from '../Modals/BasicModal/BasicModal';
@@ -17,12 +24,19 @@ const errorTextStyle =
 const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const cartListRef = useRef(null);
   const [animationClose, setAnimationClose] = useState(false);
-  const [isModalOrderOpen, setModalOrderOpen] = useState(true);
-  const [confirmOrder, setConfirmOrder] = useState(false)
+  const [isModalOrderOpen, setModalOrderOpen] = useState(false);
 
   const products = useSelector(getCart);
   const dispatch = useDispatch();
   const isOrderCreated = useSelector(getIsOrderCreated);
+  const isLoadingOrder = useSelector(getIsLoadingOrders);
+  const ordersCount = useSelector(getOrdersCount);
+
+  useEffect(() => {
+    dispatch(fetchOrdersCount());
+  }, [dispatch]);
+
+  console.log(ordersCount);
 
   useEffect(() => {
     const handleEsc = (event) => {
@@ -56,13 +70,9 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
     };
   }, [isBasketOpen, onToggleBasket]);
 
-  const closeConfirmOrder = () => {
-    setConfirmOrder(true);
-  };  
-
   const onTogleOrderModal = () => {
     setModalOrderOpen(!isModalOrderOpen);
-  };  
+  };
 
   const handleClickClose = () => {
     setAnimationClose(true);
@@ -103,9 +113,18 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
           }, цена: ${el.product.price}.`;
         })
         .join(' ');
-      const newOrder = { name, surname, tel, delivery, info, total, products };
-      dispatch(createOrder({order: newOrder}));
-      console.log({order: newOrder});
+      const newOrder = {
+        orderNumber: ordersCount + 1,
+        name,
+        surname,
+        tel,
+        delivery,
+        info,
+        total,
+        products,
+      };
+      dispatch(createOrder({ order: newOrder }));
+      console.log({ order: newOrder });
     },
   });
 
@@ -113,29 +132,24 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const formikValues = formik.values;
 
   const resetFields = () => {
-    formik.setFieldValue('name', "");
-    formik.setFieldValue('surname', "");
-    formik.setFieldValue('tel', "");
-    formik.setFieldValue('delivery', "");
+    formik.setFieldValue('name', '');
+    formik.setFieldValue('surname', '');
+    formik.setFieldValue('tel', '');
+    formik.setFieldValue('delivery', '');
   };
 
   useEffect(() => {
     if (isOrderCreated) {
-      // dispatch(resetOrderCreated());
-      // resetFields()
-      // dispatch(resetCart())
-      setModalOrderOpen(true)
-      // setConfirmOrder(false);
+      setModalOrderOpen(true);
     }
   }, [isOrderCreated, dispatch]);
 
-  useEffect(() => {
-    if (confirmOrder) {
-      dispatch(resetOrderCreated());
-      resetFields()
-      dispatch(resetCart())
-    }
-  }, [handleClickClose, dispatch]);
+  const handleConfirmOrder = () => {
+    dispatch(resetOrderCreated());
+    resetFields();
+    dispatch(resetCart());
+    handleClickClose();
+  };
 
   return (
     <div>
@@ -224,7 +238,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                       </p>
                       {products.length > 0 ? (
                         <p className="text-base leading-none text-gray-800">
-                          {1}
+                          {ordersCount + 1}
                         </p>
                       ) : (
                         <p>-</p>
@@ -390,7 +404,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                     type="submit"
                     className={`"text-base leading-none w-full py-5 bg-gray-800 border-gray-800 border focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 text-white " ${
                       products.length <= 0 && 'opacity-50 pointer-events-none'
-                    }
+                    } ${isLoadingOrder && 'opacity-50 pointer-events-none'}
                     `}
                   >
                     Оформить заказ
@@ -401,11 +415,11 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
           </div>
         </div>
       </div>
-      <BasicModal
-        isOpen={isModalOrderOpen}
-        onCloseModal={handleClickClose}
-      >
-        <OrderModal onCloseModal={onTogleOrderModal} onConfirm={closeConfirmOrder} />
+      <BasicModal isOpen={isModalOrderOpen} onCloseModal={handleConfirmOrder}>
+        <OrderModal
+          onCloseModal={onTogleOrderModal}
+          onConfirm={handleConfirmOrder}
+        />
       </BasicModal>
     </div>
   );

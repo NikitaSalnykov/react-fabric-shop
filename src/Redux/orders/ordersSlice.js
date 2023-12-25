@@ -3,6 +3,7 @@ import {
   createOrder,
   deleteOrder,
   fetchOrders,
+  fetchOrdersCount,
   getOrderById,
 } from './ordersOperation';
 
@@ -12,6 +13,7 @@ const initialProducts = {
   error: null,
   isOrderCreated: false,
   selectedProduct: null,
+  count: 0,
 };
 
 const rejectFunc = (state, action) => {
@@ -51,6 +53,19 @@ const orderSlice = createSlice({
       };
     });
     builder.addCase(fetchOrders.rejected, rejectFunc);
+
+    // count
+
+    builder.addCase(fetchOrdersCount.pending, pendingFunc);
+    builder.addCase(fetchOrdersCount.fulfilled, (state, action) => {
+      return {
+        ...state,
+        isLoading: false,
+        error: null,
+        count: action.payload,
+      };
+    });
+    builder.addCase(fetchOrdersCount.rejected, rejectFunc);
 
     //getById
 

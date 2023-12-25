@@ -13,6 +13,18 @@ export const fetchOrders = createAsyncThunk(
   }
 );
 
+export const fetchOrdersCount = createAsyncThunk(
+  'orders/fetchOrdersCount',
+  async (thunkAPI) => {
+    try {
+      const response = await instance.get(`/api/orders/count`);
+      return response.data;
+    } catch (evt) {
+      return thunkAPI.rejectWithValue(evt.message);
+    }
+  }
+);
+
 export const getOrderById = createAsyncThunk(
   'orders/getOrdersById',
   async (id, thunkAPI) => {
@@ -29,8 +41,7 @@ export const createOrder = createAsyncThunk(
   'orders/postOrders',
   async (arg, thunkAPI) => {
     try {
-      const { data } = await instance.post('/api/orders', arg
-      );
+      const { data } = await instance.post('/api/orders', arg);
       return data;
     } catch (evt) {
       return thunkAPI.rejectWithValue(evt.message);

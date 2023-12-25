@@ -13,6 +13,7 @@ import {
 } from 'redux-persist';
 import { productsStateReducer } from './products/productsSlice';
 import cartSlice from './cart/cartSlice';
+import { orderReducer } from './orders/ordersSlice';
 
 // auth persist config
 const authPersistConfig = {
@@ -31,6 +32,7 @@ const rootReduser = combineReducers({
   // redusers
   auth: persistReducer(authPersistConfig, authSlice.reducer),
   products: productsStateReducer,
+  orders: orderReducer,
   cart: persistReducer(cartPersistConfig, cartSlice),
 });
 

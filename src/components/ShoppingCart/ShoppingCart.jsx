@@ -1,9 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getCart } from '../../Redux/cart/cartSelectors';
 import ShoppingCartCard from './ShoppingCartCard';
 import { useFormik } from 'formik';
 import { orderShoppingCart } from '../../schemas/OrderShoppingCart';
+import { createOrder } from '../../Redux/orders/ordersOperation';
+import { getIsOrderCreated } from '../../Redux/orders/ordersSelectors';
+import { resetOrderCreated } from '../../Redux/orders/ordersSlice';
+import { resetCart } from '../../Redux/cart/cartSlice';
+import { BasicModal } from '../Modals/BasicModal/BasicModal';
+import OrderModal from '../Modals/BasicModal/OrderModal';
 
 const errorTextStyle =
   'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal top-[65px] left-0 xl:left-[85px]';
@@ -11,7 +17,12 @@ const errorTextStyle =
 const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const cartListRef = useRef(null);
   const [animationClose, setAnimationClose] = useState(false);
+  const [isModalOrderOpen, setModalOrderOpen] = useState(true);
+  const [confirmOrder, setConfirmOrder] = useState(false)
+
   const products = useSelector(getCart);
+  const dispatch = useDispatch();
+  const isOrderCreated = useSelector(getIsOrderCreated);
 
   useEffect(() => {
     const handleEsc = (event) => {
@@ -44,6 +55,14 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isBasketOpen, onToggleBasket]);
+
+  const closeConfirmOrder = () => {
+    setConfirmOrder(true);
+  };  
+
+  const onTogleOrderModal = () => {
+    setModalOrderOpen(!isModalOrderOpen);
+  };  
 
   const handleClickClose = () => {
     setAnimationClose(true);
@@ -85,12 +104,38 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
         })
         .join(' ');
       const newOrder = { name, surname, tel, delivery, info, total, products };
-      console.log(newOrder);
+      dispatch(createOrder({order: newOrder}));
+      console.log({order: newOrder});
     },
   });
 
   const errors = formik.errors;
   const formikValues = formik.values;
+
+  const resetFields = () => {
+    formik.setFieldValue('name', "");
+    formik.setFieldValue('surname', "");
+    formik.setFieldValue('tel', "");
+    formik.setFieldValue('delivery', "");
+  };
+
+  useEffect(() => {
+    if (isOrderCreated) {
+      // dispatch(resetOrderCreated());
+      // resetFields()
+      // dispatch(resetCart())
+      setModalOrderOpen(true)
+      // setConfirmOrder(false);
+    }
+  }, [isOrderCreated, dispatch]);
+
+  useEffect(() => {
+    if (confirmOrder) {
+      dispatch(resetOrderCreated());
+      resetFields()
+      dispatch(resetCart())
+    }
+  }, [handleClickClose, dispatch]);
 
   return (
     <div>
@@ -356,6 +401,12 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
           </div>
         </div>
       </div>
+      <BasicModal
+        isOpen={isModalOrderOpen}
+        onCloseModal={handleClickClose}
+      >
+        <OrderModal onCloseModal={onTogleOrderModal} onConfirm={closeConfirmOrder} />
+      </BasicModal>
     </div>
   );
 };

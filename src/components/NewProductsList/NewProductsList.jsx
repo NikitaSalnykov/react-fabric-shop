@@ -9,13 +9,29 @@ import {
 import { fetchProducts } from '../../Redux/products/productsOperation';
 import { categories } from '../../assets/categories';
 import SkeletonList from '../Loader/SkeletonList';
+import { getFilterColor, getFilterName, getFilterPrice, getFilterdCategory } from '../../Redux/filter/filterSlice';
+import { Filter } from '../Filter/Filter';
 
-const ProductList = ({ title }) => {
-  const { category } = useParams();
+const NewProductList = ({ title }) => {
   const dispatch = useDispatch();
   const products = useSelector(getProducts);
   const isLoading = useSelector(getIsLoadingProducts);
-  console.log(products);
+  const filterName = useSelector(getFilterName);
+  const filterCategory = useSelector(getFilterdCategory);
+  const filterPrice = useSelector(getFilterPrice);
+  const filterColor = useSelector(getFilterColor);
+
+  const filteredProducts = (sortedProductObjects) => {
+    let filtered;
+    if (!products) return;
+    
+    filtered = products.filter((el) => el.name.toLowerCase().includes(filterName.toLowerCase()));
+
+    if (filterName.trim() === '') {
+      return sortedProductObjects;
+}
+      return filtered;
+  }
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -40,22 +56,31 @@ const ProductList = ({ title }) => {
     }
   };
 
-  const productsByCategory = products.filter(
-    (el) => el.category === categoryName(category)
-  );
+  const newProducts = (products) => {
+    const productsWithTimestamps = products.map(el => ({ timestamp: new Date(el.createdAt).getTime(), product: el }));
+    const sortedProducts = productsWithTimestamps.sort((a, b) => b.timestamp - a.timestamp);
+    const sortedProductObjects = sortedProducts.map(item => item.product);
+    return filteredProducts(sortedProductObjects);
+  }
+
+
+  // const productsByCategory = products.filter(
+  //   (el) => el.category === categoryName(category)
+  // );
 
   return (
-    <div className="">
+    <div className="md:min-h-[400px]">
       <div className="mx-auto max-w-2xl lg:max-w-7xl">
-        <h2 className="mb-6 text-xl font-bold tracking-tight text-gray-900 sm:text-2xl ">
+        <h2 className="mb-6 text-xl font-bold tracking-tight text-red-900 sm:text-2xl ">
           {title}
         </h2>
 
-        {productsByCategory && !isLoading ? (
-          <div className=" grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-            {productsByCategory.map((product) => (
+
+        {products && !isLoading ? (
+          <div className=" grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 ">
+            {newProducts(products).map((product) => (
               <Link
-                to={`/categories/${category || categoryURL(product.category)}/${
+                to={`/categories/${categoryURL(product.category)}/${
                   product._id
                 }`}
                 key={product._id}
@@ -69,6 +94,9 @@ const ProductList = ({ title }) => {
                   />
                 </div>
                 <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
+                <p className="mt-1 text-sm font-medium text-gray-900">
+                  {product.category}
+                </p>
                 <p className="mt-1 text-lg font-medium text-gray-900">
                   {product.price}
                 </p>
@@ -80,9 +108,11 @@ const ProductList = ({ title }) => {
             <SkeletonList />
           </div>
         )}
+                    {newProducts(products).length <= 0 && <div className='w-full flex justify-center items-center mt-4'><p>По запросу "{filterName}" ничего не найдено.</p></div>}
+
       </div>
     </div>
   );
 };
 
-export default ProductList;
+export default NewProductList;

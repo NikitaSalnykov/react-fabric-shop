@@ -106,6 +106,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/about"
+                  state={{section: "delivery"}}
                   className="text-gray-500 cursor-pointer hover:text-gray-900"
                 >
                   Доставка

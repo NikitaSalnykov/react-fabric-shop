@@ -14,6 +14,7 @@ import {
 import { productsStateReducer } from './products/productsSlice';
 import cartSlice from './cart/cartSlice';
 import { orderReducer } from './orders/ordersSlice';
+import filterSlice from './filter/filterSlice';
 
 // auth persist config
 const authPersistConfig = {
@@ -33,6 +34,7 @@ const rootReduser = combineReducers({
   auth: persistReducer(authPersistConfig, authSlice.reducer),
   products: productsStateReducer,
   orders: orderReducer,
+  filter: filterSlice,
   cart: persistReducer(cartPersistConfig, cartSlice),
 });
 

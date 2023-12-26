@@ -20,6 +20,8 @@ const Product = () => {
   const isLoading = useSelector(getIsLoadingProducts);
   const getUserCart = useSelector(getCart);
 
+  console.log(category);
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);

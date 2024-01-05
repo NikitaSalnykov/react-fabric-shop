@@ -11,7 +11,7 @@ export const register = createAsyncThunk(
   'auth/register',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await instance.post(`/api/users/register`, credentials);
+      const { data } = await instance.post(`/api/auth/register`, credentials);
       const { data: dataResponse } = data;
 
       setToken(dataResponse.accessToken);
@@ -33,7 +33,7 @@ export const login = createAsyncThunk(
   'auth/login',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await instance.post(`/api/users/login`, credentials);
+      const { data } = await instance.post(`/api/auth/login`, credentials);
       const { data: dataResponse } = data;
 
       setToken(dataResponse.accessToken);
@@ -64,7 +64,7 @@ export const currentUser = createAsyncThunk(
     setToken(token);
 
     try {
-      const { data } = await instance.get(`/api/users/current`);
+      const { data } = await instance.get(`/api/auth/current`);
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.status);
@@ -75,7 +75,7 @@ export const currentUser = createAsyncThunk(
 // logout
 export const logout = createAsyncThunk('/api/auth/logout', async (thunkAPI) => {
   try {
-    const result = await instance.post(`/api/users/logout`);
+    const result = await instance.post(`/api/auth/logout`);
     localStorage.setItem('refresh', null);
     delToken();
   } catch (error) {
@@ -88,7 +88,7 @@ export const update = createAsyncThunk(
   'auth/update',
   async (credentials, thunkAPI) => {
     try {
-      const { data } = await instance.patch(`/api/users`, credentials, {
+      const { data } = await instance.patch(`/api/auth`, credentials, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

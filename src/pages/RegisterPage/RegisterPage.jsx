@@ -1,6 +1,45 @@
 import { Link } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
 const RegistrationPage = () => {
+  const dispatch = useDispatch();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+
+    validateOnChange: false,
+    validateOnBlur: true,
+    // validationSchema: ProductSchema,
+
+    onSubmit: ({ name, email, password }) => {
+      dispatch(register({ name, email, password }));
+    },
+  });
+
+  const togglePasswordVisibility = (value) => {
+    switch (value) {
+      case 'password':
+        setPasswordVisible(!passwordVisible);
+        break;
+
+      case 'confirmPassword':
+        setConfirmPasswordVisible(!confirmPasswordVisible);
+        break;
+
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="contayner py-20  md:py-24 lg:py-40">
       <div className="flex justify-center w-full">

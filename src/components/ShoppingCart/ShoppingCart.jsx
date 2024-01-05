@@ -23,6 +23,8 @@ const errorTextStyle =
 
 const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const cartListRef = useRef(null);
+  const currentDate = new Date();
+  const dayOfMonth = currentDate.getDate();
   const [animationClose, setAnimationClose] = useState(false);
   const [isModalOrderOpen, setModalOrderOpen] = useState(false);
 
@@ -31,6 +33,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const isOrderCreated = useSelector(getIsOrderCreated);
   const isLoadingOrder = useSelector(getIsLoadingOrders);
   const ordersCount = useSelector(getOrdersCount);
+  const orderNumber = `${dayOfMonth}${ordersCount}`;
 
   useEffect(() => {
     dispatch(fetchOrdersCount());
@@ -114,7 +117,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
         })
         .join(' ');
       const newOrder = {
-        orderNumber: ordersCount + 1,
+        orderNumber,
         name,
         surname,
         tel,
@@ -209,7 +212,10 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                   <ul className="flex flex-col gap-4">
                     {products.map((el) => (
                       <li key={el.id}>
-                        <ShoppingCartCard product={el} />
+                        <ShoppingCartCard
+                          product={el}
+                          closeModal={handleClickClose}
+                        />
                       </li>
                     ))}
                   </ul>
@@ -236,9 +242,9 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
                       <p className="text-base leading-none text-gray-800">
                         Номер заказа
                       </p>
-                      {products.length > 0 ? (
+                      {products.length > 0 && ordersCount ? (
                         <p className="text-base leading-none text-gray-800">
-                          {ordersCount + 1}
+                          {orderNumber}
                         </p>
                       ) : (
                         <p>-</p>

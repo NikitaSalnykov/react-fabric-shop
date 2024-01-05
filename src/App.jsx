@@ -12,6 +12,9 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import RegistrationPage from './pages/RegisterPage/RegisterPage';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import Admin from './pages/Admin/Admin';
+import AdminProducts from './pages/Admin/AdminProducts';
+import AdminOrders from './pages/Admin/AdminOrders';
+import AdminUsers from './pages/Admin/AdminUsers';
 
 function App() {
   return (
@@ -32,8 +35,11 @@ function App() {
 
           <Route path="*" element={<ErrorPage />} />
         </Route>
-        <Route path="/admin" element={<Admin />} />
-
+        <Route path="/admin" element={<Admin />}>
+          <Route path="products" element={<AdminProducts />} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="users" element={<AdminUsers />} />
+        </Route>
       </Routes>
     </div>
   );

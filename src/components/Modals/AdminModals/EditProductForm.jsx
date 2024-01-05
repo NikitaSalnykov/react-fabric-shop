@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { createProduct } from '../../../Redux/products/productsOperation';
+import { updateProduct } from '../../../Redux/products/productsOperation';
 import { useEffect, useState } from 'react';
 import { categories } from '../../../assets/categories';
 import {
@@ -19,7 +19,7 @@ const labelStyle =
 const inputStyle =
   " outline-offset-0 outline-0  border border-blue outline-none text-neutral-900 text-xs font-normal font-['Manrope'] tracking-wide w-[190px] h-6 px-3 py-1 rounded-[20px] border border-blue-400 justify-start items-center gap-[191px] inline-flex md:w-[255px]  xl:w-[255px]";
 
-export const AddProductForm = ({ onCloseModal }) => {
+export const EditProductForm = ({ onCloseModal, product }) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoadingProducts);
   const [isMyCategory, setMyCategory] = useState(false);
@@ -34,12 +34,12 @@ export const AddProductForm = ({ onCloseModal }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: 'a',
-      category: 'Фатин',
-      color: 'a',
-      price: 'a',
-      description: 'a',
-      article: 'a',
+      name: product.name,
+      category: product.category,
+      color: product.color,
+      price: product.price,
+      description: product.description,
+      article: product.article,
       mainPhoto: null,
       extraPhotos: null,
     },
@@ -70,10 +70,9 @@ export const AddProductForm = ({ onCloseModal }) => {
       };
 
       const formData = createUserFormData(updateUser);
+      console.log('ss', extraPhotos);
+      dispatch(updateProduct({ id: product._id, arg: formData }));
 
-      dispatch(createProduct(formData));
-
-      console.log(formData);
       // if (!isLoading) onCloseModal();
     },
   });
@@ -90,10 +89,16 @@ export const AddProductForm = ({ onCloseModal }) => {
     formData.append('price', data.price);
     formData.append('description', data.description);
     formData.append('article', data.article);
-    formData.append('mainPhoto', data.mainPhoto);
-    [...data.extraPhotos].forEach((file) => {
-      formData.append('extraPhotos', file);
-    });
+    if (data.mainPhoto) {
+      formData.append('mainPhoto', data.mainPhoto);
+    }
+
+    // Добавляем extraPhotos, если они существуют
+    if (data.extraPhotos && data.extraPhotos.length > 0) {
+      [...data.extraPhotos].forEach((file) => {
+        formData.append('extraPhotos', file);
+      });
+    }
     return formData;
   };
 

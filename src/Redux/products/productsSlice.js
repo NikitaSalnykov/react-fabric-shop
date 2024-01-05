@@ -4,6 +4,7 @@ import {
   deleteProduct,
   fetchProducts,
   getProductById,
+  updateProduct,
 } from './productsOperation';
 
 const initialProducts = {
@@ -91,6 +92,29 @@ const productsStateSlice = createSlice({
       };
     });
     builder.addCase(deleteProduct.rejected, rejectFunc);
+
+    //update
+
+    builder.addCase(updateProduct.pending, pendingFunc);
+
+    builder.addCase(updateProduct.fulfilled, (state, action) => {
+      const updatedProduct = action.payload;
+
+      const updatedItems = state.items.map((product) =>
+        product._id === updatedProduct._id ? updatedProduct : product
+      );
+
+      return {
+        ...state,
+        items: updatedItems,
+        isLoading: false,
+        error: null,
+      };
+    });
+
+    builder.addCase(updateProduct.rejected, (state, action) => {
+      state.error = action.payload;
+    });
   },
 });
 

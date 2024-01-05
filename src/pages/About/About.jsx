@@ -5,17 +5,20 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const About = () => {
-
   const location = useLocation();
   const section = location.state?.section;
   console.log(section);
 
   useEffect(() => {
-    // Прокрутка к указанному разделу при монтировании компонента
     if (section) {
       const element = document.getElementById(section);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+          window.scrollTo({
+            top: element.offsetTop - 150,
+            behavior: 'smooth',
+          });
+        }, 100);
       }
     }
   }, [section]);

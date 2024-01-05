@@ -9,6 +9,7 @@ import {
 import { fetchProducts } from '../../Redux/products/productsOperation';
 import { categories } from '../../assets/categories';
 import SkeletonList from '../Loader/SkeletonList';
+import categoryName from '../../helpers/categoryName';
 
 const ProductList = ({ title }) => {
   const { category } = useParams();
@@ -28,15 +29,6 @@ const ProductList = ({ title }) => {
       return result.category;
     } else {
       console.log(`Category not found for ${category}`);
-    }
-  };
-
-  const categoryName = (category) => {
-    const result = categories.find((el) => el.category === category);
-    if (result) {
-      return result.name;
-    } else {
-      console.log(`Category name not found for ${category}`);
     }
   };
 

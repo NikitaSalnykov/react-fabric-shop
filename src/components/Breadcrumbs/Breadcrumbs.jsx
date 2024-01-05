@@ -87,6 +87,24 @@ const Breadcrumbs = ({ name }) => {
             Новинки
           </Link>
         );
+      case 'admin':
+        return (
+          <Link to={'/admin'} className="p-[2px] md:p-1">
+            Админ-панель
+          </Link>
+        );
+      case 'products':
+        return (
+          <Link to={'/admin/products'} className="p-[2px] md:p-1">
+            Товары
+          </Link>
+        );
+      case 'orders':
+        return (
+          <Link to={'/admin/orders'} className="p-[2px] md:p-1">
+            Заказы
+          </Link>
+        );
 
       default:
         return null;

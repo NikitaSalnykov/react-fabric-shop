@@ -1,72 +1,58 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 import {
   getIsLoadingProducts,
   getProducts,
 } from '../../Redux/products/productsSelectors';
 import { fetchProducts } from '../../Redux/products/productsOperation';
-import { categories } from '../../assets/categories';
 import SkeletonList from '../Loader/SkeletonList';
-import { getFilterColor, getFilterName, getFilterPrice, getFilterdCategory } from '../../Redux/filter/filterSlice';
-import { Filter } from '../Filter/Filter';
+import {
+  // getFilterColor,
+  getFilterName,
+  // getFilterPrice,
+  // getFilterdCategory,
+} from '../../Redux/filter/filterSlice';
+import { categoryURL } from '../../helpers/categoryURL';
 
 const NewProductList = ({ title }) => {
   const dispatch = useDispatch();
   const products = useSelector(getProducts);
   const isLoading = useSelector(getIsLoadingProducts);
   const filterName = useSelector(getFilterName);
-  const filterCategory = useSelector(getFilterdCategory);
-  const filterPrice = useSelector(getFilterPrice);
-  const filterColor = useSelector(getFilterColor);
+  // const filterCategory = useSelector(getFilterdCategory);
+  // const filterPrice = useSelector(getFilterPrice);
+  // const filterColor = useSelector(getFilterColor);
 
   const filteredProducts = (sortedProductObjects) => {
     let filtered;
     if (!products) return;
-    
-    filtered = products.filter((el) => el.name.toLowerCase().includes(filterName.toLowerCase()));
+
+    filtered = products.filter((el) =>
+      el.name.toLowerCase().includes(filterName.toLowerCase())
+    );
 
     if (filterName.trim() === '') {
       return sortedProductObjects;
-}
-      return filtered;
-  }
+    }
+    return filtered;
+  };
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  const categoryURL = (category) => {
-    const result = categories.find((el) => el.name === category);
-
-    if (result) {
-      return result.category;
-    } else {
-      console.log(`Category not found for ${category}`);
-    }
-  };
-
-  const categoryName = (category) => {
-    const result = categories.find((el) => el.category === category);
-    if (result) {
-      return result.name;
-    } else {
-      console.log(`Category name not found for ${category}`);
-    }
-  };
-
   const newProducts = (products) => {
-    const productsWithTimestamps = products.map(el => ({ timestamp: new Date(el.createdAt).getTime(), product: el }));
-    const sortedProducts = productsWithTimestamps.sort((a, b) => b.timestamp - a.timestamp);
-    const sortedProductObjects = sortedProducts.map(item => item.product);
+    const productsWithTimestamps = products.map((el) => ({
+      timestamp: new Date(el.createdAt).getTime(),
+      product: el,
+    }));
+    const sortedProducts = productsWithTimestamps.sort(
+      (a, b) => b.timestamp - a.timestamp
+    );
+    const sortedProductObjects = sortedProducts.map((item) => item.product);
     return filteredProducts(sortedProductObjects);
-  }
-
-
-  // const productsByCategory = products.filter(
-  //   (el) => el.category === categoryName(category)
-  // );
+  };
 
   return (
     <div className="md:min-h-[400px]">
@@ -74,7 +60,6 @@ const NewProductList = ({ title }) => {
         <h2 className="mb-6 text-xl font-bold tracking-tight text-red-900 sm:text-2xl ">
           {title}
         </h2>
-
 
         {products && !isLoading ? (
           <div className=" grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 ">
@@ -108,8 +93,14 @@ const NewProductList = ({ title }) => {
             <SkeletonList />
           </div>
         )}
-                    {newProducts(products).length <= 0 && <div className='w-full flex justify-center items-center mt-4'><p>По запросу "{filterName}" ничего не найдено.</p></div>}
-
+        {newProducts(products).length <= 0 && (
+          <div className="w-full flex justify-center items-center mt-4">
+            <p>
+              По запросу <span className=" font-bold">{filterName}</span> ничего
+              не найдено.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ const Faq = () => {
   return (
     <div className="container">
       <div className=" py-8">
-      <h4 className="text-4xl font-bold text-gray-800 tracking-widest uppercase text-center">
+        <h4 className="text-4xl font-bold text-gray-800 tracking-widest uppercase text-center">
           Наши услуги
         </h4>
         <p className="text-center text-gray-600 text-sm mt-2">
@@ -37,8 +37,7 @@ const Faq = () => {
             <div>
               <Svg id={'icon-delivery'} size={38}></Svg>
             </div>
-            <div id='delivery'>
-             
+            <div id="delivery">
               <h3 className="text-xl font-bold text-gray-700">Доставка</h3>
               <p className="text-gray-600 my-2">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
@@ -54,14 +53,13 @@ const Faq = () => {
                 Read More
               </a>
             </div>
-
           </div>
 
           <div className="flex space-x-8 mt-8">
             <div>
               <Svg id={'icon-boxes'} size={38}></Svg>
             </div>
-            <div>
+            <div id="pickup">
               <h3 className="text-xl font-bold text-gray-700">
                 Самовывоз с нашего склада
               </h3>
@@ -159,9 +157,9 @@ const Faq = () => {
                 ></path>
               </svg>
             </div>
-            <div>
+            <div id="returns">
               <h3 className="text-xl font-bold text-gray-700">
-                Гарантия качества
+                Возврат и гарантия качества
               </h3>
               <p className="text-gray-600 my-2">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,

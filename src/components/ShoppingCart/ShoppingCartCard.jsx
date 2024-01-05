@@ -2,14 +2,18 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { deleteCart, updateCart } from '../../Redux/cart/cartSlice';
 import Svg from '../Svg/Svg';
+import { Link } from 'react-router-dom';
+import { categoryURL } from '../../helpers/categoryURL';
 
-const ShoppingCartCard = ({ product }) => {
+const ShoppingCartCard = ({ product, closeModal }) => {
   const [count, setCount] = useState(product.count);
   const dispatch = useDispatch();
 
   const handleDeleteFromCart = (e) => {
     e.preventDefault(dispatch(deleteCart(product.id)));
   };
+
+  console.log(12, categoryURL(product.product.category));
 
   return (
     <div className="w-full h-auto py-8 px-3 md:px-5 border-[1px] border-lightgray rounded-[20px]  flex flex-col md:flex-row relative">
@@ -30,10 +34,18 @@ const ShoppingCartCard = ({ product }) => {
               Код товара:{' '}
               <span className=" font-bold">{product.product.article}</span>
             </p>
-            <div className="flex items-center justify-between w-full pt-1">
-              <p className="text-base font-black leading-none text-gray-800 ">
+            <div
+              onClick={closeModal}
+              className="flex items-center justify-between w-full pt-1"
+            >
+              <Link
+                to={`/categories/${categoryURL(product.product.category)}/${
+                  product.product._id
+                }`}
+                className="text-base font-black leading-none text-gray-800 "
+              >
                 {product.product.name}
-              </p>
+              </Link>
             </div>
             <p className="text-base text-gray-900 text-xs">
               {product.product.description.split('\r\n').map((line, index) => (

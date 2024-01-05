@@ -106,7 +106,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/about"
-                  state={{section: "delivery"}}
+                  state={{ section: 'delivery' }}
                   className="text-gray-500 cursor-pointer hover:text-gray-900"
                 >
                   Доставка
@@ -115,6 +115,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/about"
+                  state={{ section: 'pickup' }}
                   className="text-gray-500 cursor-pointer hover:text-gray-900"
                 >
                   Самовывоз со склада
@@ -123,6 +124,7 @@ const Footer = () => {
               <li>
                 <Link
                   to="/about"
+                  state={{ section: 'returns' }}
                   className="text-gray-500 cursor-pointer hover:text-gray-900"
                 >
                   Возврат

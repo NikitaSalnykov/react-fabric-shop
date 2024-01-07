@@ -38,9 +38,6 @@ export const authSlice = createSlice({
     builder.addCase(register.fulfilled, (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
-      if (!action.payload.user.birthday) {
-        state.user.birthday = '00.00.0000';
-      }
       state.isLoggedIn = true;
       state.error = null;
       state.isRequestActive = false;

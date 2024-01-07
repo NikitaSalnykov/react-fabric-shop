@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
@@ -10,6 +10,8 @@ const errorTextStyle =
 
 const RegistrationPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
 
@@ -29,6 +31,7 @@ const RegistrationPage = () => {
 
     onSubmit: ({ name, surname, email, phone, password }) => {
       dispatch(register({ name, surname, email, phone, password }));
+      navigate(`/verification?fromRegistration=true&email=${email}`);
     },
   });
 
@@ -51,7 +54,7 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div className="contayner py-20  md:py-24 lg:py-40">
+    <div className="contayner flex min-h-screen flex-col items-center justify-center overflow-hidden">
       <div className="flex justify-center w-full">
         <div className="max-w-2xl">
           <div className="md:w-[900px] bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">

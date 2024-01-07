@@ -1,5 +1,11 @@
 import { Fragment, useState } from 'react';
-import { Dialog, Disclosure, Popover, Transition } from '@headlessui/react';
+import {
+  Dialog,
+  Disclosure,
+  Menu,
+  Popover,
+  Transition,
+} from '@headlessui/react';
 import {
   Bars3Icon,
   XMarkIcon,
@@ -12,6 +18,7 @@ import { createPortal } from 'react-dom';
 import ShoppingCart from '../ShoppingCart/ShoppingCart';
 import { useSelector } from 'react-redux';
 import { getCart } from '../../Redux/cart/cartSelectors';
+import { getUser } from '../../Redux/auth/auth-selectors';
 
 const links = [
   {
@@ -58,10 +65,11 @@ function classNames(...classes) {
 const basketRoot = document.querySelector('#basket');
 
 const Header = () => {
+  const user = useSelector(getUser) || '';
   const cartProducts = useSelector(getCart);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isBasketOpen, setIsBasketOpen] = useState(false);
-
+  console.log(user);
   const onToggleBasket = () => {
     setIsBasketOpen(!isBasketOpen);
   };
@@ -187,9 +195,81 @@ const Header = () => {
               </div>
             )}
           </div>
-          <Link to="/login" className="font-semibold leading-6 text-gray-900">
-            Авторизация <span aria-hidden="true">&rarr;</span>
-          </Link>
+          {!user ? (
+            <Link to="/login" className="font-semibold leading-6 text-gray-900">
+              Авторизация <span aria-hidden="true">&rarr;</span>
+            </Link>
+          ) : (
+            <div>
+              <div className="flex items-center gap-4">
+                <Menu as="div" className="relative inline-block text-left">
+                  <div className="p-2 rounded-xl border-[1px]">
+                    <Menu.Button className="block antialiased font-sans text-sm text-left font-bold leading-6 text-indigo-600">
+                      {user.name} {user.surname ? user.surname : ''}
+                    </Menu.Button>
+                  </div>
+
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className=" left-0 absolute top-[30px] z-10 mt-2 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <div className="py-1">
+                        <Menu.Item>
+                          {() => (
+                            <button
+                              className="block px-4 py-2 text-sm"
+                              onClick={() => {
+                                console.log(1);
+                              }}
+                              href="#"
+                            >
+                              Заказы
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </div>
+                      <div className="py-1">
+                        <Menu.Item>
+                          {() => (
+                            <button
+                              className="block px-4 py-2 text-sm"
+                              onClick={() => {
+                                console.log(1);
+                              }}
+                              href="#"
+                            >
+                              Профиль
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </div>
+                      <div className="py-1">
+                        <Menu.Item>
+                          {() => (
+                            <button
+                              className="block px-4 py-2 text-sm"
+                              onClick={() => {
+                                console.log(1);
+                              }}
+                              href="#"
+                            >
+                              Выйти
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </Menu>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 

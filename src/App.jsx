@@ -15,8 +15,19 @@ import Admin from './pages/Admin/Admin';
 import AdminProducts from './pages/Admin/AdminProducts';
 import AdminOrders from './pages/Admin/AdminOrders';
 import AdminUsers from './pages/Admin/AdminUsers';
+import PrivateRoute from './components/Route/PrivateRoute';
+import { VerificationPage } from './pages/VerificationPage/VerificationPage';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { currentUser } from './Redux/auth/auth-operations';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(currentUser());
+  }, [dispatch]);
+
   return (
     <div>
       <Routes>
@@ -28,6 +39,7 @@ function App() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/new" element={<NewItems />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/verification" element={<VerificationPage />} />
           <Route path="/basket" element={<ShoppingCart />} />
           <Route path="/registration" element={<RegistrationPage />} />
           <Route path="/categories/:category" element={<Category />} />

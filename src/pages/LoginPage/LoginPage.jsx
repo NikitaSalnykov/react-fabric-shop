@@ -5,23 +5,20 @@ import { login } from '../../Redux/auth/auth-operations';
 import { useEffect, useState } from 'react';
 import { LoginSchma } from '../../schemas/LoginSchma';
 import { getIsLoggedIn, getIsRequest } from '../../Redux/auth/auth-selectors';
+import { authSlice } from '../../Redux/auth/auth-slice';
 
 const errorTextStyle =
   'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal bottom-[-20px] left-[-10px] xl:left-[85px]';
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const isLoggedIn = useSelector(getIsLoggedIn);
   const isRequest = useSelector(getIsRequest);
 
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   useEffect(() => {
-    if (isLoggedIn) {
-      navigate(`/home`);
-    }
-  }, [navigate, isLoggedIn]);
+    dispatch(authSlice.actions.resetHttpError());
+  }, [dispatch]);
 
   const formik = useFormik({
     initialValues: {

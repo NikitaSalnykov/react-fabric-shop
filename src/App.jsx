@@ -1,28 +1,40 @@
+import { useEffect, lazy, Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import SharedLayout from 'components/SharedLayout/SharedLayout';
-import Home from 'pages/Home/Home';
-import Product from 'pages/Product/Product';
 import ErrorPage from 'pages/ErrorPage/ErrorPage';
-import Category from 'pages/Category/Category';
-import Categories from 'pages/Categories/Categories';
-import About from './pages/About/About';
-import Blog from './pages/Blog/Blog';
-import NewItems from './pages/NewItems/NewItems';
-import LoginPage from './pages/LoginPage/LoginPage';
-import RegistrationPage from './pages/RegisterPage/RegisterPage';
-import ShoppingCart from './components/ShoppingCart/ShoppingCart';
-import Admin from './pages/Admin/Admin';
-import AdminProducts from './pages/Admin/AdminProducts';
-import AdminOrders from './pages/Admin/AdminOrders';
-import AdminUsers from './pages/Admin/AdminUsers';
-import PrivateRoute from './components/Route/PrivateRoute';
-import { VerificationPage } from './pages/VerificationPage/VerificationPage';
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { currentUser } from './Redux/auth/auth-operations';
+import AdminRoute from './components/Route/AdminRoute';
+import PublicRoute from './components/Route/PublicRoute';
+import setUpInterceptor from './helpers/axiosInterceptor';
+
+import Home from 'pages/Home/Home';
+import MainLoader from './components/Loader/MainLoader/MainLoader';
+
+const Product = lazy(() => import('pages/Product/Product'));
+const Category = lazy(() => import('pages/Category/Category'));
+const Categories = lazy(() => import('pages/Categories/Categories'));
+const About = lazy(() => import('./pages/About/About'));
+const Blog = lazy(() => import('./pages/Blog/Blog'));
+const NewItems = lazy(() => import('./pages/NewItems/NewItems'));
+const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage'));
+const RegistrationPage = lazy(() =>
+  import('./pages/RegisterPage/RegisterPage')
+);
+const ShoppingCart = lazy(() =>
+  import('./components/ShoppingCart/ShoppingCart')
+);
+const Admin = lazy(() => import('./pages/Admin/Admin'));
+const AdminProducts = lazy(() => import('./pages/Admin/AdminProducts'));
+const AdminOrders = lazy(() => import('./pages/Admin/AdminOrders'));
+const AdminUsers = lazy(() => import('./pages/Admin/AdminUsers'));
+const { VerificationPage } = lazy(() =>
+  import('./pages/VerificationPage/VerificationPage')
+);
 
 function App() {
   const dispatch = useDispatch();
+  setUpInterceptor(dispatch);
 
   useEffect(() => {
     dispatch(currentUser());
@@ -38,16 +50,40 @@ function App() {
           <Route path="/categories" element={<Categories />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/new" element={<NewItems />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/login"
+            element={
+              <PublicRoute restricted>
+                <LoginPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/registration"
+            element={
+              <PublicRoute restricted>
+                <RegistrationPage />
+              </PublicRoute>
+            }
+          />
           <Route path="/verification" element={<VerificationPage />} />
           <Route path="/basket" element={<ShoppingCart />} />
-          <Route path="/registration" element={<RegistrationPage />} />
           <Route path="/categories/:category" element={<Category />} />
           <Route path="/categories/:category/:id" element={<Product />} />
 
           <Route path="*" element={<ErrorPage />} />
         </Route>
-        <Route path="/admin" element={<Admin />}>
+
+        <Route
+          path="/admin"
+          element={
+            <Suspense fallback={<MainLoader />}>
+              <AdminRoute restricted>
+                <Admin />
+              </AdminRoute>
+            </Suspense>
+          }
+        >
           <Route path="products" element={<AdminProducts />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="users" element={<AdminUsers />} />

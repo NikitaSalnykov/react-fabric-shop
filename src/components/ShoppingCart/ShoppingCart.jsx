@@ -17,6 +17,7 @@ import { resetOrderCreated } from '../../Redux/orders/ordersSlice';
 import { resetCart } from '../../Redux/cart/cartSlice';
 import { BasicModal } from '../Modals/BasicModal/BasicModal';
 import OrderModal from '../Modals/BasicModal/OrderModal';
+import { getUser } from '../../Redux/auth/auth-selectors';
 
 const errorTextStyle =
   'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal top-[65px] left-0 xl:left-[85px]';
@@ -25,9 +26,11 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const cartListRef = useRef(null);
   const currentDate = new Date();
   const dayOfMonth = currentDate.getDate();
+  const user = useSelector(getUser) ?? {};
+  console.log('user', user);
+
   const [animationClose, setAnimationClose] = useState(false);
   const [isModalOrderOpen, setModalOrderOpen] = useState(false);
-
   const products = useSelector(getCart);
   const dispatch = useDispatch();
   const isOrderCreated = useSelector(getIsOrderCreated);
@@ -96,9 +99,9 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: '',
-      surname: '',
-      tel: '',
+      name: user.name || '',
+      surname: user.surname || '',
+      tel: user.phone || '',
       delivery: '',
     },
 
@@ -125,6 +128,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
         info,
         total,
         products,
+        user,
       };
       dispatch(createOrder({ order: newOrder }));
       console.log({ order: newOrder });

@@ -270,15 +270,15 @@ const Header = () => {
                         <div className="py-1">
                           <Menu.Item>
                             {() => (
-                              <button
+                              <Link
                                 className="block px-4 py-2 text-sm"
                                 onClick={() => {
                                   console.log(1);
                                 }}
-                                href="#"
+                                to="/profile"
                               >
                                 Профиль
-                              </button>
+                              </Link>
                             )}
                           </Menu.Item>
                         </div>

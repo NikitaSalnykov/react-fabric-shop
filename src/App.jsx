@@ -10,6 +10,8 @@ import setUpInterceptor from './helpers/axiosInterceptor';
 
 import Home from 'pages/Home/Home';
 import MainLoader from './components/Loader/MainLoader/MainLoader';
+import PrivateRoute from './components/Route/AdminRoute';
+import { Profile } from './pages/Profile/Profile';
 
 const Product = lazy(() => import('pages/Product/Product'));
 const Category = lazy(() => import('pages/Category/Category'));
@@ -70,6 +72,15 @@ function App() {
           <Route path="/basket" element={<ShoppingCart />} />
           <Route path="/categories/:category" element={<Category />} />
           <Route path="/categories/:category/:id" element={<Product />} />
+
+          <Route
+            path="/profile"
+            element={
+              <PrivateRoute restricted>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
 
           <Route path="*" element={<ErrorPage />} />
         </Route>

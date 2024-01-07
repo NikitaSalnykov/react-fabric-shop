@@ -75,4 +75,12 @@
 <symbol id="icon-arrow" viewBox="0 0 24 24" >
 <g  id="SVGRepo_bgCarrier" strokeWidth="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" strokeLinejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M6 12H18M18 12L13 7M18 12L13 17" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path> </g>
 	</symbol>
+
+			<symbol id="icon-logout" viewBox="0 0 32 32">
+			<path stroke-linejoin="round" stroke-linecap="round" stroke-miterlimit="4" stroke-width="2" d="M18.667 5.333h5.333c1.473 0 2.667 1.194 2.667 2.667v16c0 1.473-1.194 2.667-2.667 2.667h-5.333M4 16h16M4 16l5.333-5.333M4 16l5.333 5.333">
+			</path>
+		</symbol>
+		
 </svg>
+
+

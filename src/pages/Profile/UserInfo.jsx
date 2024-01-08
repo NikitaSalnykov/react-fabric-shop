@@ -44,24 +44,16 @@ const UserInfo = () => {
   const formikValues = formik.values;
 
   return (
-    <div>
-      <div>
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl pb-4">
-          Личный Профиль
-        </h2>
+
+      <div className="p-4 relative border-[1px] rounded-lg border-gray-300 w-[360px] mdOnly:w-[300px] h-[400px]">
+        <h3 className="mb-4 text-md font-medium text-gray-900 title-font">
+          Данные:
+        </h3>
         <div className=" pb-4">
           <p className="antialiased font-sans text-sm leading-normal flex items-center gap-1 font-normal text-blue-gray-600">
             Email: <strong>{user.email}</strong>
           </p>
-          <p className="antialiased font-sans text-sm leading-normal flex items-center gap-1 font-normal text-blue-gray-600">
-            Количество заказов: <strong>-</strong>
-          </p>
         </div>
-      </div>
-      <div className="py-4 relative">
-        <h3 className="mb-4 text-md font-medium text-gray-900 title-font">
-          Данные:
-        </h3>
         <form
           className="space-y-2 gap-6 flex justify-normal items-baseline flex-wrap mb-4"
           noValidate
@@ -116,7 +108,7 @@ const UserInfo = () => {
               type="name"
               name="name"
               id="name"
-              className={` bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[300px] p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+              className={` bg-gray-50 border mdOnly:w-[250px]  border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[300px] p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
                 errors['name'] && 'border-red'
               } ${!isEdit && 'opacity-70 border-gray-200'}`}
               placeholder="Ваше имя"
@@ -139,7 +131,7 @@ const UserInfo = () => {
               type="surname"
               name="surname"
               id="surname"
-              className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[300px] p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+              className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[300px] mdOnly:w-[250px] p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
                 !isEdit && 'opacity-70 border-gray-200'
               }`}
               placeholder="Ваша фамилия"
@@ -162,7 +154,7 @@ const UserInfo = () => {
               type="phone"
               name="phone"
               id="phone"
-              className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[300px] p-2.5 ${
+              className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm mdOnly:w-[250px]  rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-[300px] p-2.5 ${
                 errors['phone'] && 'border-red'
               } ${!isEdit && 'opacity-70 border-gray-200'}`}
               placeholder="+01234567890"
@@ -176,7 +168,6 @@ const UserInfo = () => {
           </div>
         </form>
       </div>
-    </div>
   );
 };
 

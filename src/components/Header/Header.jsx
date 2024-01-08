@@ -392,12 +392,55 @@ const Header = () => {
                     setMobileMenuOpen(false);
                   }}
                 >
-                  <Link
-                    to="/login"
-                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                  >
-                    Авторизация
-                  </Link>
+                  {!token ? (
+                    <Link
+                      to="/login"
+                      className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      Авторизация
+                    </Link>
+                  ) : (
+                    <div>
+                      <Link
+                        to="/profile"
+                        className="-mx-3 block rounded-lg px-3 text-base font-semibold leading-7 text-[#bb3688] hover:bg-gray-50"
+                      >
+                        {user.name ? user.name : 'Аккаунт'}{' '}
+                        {user.surname ? user.surname : ''}
+                      </Link>
+                      <Link
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        to="/admin"
+                      >
+                        Админ-панель
+                      </Link>
+                      <Link
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        onClick={() => {
+                          console.log(1);
+                        }}
+                        to="/profile"
+                      >
+                        Ваши заказы
+                      </Link>
+                      <Link
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        onClick={() => {
+                          console.log(1);
+                        }}
+                        to="/profile"
+                      >
+                        Профиль
+                      </Link>
+                      <button
+                        className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        onClick={onToogleLeavingModal}
+                        href="#"
+                      >
+                        Выйти
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

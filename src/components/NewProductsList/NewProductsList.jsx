@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
@@ -14,15 +14,27 @@ import {
   // getFilterdCategory,
 } from '../../Redux/filter/filterSlice';
 import { categoryURL } from '../../helpers/categoryURL';
+import { Pagination } from '../Pagination/Pagination';
 
 const NewProductList = ({ title }) => {
   const dispatch = useDispatch();
   const products = useSelector(getProducts);
   const isLoading = useSelector(getIsLoadingProducts);
   const filterName = useSelector(getFilterName);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 12;
+
   // const filterCategory = useSelector(getFilterdCategory);
   // const filterPrice = useSelector(getFilterPrice);
   // const filterColor = useSelector(getFilterColor);
+
+  const handleClickPage = (target) => {
+    setCurrentPage(target.selected + 1);
+  };
+
+  const paginatedProducts = (products) =>
+    newProducts(products).slice((currentPage - 1) * limit, currentPage * limit);
 
   const filteredProducts = (sortedProductObjects) => {
     let filtered;
@@ -61,33 +73,41 @@ const NewProductList = ({ title }) => {
           {title}
         </h2>
 
-        {products && !isLoading ? (
-          <div className=" grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 ">
-            {newProducts(products).map((product) => (
-              <Link
-                to={`/categories/${categoryURL(product.category)}/${
-                  product._id
-                }`}
-                key={product._id}
-                className="group"
-              >
-                <div className="h-[200px] md:h-[250px] md:h-300px aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
-                  <img
-                    src={product.mainPhoto}
-                    alt={product.name}
-                    className="h-full w-full object-cover object-center group-hover:opacity-75 sm:h-[280px]"
-                  />
-                </div>
-                <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-                <p className="mt-1 text-sm font-medium text-gray-900">
-                  {product.category}
-                </p>
-                <p className="mt-1 text-lg font-medium text-gray-900">
-                  {product.price}
-                </p>
-              </Link>
-            ))}
-          </div>
+        {paginatedProducts(products) && !isLoading ? (
+          <>
+            <div className=" grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 ">
+              {paginatedProducts(products).map((product) => (
+                <Link
+                  to={`/categories/${categoryURL(product.category)}/${
+                    product._id
+                  }`}
+                  key={product._id}
+                  className="group"
+                >
+                  <div className="h-[200px] md:h-[250px] md:h-300px aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+                    <img
+                      src={product.mainPhoto}
+                      alt={product.name}
+                      className="h-full w-full object-cover object-center group-hover:opacity-75 sm:h-[280px]"
+                    />
+                  </div>
+                  <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
+                  <p className="mt-1 text-sm font-medium text-gray-900">
+                    {product.category}
+                  </p>
+                  <p className="mt-1 text-lg font-medium text-gray-900">
+                    {product.price}
+                  </p>
+                </Link>
+              ))}
+            </div>
+            {Math.ceil(newProducts(products).length / limit) > 1 && (
+              <Pagination
+                handleClickPage={handleClickPage}
+                totalPages={Math.ceil(newProducts(products).length / limit)}
+              />
+            )}
+          </>
         ) : (
           <div>
             <SkeletonList />

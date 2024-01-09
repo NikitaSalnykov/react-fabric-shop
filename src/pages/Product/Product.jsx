@@ -82,9 +82,21 @@ const Product = () => {
               <h3 className="text-sm font-medium text-gray-900  mb-4">
                 Стоимость:
               </h3>
-              <p className="text-3xl tracking-tight text-gray-900">
-                {product.price}
-              </p>
+              <div className="flex gap-2">
+                <p
+                  className={`text-3xl tracking-tight text-gray-900 ${
+                    (product.discount && product.discount) > 1 &&
+                    ' line-through'
+                  }`}
+                >
+                  {product.price}
+                </p>
+                {(product.discount && product.discount) > 1 && (
+                  <p className="text-md tracking-tight text-gray-900 text-red">
+                    -<span>{product.discount}</span>%
+                  </p>
+                )}
+              </div>
 
               <form className="mt-10">
                 {/* Colors */}

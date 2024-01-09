@@ -38,6 +38,7 @@ export const AddProductForm = ({ onCloseModal }) => {
       category: 'Фатин',
       color: 'a',
       price: 'a',
+      discount: 0,
       description: 'a',
       article: 'a',
       mainPhoto: null,
@@ -53,6 +54,7 @@ export const AddProductForm = ({ onCloseModal }) => {
       category,
       color,
       price,
+      discount,
       description,
       article,
       mainPhoto,
@@ -63,6 +65,7 @@ export const AddProductForm = ({ onCloseModal }) => {
         category,
         color,
         price,
+        discount,
         description,
         article,
         mainPhoto,
@@ -86,6 +89,8 @@ export const AddProductForm = ({ onCloseModal }) => {
     formData.append('category', data.category);
     formData.append('color', data.color);
     formData.append('price', data.price);
+    formData.append('discount', data.discount);
+
     formData.append('description', data.description);
     formData.append('article', data.article);
     formData.append('mainPhoto', data.mainPhoto);
@@ -234,6 +239,26 @@ export const AddProductForm = ({ onCloseModal }) => {
             />
             {errors['price'] && (
               <p className={errorTextStyle}>{errors['price']}</p>
+            )}
+          </div>
+
+          {/* discount */}
+          <div className="flex justify-between relative">
+            <label className={labelStyle} htmlFor="discount">
+              Скидка:
+            </label>
+            <input
+              className={`${inputStyle} ${
+                errors['price'] && 'border-rose-400'
+              }`}
+              type="text"
+              id="discount"
+              name="discount"
+              value={formikValues['discount']}
+              onChange={formik.handleChange}
+            />
+            {errors['discount'] && (
+              <p className={errorTextStyle}>{errors['discount']}</p>
             )}
           </div>
 

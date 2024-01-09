@@ -12,6 +12,7 @@ import Home from 'pages/Home/Home';
 import MainLoader from './components/Loader/MainLoader/MainLoader';
 import PrivateRoute from './components/Route/AdminRoute';
 import { Profile } from './pages/Profile/Profile';
+import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
 
 const Product = lazy(() => import('pages/Product/Product'));
 const Category = lazy(() => import('pages/Category/Category'));
@@ -70,6 +71,7 @@ function App() {
           />
           <Route path="/verification" element={<VerificationPage />} />
           <Route path="/basket" element={<ShoppingCart />} />
+          <Route path="/favorites" element={<FavoritesPage/>} />
           <Route path="/categories/:category" element={<Category />} />
           <Route path="/categories/:category/:id" element={<Product />} />
 

@@ -1,45 +1,23 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-  getIsLoadingProducts,
-  getProducts,
-} from '../../Redux/products/productsSelectors';
-import { fetchProducts } from '../../Redux/products/productsOperation';
 import SkeletonList from '../Loader/SkeletonList';
-import {
-  // getFilterColor,
-  getFilterName,
-  // getFilterPrice,
-  // getFilterdCategory,
-} from '../../Redux/filter/filterSlice';
 import { categoryURL } from '../../helpers/categoryURL';
 import { Pagination } from '../Pagination/Pagination';
 import Svg from '../Svg/Svg';
 import { deleteFavorite, getFavorite, setFavorite } from '../../Redux/favorites/favoriteSlice';
 
-const NewProductList = ({ title }) => {
+const FavoritesList = ({ title }) => {
   const dispatch = useDispatch();
-  const products = useSelector(getProducts);
-  const isLoading = useSelector(getIsLoadingProducts);
-  const filterName = useSelector(getFilterName);
   const [favoritesStyle, setFavoritesStyle] = useState(
     useSelector(getFavorite) || []
   );
   const favorites = useSelector(getFavorite);
 
+
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 12;
 
-  // const filterCategory = useSelector(getFilterdCategory);
-  // const filterPrice = useSelector(getFilterPrice);
-  // const filterColor = useSelector(getFilterColor);
-
-  const handleClickPage = (target) => {
-    setCurrentPage(target.selected + 1);
-  };
-
-  
   const handleFavorite = (product) => {
     if (favorites.some((item) => item._id === product._id)) {
       dispatch(deleteFavorite(product._id));
@@ -50,38 +28,12 @@ const NewProductList = ({ title }) => {
     }
   };
 
+  const handleClickPage = (target) => {
+    setCurrentPage(target.selected + 1);
+  };
+
   const paginatedProducts = (products) =>
-    newProducts(products).slice((currentPage - 1) * limit, currentPage * limit);
-
-  const filteredProducts = (sortedProductObjects) => {
-    let filtered;
-    if (!products) return;
-
-    filtered = products.filter((el) =>
-      el.name.toLowerCase().includes(filterName.toLowerCase())
-    );
-
-    if (filterName.trim() === '') {
-      return sortedProductObjects;
-    }
-    return filtered;
-  };
-
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, [dispatch]);
-
-  const newProducts = (products) => {
-    const productsWithTimestamps = products.map((el) => ({
-      timestamp: new Date(el.createdAt).getTime(),
-      product: el,
-    }));
-    const sortedProducts = productsWithTimestamps.sort(
-      (a, b) => b.timestamp - a.timestamp
-    );
-    const sortedProductObjects = sortedProducts.map((item) => item.product);
-    return filteredProducts(sortedProductObjects);
-  };
+    products.slice((currentPage - 1) * limit, currentPage * limit);
 
   return (
     <div className="md:min-h-[400px]">
@@ -90,10 +42,10 @@ const NewProductList = ({ title }) => {
           {title}
         </h2>
 
-        {paginatedProducts(products) && !isLoading ? (
+        {paginatedProducts(favorites) ? (
           <>
             <div className=" grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 ">
-              {paginatedProducts(products).map((product) => (
+              {paginatedProducts(favorites).map((product) => (
                 <div className='relative'>
                   <Link
                   to={`/categories/${categoryURL(product.category)}/${
@@ -133,10 +85,10 @@ const NewProductList = ({ title }) => {
                 </div>
               ))}
             </div>
-            {Math.ceil(newProducts(products).length / limit) > 1 && (
+            {Math.ceil(favorites.length / limit) > 1 && (
               <Pagination
                 handleClickPage={handleClickPage}
-                totalPages={Math.ceil(newProducts(products).length / limit)}
+                totalPages={Math.ceil(favorites.length / limit)}
               />
             )}
           </>
@@ -145,11 +97,10 @@ const NewProductList = ({ title }) => {
             <SkeletonList />
           </div>
         )}
-        {newProducts(products).length <= 0 && (
-          <div className="w-full flex justify-center items-center mt-4">
+        {favorites.length <= 0 && (
+          <div className="min-h-screen w-full flex justify-center items-start mt-4">
             <p>
-              По запросу <span className=" font-bold">{filterName}</span> ничего
-              не найдено.
+             Вы ещё не добавили в избранное ни один из товаров.
             </p>
           </div>
         )}
@@ -158,4 +109,4 @@ const NewProductList = ({ title }) => {
   );
 };
 
-export default NewProductList;
+export default FavoritesList;

@@ -44,7 +44,7 @@ const UserInfo = () => {
   const formikValues = formik.values;
 
   return (
-    <div className="p-4 relative border-[1px] rounded-lg border-gray-300 w-[320px] mdOnly:w-[300px] h-[380px]">
+    <div className="bg-#fdfdfdd6 shadow-sm p-4 relative border-[1px] rounded-lg border-gray-300 w-[320px] mdOnly:w-[300px] h-[380px]">
       <h3 className="mb-4 text-md font-medium text-gray-900 title-font">
         Данные:
       </h3>

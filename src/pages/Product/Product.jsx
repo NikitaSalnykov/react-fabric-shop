@@ -135,7 +135,7 @@ const Product = () => {
                         htmlFor="custom-input-number"
                         className="w-full text-gray-700 text-sm font-semibold"
                       ></label>
-                      <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
+                      <div className="shadow-sm flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
                         <button
                           onClick={(e) => {
                             e.preventDefault();
@@ -182,7 +182,7 @@ const Product = () => {
                   <button
                     onClick={handleSubmit}
                     type="submit"
-                    className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className=" shadow-sm mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                   >
                     Добавить в корзину
                   </button>

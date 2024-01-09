@@ -27,7 +27,7 @@ const Blog = () => {
             </div>
           </div>
           <div className="w-full md:w-1/2">
-            <div className="overflow-hidden rounded-lg shadow-sm  w-[100%] h-[300px]">
+            <div className=" overflow-hidden rounded-lg shadow-md  w-[100%] h-[300px]">
               <img
                 src="https://www.texhibitionist.com/frontend/img/media-march-2023/3.jpg"
                 className="object-cover w-[100%] h-[100%]"

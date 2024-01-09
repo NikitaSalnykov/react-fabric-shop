@@ -98,7 +98,7 @@ const Header = () => {
           </div>
           <div className="flex lg:hidden gap-6 items-center">
             <div className="flex gap-3">
-              <Link>
+              <Link to="/favorites">
                 <Svg id={'icon-favorite'} size={22} />
               </Link>
               <div onClick={onToggleBasket} className="relative cursor-pointer">
@@ -196,13 +196,13 @@ const Header = () => {
             </Link>
           </Popover.Group>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-3 justify-center items-center">
-            <Link>
+            <Link to="/favorites">
               <Svg id={'icon-favorite'} size={22} />
             </Link>
             <div onClick={onToggleBasket} className="relative cursor-pointer">
               <Svg id={'icon-basket'} size={22} />
               {cartProducts.length > 0 && (
-                <div className="text-white text-[10px] flex justify-center items-center rounded-[50%] w-4 h-4 absolute bg-red top-[-6px] right-[-8px]">
+                <div className=" text-white text-[10px] flex justify-center items-center rounded-[50%] w-4 h-4 absolute bg-red top-[-6px] right-[-8px]">
                   {cartProducts.length}
                 </div>
               )}
@@ -403,7 +403,7 @@ const Header = () => {
                     <div>
                       <Link
                         to="/profile"
-                        className="-mx-3 block rounded-lg px-3 text-base font-semibold leading-7 text-[#bb3688] hover:bg-gray-50"
+                        className="-mx-3 block rounded-lg px-3 text-base font-semibold leading-7 text-indigo-600 hover:bg-gray-50"
                       >
                         {user.name ? user.name : 'Аккаунт'}{' '}
                         {user.surname ? user.surname : ''}

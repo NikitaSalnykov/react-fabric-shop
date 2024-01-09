@@ -41,7 +41,7 @@ export const UserOrders = () => {
   return (
     <>
       {!isLoading ? (
-        <div className="py-4">
+        <div className="py-4 " >
           <h3 className="mb-4 text-md font-medium text-gray-900 title-font">
             Мои заказы:
           </h3>
@@ -56,7 +56,7 @@ export const UserOrders = () => {
               paginatedOrders(orders).map((el, index) => (
                 <div
                   key={el._id}
-                  className="mdOnly:w-[450px] relative border-[1px] border-gray-300 rounded-md flex flex-col justify-center p-4 items-center gap-4"
+                  className="shadow-sm bg-[#fdfdfdd6]  mdOnly:w-[450px] relative border-[1px] border-gray-300 rounded-md flex flex-col justify-center p-4 items-center gap-4"
                 >
                   <div className="  flex justify-center items-center gap-4">
                     <div className="absolute top-[2px] right-2 flex justify-center item-center p-2 border-gray-300 font-bold">

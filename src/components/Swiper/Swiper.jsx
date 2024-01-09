@@ -30,12 +30,15 @@ export const SwiperComponent = ({ images, id, name }) => {
           {images.map((el, index) => (
             <SwiperSlide
               key={index}
-              className="mb-5 w-full flex items-center justify-center"
+              className="mb-5 w-full"
+              style={{"display": "flex"}}
             >
+              <div className='flex w-full justify-center items-center'>
               <div 
                             className="h-[450px] w-[450px] md:h-[550px]  md:w-[650px] flex items-center justify-center"
                             >
-              <img className="w-full h-full overflow-hidden object-cover" src={el} alt={name} />
+              <img className="shadow-md w-full h-full overflow-hidden object-cover" src={el} alt={name} />
+              </div>
               </div>
             </SwiperSlide>
           ))}

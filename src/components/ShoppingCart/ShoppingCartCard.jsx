@@ -4,6 +4,8 @@ import { deleteCart, updateCart } from '../../Redux/cart/cartSlice';
 import Svg from '../Svg/Svg';
 import { Link } from 'react-router-dom';
 import { categoryURL } from '../../helpers/categoryURL';
+import { resultPrice } from '../../helpers/resultPrice';
+import { Price } from '../../pages/Price/Price';
 
 const ShoppingCartCard = ({ product, closeModal }) => {
   const [count, setCount] = useState(product.count);
@@ -55,6 +57,7 @@ const ShoppingCartCard = ({ product, closeModal }) => {
                 </div>
               ))}
             </p>
+            
             <div className="flex items-center justify-between absolute top-4 right-4">
               <div className="flex itemms-center gap-4">
                 <button className="">
@@ -115,10 +118,9 @@ const ShoppingCartCard = ({ product, closeModal }) => {
               </div>
             </div>
           </div>
-
-          <p className="text-xl font-black leading-none text-gray-800">
-            {Number(product.product.price) * count}
-          </p>
+                  <div className=" mr-6 lg:mr-0">
+                  <Price price={product.product.price} discount={product.product.discount} size={"small"}/>
+                  </div>
         </div>
       </div>
     </div>

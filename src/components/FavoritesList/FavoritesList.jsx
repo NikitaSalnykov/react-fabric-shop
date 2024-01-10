@@ -6,6 +6,7 @@ import { categoryURL } from '../../helpers/categoryURL';
 import { Pagination } from '../Pagination/Pagination';
 import Svg from '../Svg/Svg';
 import { deleteFavorite, getFavorite, setFavorite } from '../../Redux/favorites/favoriteSlice';
+import { Price } from '../../pages/Price/Price';
 
 const FavoritesList = ({ title }) => {
   const dispatch = useDispatch();
@@ -65,9 +66,7 @@ const FavoritesList = ({ title }) => {
                   <p className="mt-1 text-sm font-medium text-gray-900">
                     {product.category}
                   </p>
-                  <p className="mt-1 text-lg font-medium text-gray-900">
-                    {product.price}
-                  </p>
+                  <Price price={product.price} discount={product.discount} size={"small"} orientation={"row"}/>
                 </Link>
                 <div onClick={() => handleFavorite(product)} className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex justify-center items-center  ${favoritesStyle.some((item) => item._id === product._id) ? " opacity-80" : "opacity-40"} hover:opacity-80 cursor-pointer `}>
                 <Svg id={'icon-favorite-product'} size={22} 

@@ -21,6 +21,7 @@ import { getCart } from '../../Redux/cart/cartSelectors';
 import { getUser, selectAuth } from '../../Redux/auth/auth-selectors';
 import { BasicModal } from '../Modals/BasicModal/BasicModal';
 import Leaving from '../Modals/Leaving/Leaving';
+import { getFavorite } from '../../Redux/favorites/favoriteSlice';
 
 const links = [
   {
@@ -70,6 +71,7 @@ const Header = () => {
   const { token } = useSelector(selectAuth);
   const user = useSelector(getUser) || '';
   const cartProducts = useSelector(getCart);
+  const favoriteProducts = useSelector(getFavorite);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isBasketOpen, setIsBasketOpen] = useState(false);
   const [isLeavingModalOpen, setLeavingModalOpen] = useState(false);
@@ -195,10 +197,17 @@ const Header = () => {
               О нас
             </Link>
           </Popover.Group>
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end gap-3 justify-center items-center">
+          <div className=" hidden lg:flex lg:flex-1 lg:justify-end gap-3 justify-center items-center">
+            <div className="relative">
             <Link to="/favorites">
               <Svg id={'icon-favorite'} size={22} />
+              {favoriteProducts.length > 0 && (
+                <div className=" text-white text-[10px] flex justify-center items-center rounded-[50%] w-4 h-4 absolute bg-slate-400 top-[-6px] right-[-8px]">
+                  {favoriteProducts.length}
+                </div>
+              )}
             </Link>
+            </div>
             <div onClick={onToggleBasket} className="relative cursor-pointer">
               <Svg id={'icon-basket'} size={22} />
               {cartProducts.length > 0 && (

@@ -17,6 +17,7 @@ import { categoryURL } from '../../helpers/categoryURL';
 import { Pagination } from '../Pagination/Pagination';
 import Svg from '../Svg/Svg';
 import { deleteFavorite, getFavorite, setFavorite } from '../../Redux/favorites/favoriteSlice';
+import { Price } from '../../pages/Price/Price';
 
 const NewProductList = ({ title }) => {
   const dispatch = useDispatch();
@@ -113,10 +114,11 @@ const NewProductList = ({ title }) => {
                   <p className="mt-1 text-sm font-medium text-gray-900">
                     {product.category}
                   </p>
-                  <p className="mt-1 text-lg font-medium text-gray-900">
-                    {product.price}
-                  </p>
+                  <Price price={product.price} discount={product.discount} orientation='row' size='small'/>
                 </Link>
+                {product.discount > 0 && <div className={`absolute top-4 w-12 h-12 rounded-full bg-red flex justify-center items-center cursor-pointer  left-4 `}>
+                             <p className='flex justify-center items-center gap-[1px] text-white font-semibold'><span className=' text-[10px]'>-</span>{product.discount}<span className=' text-[10px]'>%</span></p>
+                              </div>}
                 <div onClick={() => handleFavorite(product)} className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex justify-center items-center  ${favoritesStyle.some((item) => item._id === product._id) ? " opacity-80" : "opacity-40"} hover:opacity-80 cursor-pointer `}>
                 <Svg id={'icon-favorite-product'} size={22} 
                  fill={`${

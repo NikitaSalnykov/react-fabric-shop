@@ -11,6 +11,8 @@ import { SwiperComponent } from '../../components/Swiper/Swiper';
 import { deleteCart, setCart } from '../../Redux/cart/cartSlice';
 import { getCart } from '../../Redux/cart/cartSelectors';
 import SkeletonProduct from '../../components/Loader/SkeletonProduct';
+import { resultPrice } from '../../helpers/resultPrice';
+import { Price } from '../Price/Price';
 
 const Product = () => {
   const { id } = useParams();
@@ -53,8 +55,6 @@ const Product = () => {
     e.preventDefault(dispatch(deleteCart(product._id)));
   };
 
-  console.log(getUserCart);
-
   return (
     <div className="container">
       {!isLoading && product && <Breadcrumbs name={product.name} />}
@@ -82,22 +82,7 @@ const Product = () => {
               <h3 className="text-sm font-medium text-gray-900  mb-4">
                 Стоимость:
               </h3>
-              <div className="flex gap-2">
-                <p
-                  className={`text-3xl tracking-tight text-gray-900 ${
-                    (product.discount && product.discount) > 1 &&
-                    ' line-through'
-                  }`}
-                >
-                  {product.price}
-                </p>
-                {(product.discount && product.discount) > 1 && (
-                  <p className="text-md tracking-tight text-gray-900 text-red">
-                    -<span>{product.discount}</span>%
-                  </p>
-                )}
-              </div>
-
+                <Price discount={product.discount || 0} price={product.price}/>
               <form className="mt-10">
                 {/* Colors */}
                 {anotherColors && anotherColors.length > 0 && (

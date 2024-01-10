@@ -18,6 +18,7 @@ import { resetCart } from '../../Redux/cart/cartSlice';
 import { BasicModal } from '../Modals/BasicModal/BasicModal';
 import OrderModal from '../Modals/BasicModal/OrderModal';
 import { getUser } from '../../Redux/auth/auth-selectors';
+import { resultPrice } from '../../helpers/resultPrice';
 
 const errorTextStyle =
   'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal top-[65px] left-0 xl:left-[85px]';
@@ -90,7 +91,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const totalPrice = () => {
     let result = 0;
     products.map((el) => {
-      result += el.product.price * el.count;
+      result += resultPrice(el.product.price, el.product.discount ) * el.count;
     });
     return result;
   };
@@ -116,7 +117,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
             el.product.color
           }, категория: ${el.product.category}, количество: ${
             el.count
-          }, цена: ${el.product.price}.`;
+          }, цена: ${resultPrice(el.product.price, el.product.discount)} ${el.product.discount > 0 && `Включая скидку ${el.product.discount}%`}.`;
         })
         .join(' ');
       const newOrder = {

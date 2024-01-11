@@ -10,7 +10,7 @@ import setUpInterceptor from './helpers/axiosInterceptor';
 
 import Home from 'pages/Home/Home';
 import MainLoader from './components/Loader/MainLoader/MainLoader';
-import PrivateRoute from './components/Route/AdminRoute';
+import PrivateRoute from './components/Route/PrivateRoute';
 import { Profile } from './pages/Profile/Profile';
 import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
 

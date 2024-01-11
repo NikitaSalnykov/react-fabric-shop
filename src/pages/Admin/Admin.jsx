@@ -19,7 +19,7 @@ const Admin = () => {
         isDashboardOpen={isDashboardOpen}
         onToggleDashboard={onToggleDashboard}
       />
-      <div className="p-4 lg:ml-80">
+      <div className="container p-4 lg:ml-80">
         <AdminNavigation onToggleDashboard={onToggleDashboard} />
         <Suspense>
           <Outlet />

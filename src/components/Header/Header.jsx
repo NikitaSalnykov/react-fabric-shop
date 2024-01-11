@@ -18,10 +18,11 @@ import { createPortal } from 'react-dom';
 import ShoppingCart from '../ShoppingCart/ShoppingCart';
 import { useSelector } from 'react-redux';
 import { getCart } from '../../Redux/cart/cartSelectors';
-import { getUser, selectAuth } from '../../Redux/auth/auth-selectors';
+import { getUser, selectAuth, getRefresh } from '../../Redux/auth/auth-selectors';
 import { BasicModal } from '../Modals/BasicModal/BasicModal';
 import Leaving from '../Modals/Leaving/Leaving';
 import { getFavorite } from '../../Redux/favorites/favoriteSlice';
+import { LoaderSpin } from '../Loader/LoaderSpin/LoaderSpin';
 
 const links = [
   {
@@ -70,6 +71,7 @@ const basketRoot = document.querySelector('#basket');
 const Header = () => {
   const { token } = useSelector(selectAuth);
   const user = useSelector(getUser) || '';
+  const isRefreshUser = useSelector(getRefresh)
   const cartProducts = useSelector(getCart);
   const favoriteProducts = useSelector(getFavorite);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -227,12 +229,16 @@ const Header = () => {
               <div>
                 <div className="flex items-center gap-4">
                   <Menu as="div" className="relative inline-block text-left">
-                    <div className="p-2 rounded-xl border-[1px]">
+                    {!isRefreshUser ? <div className="p-2 rounded-xl border-[1px]">
                       <Menu.Button className="block antialiased font-sans text-sm text-left font-bold leading-6 text-indigo-600">
-                        {user.name ? user.name : 'Аккаунт'}{' '}
+                        {user.name ? user.name : <LoaderSpin/>}{' '}
                         {user.surname ? user.surname : ''}
                       </Menu.Button>
-                    </div>
+                    </div> : <div className="p-2 rounded-xl border-[1px]">
+                      <div className="gap-2 flex justify-center items-center antialiased font-sans text-sm text-left font-bold leading-6 text-indigo-600">
+                      Аккаунт <LoaderSpin/>
+                      </div>
+                    </div>}
 
                     <Transition
                       as={Fragment}

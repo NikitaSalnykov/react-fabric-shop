@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { setToken, delToken } from '../operations/handleToken';
+import { data } from 'autoprefixer';
 
 export const instance = axios.create({
   baseURL: 'https://fabric-shop-back.onrender.com',
@@ -63,11 +64,20 @@ export const currentUser = createAsyncThunk(
     setToken(token);
 
     try {
-      const { data } = await instance.get(`/api/auth/current`);
-      return data;
+      const response = await instance.get(`/api/auth/current`);
+      if (response.status === 200) {
+        return response.data;
+      } else {
+        state.auth.token = null;
+        return thunkAPI.rejectWithValue(response.status);
+      }
     } catch (error) {
+      if (!error.response) {
+        return thunkAPI.rejectWithValue("Network error");
+      }
       return thunkAPI.rejectWithValue(error.response.status);
     }
+
   }
 );
 

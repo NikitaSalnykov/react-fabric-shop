@@ -52,20 +52,20 @@ const LoginPage = () => {
     <div className="contayner py-20 md:py-24 lg:py-40">
       <div className="flex justify-center w-full">
         <div className="max-w-2xl">
-          <div className=" md:w-[600px] bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <div className=" md:w-[600px] bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 ">
             <form
               className="space-y-6"
               noValidate
               autoComplete="off"
               onSubmit={formik.handleSubmit}
             >
-              <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+              <h3 className="text-xl font-medium text-gray-900 ">
                 Авторизация
               </h3>
               <div>
                 <label
                   htmlFor="email"
-                  className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+                  className="text-sm font-medium text-gray-900 block mb-2 "
                 >
                   Ваш email
                 </label>
@@ -73,7 +73,7 @@ const LoginPage = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
                     errors['email'] && 'border-red'
                   }`}
                   placeholder="name@mail.com"
@@ -87,7 +87,7 @@ const LoginPage = () => {
               <div>
                 <label
                   htmlFor="password"
-                  className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+                  className="text-sm font-medium text-gray-900 block mb-2 "
                 >
                   Ваш пароль
                 </label>
@@ -98,7 +98,7 @@ const LoginPage = () => {
                   placeholder="••••••••"
                   value={formik.values.password}
                   onChange={formik.handleChange}
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ${
                     errors['password'] && 'border-red'
                   }`}
                   required=""
@@ -114,14 +114,14 @@ const LoginPage = () => {
                       <input
                         id="showPassword"
                         type="checkbox"
-                        className="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                        className="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded "
                         onChange={() => togglePasswordVisibility('password')}
                       />
                     </div>
                     <div className="text-sm ml-3">
                       <label
                         htmlFor="showPassword"
-                        className="font-medium text-gray-900 dark:text-gray-300"
+                        className="font-medium text-gray-900 "
                       >
                         Показать пароль
                       </label>
@@ -130,7 +130,7 @@ const LoginPage = () => {
                 </div>
                 <a
                   href="#"
-                  className="text-sm text-blue-700 hover:underline ml-auto dark:text-blue-500"
+                  className="text-sm text-blue-700 hover:underline ml-auto"
                 >
                   Забыли пароль?
                 </a>
@@ -144,11 +144,11 @@ const LoginPage = () => {
               >
                 Войти
               </button>
-              <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+              <div className="text-sm font-medium text-gray-500">
                 Ещё не зарегистрированы?{' '}
                 <Link
                   to="/registration"
-                  className="text-blue-700 hover:underline dark:text-blue-500"
+                  className="text-blue-700 hover:underline"
                 >
                   Зарегистрироваться
                 </Link>

@@ -52,6 +52,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:postId" element={<Blog />} />
           <Route path="/new" element={<NewItems />} />
           <Route
             path="/login"
@@ -71,7 +72,7 @@ function App() {
           />
           <Route path="/verification" element={<VerificationPage />} />
           <Route path="/basket" element={<ShoppingCart />} />
-          <Route path="/favorites" element={<FavoritesPage/>} />
+          <Route path="/favorites" element={<FavoritesPage />} />
           <Route path="/categories/:category" element={<Category />} />
           <Route path="/categories/:category/:id" element={<Product />} />
 

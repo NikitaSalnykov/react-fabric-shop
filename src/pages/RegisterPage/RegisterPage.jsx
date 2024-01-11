@@ -57,20 +57,20 @@ const RegistrationPage = () => {
     <div className="contayner flex min-h-screen flex-col items-center justify-center overflow-hidden">
       <div className="flex justify-center w-full">
         <div className="max-w-2xl">
-          <div className="md:w-[900px] bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 dark:bg-gray-800 dark:border-gray-700">
+          <div className="md:w-[900px] bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 ">
             <form
               className="space-y-6"
               noValidate
               autoComplete="off"
               onSubmit={formik.handleSubmit}
             >
-              <h3 className="text-xl font-medium text-gray-900 dark:text-white">
+              <h3 className="text-xl font-medium text-gray-900 ">
                 Регистрация
               </h3>
               <div className=" relative">
                 <label
                   htmlFor="name"
-                  className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+                  className="text-sm font-medium text-gray-900 block mb-2 "
                 >
                   Введите имя
                 </label>
@@ -78,7 +78,7 @@ const RegistrationPage = () => {
                   type="name"
                   name="name"
                   id="name"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
                     errors['name'] && 'border-red'
                   }`}
                   placeholder="Ваше имя"
@@ -92,7 +92,7 @@ const RegistrationPage = () => {
               <div className=" relative">
                 <label
                   htmlFor="surname"
-                  className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+                  className="text-sm font-medium text-gray-900 block mb-2 "
                 >
                   Введите фамилию
                 </label>
@@ -100,7 +100,7 @@ const RegistrationPage = () => {
                   type="surname"
                   name="surname"
                   id="surname"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white`}
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 `}
                   placeholder="Ваша фамилия"
                   value={formikValues['surname']}
                   onChange={formik.handleChange}
@@ -112,7 +112,7 @@ const RegistrationPage = () => {
               <div className=" relative">
                 <label
                   htmlFor="phone"
-                  className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+                  className="text-sm font-medium text-gray-900 block mb-2 "
                 >
                   Введите телефон
                 </label>
@@ -120,7 +120,7 @@ const RegistrationPage = () => {
                   type="phone"
                   name="phone"
                   id="phone"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ${
                     errors['phone'] && 'border-red'
                   }`}
                   placeholder="+01234567890"
@@ -134,7 +134,7 @@ const RegistrationPage = () => {
               <div className=" relative">
                 <label
                   htmlFor="email"
-                  className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+                  className="text-sm font-medium text-gray-900 block mb-2"
                 >
                   Введите email
                 </label>
@@ -142,7 +142,7 @@ const RegistrationPage = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
                     errors['email'] && 'border-red'
                   }`}
                   placeholder="name@mail.com"
@@ -156,7 +156,7 @@ const RegistrationPage = () => {
               <div className=" relative">
                 <label
                   htmlFor="password"
-                  className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+                  className="text-sm font-medium text-gray-900 block mb-2 "
                 >
                   Введите пароль
                 </label>
@@ -167,7 +167,7 @@ const RegistrationPage = () => {
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   placeholder="••••••••"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ${
                     errors['password'] && 'border-red'
                   }`}
                   required=""
@@ -179,7 +179,7 @@ const RegistrationPage = () => {
               <div className=" relative">
                 <label
                   htmlFor="password"
-                  className="text-sm font-medium text-gray-900 block mb-2 dark:text-gray-300"
+                  className="text-sm font-medium text-gray-900 block mb-2 "
                 >
                   Еще раз введите пароль
                 </label>
@@ -190,7 +190,7 @@ const RegistrationPage = () => {
                   value={formik.values.confirmPassword}
                   onChange={formik.handleChange}
                   placeholder="••••••••"
-                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white ${
+                  className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ${
                     errors['confirmPassword'] && 'border-red'
                   }`}
                   required=""
@@ -209,14 +209,14 @@ const RegistrationPage = () => {
                     <input
                       id="showPassword"
                       type="checkbox"
-                      className="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
+                      className="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded "
                       onChange={() => togglePasswordVisibility('password')}
                     />
                   </div>
                   <div className="text-sm ml-3">
                     <label
                       htmlFor="showPassword"
-                      className="font-medium text-gray-900 dark:text-gray-300"
+                      className="font-medium text-gray-900 "
                     >
                       Показать пароль
                     </label>
@@ -229,12 +229,9 @@ const RegistrationPage = () => {
               >
                 Зарегистрироваться
               </button>
-              <div className="text-sm font-medium text-gray-500 dark:text-gray-300">
+              <div className="text-sm font-medium text-gray-500 ">
                 Уже зарегистрированы?{' '}
-                <Link
-                  to="/login"
-                  className="text-blue-700 hover:underline dark:text-blue-500"
-                >
+                <Link to="/login" className="text-blue-700 hover:underline ">
                   Авторизация
                 </Link>
               </div>

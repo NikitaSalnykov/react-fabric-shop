@@ -65,19 +65,17 @@ export const currentUser = createAsyncThunk(
 
     try {
       const response = await instance.get(`/api/auth/current`);
-      if (response.status === 200) {
-        return response.data;
-      } else {
-        state.auth.token = null;
-        return thunkAPI.rejectWithValue(response.status);
-      }
+      return response.data;
     } catch (error) {
-      if (!error.response) {
-        return thunkAPI.rejectWithValue("Network error");
+      if (error.response.status === 403) {
+        state.auth.token = null;
+        setToken(null);
+
+        return thunkAPI.rejectWithValue(error.response.status);
       }
+
       return thunkAPI.rejectWithValue(error.response.status);
     }
-
   }
 );
 

@@ -1,11 +1,14 @@
 import { useFormik } from 'formik';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProduct } from '../../../Redux/products/productsOperation';
+import { createProduct } from '../../../Redux/products/productsOperation';
 import { useEffect, useState } from 'react';
 import { categories } from '../../../assets/categories';
-import { getIsLoadingPosts, getIsPostCreated } from '../../../Redux/posts/postsSelectors';
-import { resetPostCreated } from '../../../Redux/posts/postsSlice';
+import {
+  getIsLoadingProducts,
+  getIsProductCreated,
+} from '../../../Redux/products/productsSelectors';
+import { resetProductCreated } from '../../../Redux/products/productsSlice';
 
 const errorTextStyle =
   'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal top-6 left-[60px] xl:left-[85px]';
@@ -16,25 +19,25 @@ const labelStyle =
 const inputStyle =
   " outline-offset-0 outline-0  border border-blue outline-none text-neutral-900 text-xs font-normal font-['Manrope'] tracking-wide w-[190px] h-6 px-3 py-1 rounded-[20px] border border-blue-400 justify-start items-center gap-[191px] inline-flex md:w-[255px]  xl:w-[255px]";
 
-export const EditProductForm = ({ onCloseModal, post }) => {
+export const AddPostForm = ({ onCloseModal }) => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoadingPosts);
+  const isLoading = useSelector(getIsLoadingProducts);
   const [isMyCategory, setMyCategory] = useState(false);
-  const isPostCreated = useSelector(getIsPostCreated);
+  const isProductCreated = useSelector(getIsProductCreated);
 
   useEffect(() => {
-    if (isPostCreated) {
+    if (isProductCreated) {
       onCloseModal();
-      dispatch(resetPostCreated());
+      dispatch(resetProductCreated());
     }
-  }, [isPostCreated, onCloseModal, dispatch]);
+  }, [isProductCreated, onCloseModal, dispatch]);
 
   const formik = useFormik({
     initialValues: {
-      title: post.name,
-      text: produpostct.category,
-      description: post.color,
-      main: post.price,
+      title: '',
+      text: '',
+      description: '',
+      main: false,
       mainPhoto: null,
       extraPhotos: null,
     },
@@ -61,7 +64,9 @@ export const EditProductForm = ({ onCloseModal, post }) => {
       };
 
       const formData = createUserFormData(updateUser);
-      dispatch(updatePost({ id: product._id, arg: formData }));
+
+      dispatch(createProduct(formData));
+      console.log(formData);
     },
   });
 
@@ -70,16 +75,13 @@ export const EditProductForm = ({ onCloseModal, post }) => {
 
   const createUserFormData = (data) => {
     const formData = new FormData();
+
     formData.append('title', data.title);
     formData.append('text', data.text);
     formData.append('description', data.description);
     formData.append('main', data.main);
-    if (data.mainPhoto) {
-      formData.append('mainPhoto', data.mainPhoto);
-    }
-
-    // Добавляем extraPhotos, если они существуют
-    if (data.extraPhotos && data.extraPhotos.length > 0) {
+    formData.append('mainPhoto', data.mainPhoto);
+    if (data.extraPhotos) {
       [...data.extraPhotos].forEach((file) => {
         formData.append('extraPhotos', file);
       });

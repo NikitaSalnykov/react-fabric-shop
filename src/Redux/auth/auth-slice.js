@@ -80,6 +80,9 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(currentUser.rejected, (state, action) => {
+      if(action.payload === 403) {
+        state.token = null
+      }
       state.error = action.payload;
       state.isRefresh = false;
     });

@@ -68,9 +68,8 @@ export const currentUser = createAsyncThunk(
       return response.data;
     } catch (error) {
       if (error.response.status === 403) {
-        state.auth.token = null;
-        setToken(null);
-
+        delToken();
+        localStorage.setItem('refresh', null);
         return thunkAPI.rejectWithValue(error.response.status);
       }
 

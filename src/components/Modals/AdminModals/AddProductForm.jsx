@@ -34,13 +34,13 @@ export const AddProductForm = ({ onCloseModal }) => {
 
   const formik = useFormik({
     initialValues: {
-      name: 'a',
-      category: 'Фатин',
-      color: 'a',
-      price: 'a',
+      name: '',
+      category: '',
+      color: '',
+      price: '',
       discount: 0,
-      description: 'a',
-      article: 'a',
+      description: '',
+      article: '',
       mainPhoto: null,
       extraPhotos: null,
     },

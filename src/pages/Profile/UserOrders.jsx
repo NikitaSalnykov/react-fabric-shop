@@ -35,7 +35,17 @@ export const UserOrders = () => {
     if (!user._id || orders.length === 0) {
       return [];
     }
-    return orders.filter((el) => el && el.order.user?._id === user._id);
+  
+    const userOrders = orders.filter((el) => el && el.order.user?._id === user._id);
+  
+    // Используйте корректное сравнение для сортировки по дате
+    const sortedUserOrders = userOrders.sort((a, b) => {
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+      return dateB - dateA;
+    });
+  
+    return sortedUserOrders;
   };
 
   const paginatedOrders = (orders) => {
@@ -68,9 +78,6 @@ export const UserOrders = () => {
                   className="shadow-sm bg-[#fdfdfdd6]  mdOnly:w-[450px] relative border-[1px] border-gray-300 rounded-md flex flex-col justify-center p-4 items-center gap-4"
                 >
                   <div className="  flex justify-center items-center gap-4">
-                    <div className="absolute top-[2px] right-2 flex justify-center item-center p-2 border-gray-300 font-bold">
-                      <p>#{index + 1}</p>
-                    </div>
                     <div className="flex flex-wrap gap-4">
                       <div className="border-[1px] border-gray-300 rounded-md flex justify-center item-center p-2">
                         <p>

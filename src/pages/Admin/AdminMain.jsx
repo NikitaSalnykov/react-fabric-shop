@@ -12,13 +12,13 @@ import { fetchOrders } from '../../Redux/orders/ordersOperation';
 import { useEffect } from 'react';
 import { fetchProducts } from '../../Redux/products/productsOperation';
 import { formattedYearMonth } from '../../helpers/formattedDate';
+import { Link } from 'react-router-dom';
 
 export const AdminMain = () => {
   const dispatch = useDispatch();
+  
 
   const orders = useSelector(getOrders) || [];
-
-  console.log(orders);
   const isLoadingOrders = useSelector(getIsLoadingOrders);
   const products = useSelector(getProducts);
   const isLoadingProducts = useSelector(getIsLoadingProducts);
@@ -66,6 +66,28 @@ export const AdminMain = () => {
     return sortedProductCount;
   };
 
+  const topCategory = () => {
+    let categoriesArr = [];
+    orders.map((el) =>
+      el.order.products
+        .map((el) => el.product)
+        .map((el) => categoriesArr.push(el.category))
+    );
+
+    // Подсчет количества повторений каждого товара
+    const categoryCount = categoriesArr.reduce((acc, categoryName) => {
+      acc[categoryName] = (acc[categoryName] || 0) + 1;
+      return acc;
+    }, {});
+
+    const categoryCountArray = Object.entries(categoryCount);
+
+    const sortedCategoryCount = categoryCountArray.sort((a, b) => b[1] - a[1]);
+
+
+    return sortedCategoryCount[0][0];
+  };
+
   const topUsers = () => {
     let usersArr = [];
 
@@ -95,11 +117,28 @@ export const AdminMain = () => {
 
   const getMonthlySales = () => {
     let monthlySales = [];
+    let productsArr = []
 
     orders.forEach((el) => {
       const createdAt = el.createdAt;
       const total = el.order.total;
+      el.order.products.map(el => productsArr.push(el.product.name))
 
+
+      
+
+
+      const productCount = productsArr.reduce((acc, productName) => {
+        acc[productName] = (acc[productName] || 0) + 1;
+        return acc;
+      }, {});
+
+      const productCountArray = Object.entries(productCount);
+      
+      const sortedUsers = productCountArray.sort((a, b) => b[1] - a[1]);
+
+      const topProduct = sortedUsers[0];
+  
       const formattedDate = formattedYearMonth(createdAt);
 
       const existingMonth = monthlySales.find(
@@ -109,7 +148,7 @@ export const AdminMain = () => {
       if (existingMonth) {
         existingMonth[1] += total;
       } else {
-        monthlySales.push([formattedDate, total]);
+        monthlySales.push([formattedDate, total, topProduct[0]]);
       }
     });
 
@@ -120,10 +159,40 @@ export const AdminMain = () => {
   const usersTop = topUsers();
   const monthlySales = getMonthlySales();
 
+
   return (
     <>
       {!isLoadingOrders && !isLoadingProducts ? (
         <div>
+          <div className="flex p-2 gap-2 flex-wrap">
+        <Link
+        to='/admin/products'
+          className="w-29 h-14 bg-red rounded-[10px] flex justify-center items-center text-white p-2"
+        >
+          Список товаров
+        </Link>
+        <Link
+                to='/admin/orders'
+
+          className="w-29 h-14 bg-red rounded-[10px] flex justify-center items-center text-white p-2"
+        >
+          Все заказы
+        </Link>
+        <Link
+                        to='/admin/users'
+
+          className="w-29 h-14 bg-red rounded-[10px] flex justify-center items-center text-white p-2"
+        >
+          Все пользователи
+        </Link>
+        <Link
+                                to='/admin/posts'
+
+          className="w-29 h-14 bg-red rounded-[10px] flex justify-center items-center text-white p-2"
+        >
+          Список постов
+        </Link>
+      </div>
           <div className="flex flex-col pt-4 mb-12">
             <div className="min-w-[375px] md:min-w-[700px] xl:min-w-[800px] mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
               <div className="relative flex flex-grow !flex-row flex-col items-center rounded-[10px] rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
@@ -181,7 +250,7 @@ export const AdminMain = () => {
                     Количество товаров заказанно
                   </h4>
                   <p className="text-xl font-bold text-navy-700 dark:text-white">
-                    {countQuantityProducts()}
+                    {orders && orders.length > 0 ? countQuantityProducts() : "0"}
                   </p>
                 </div>
               </div>
@@ -210,7 +279,8 @@ export const AdminMain = () => {
                     Общая сумма заказов
                   </h4>
                   <p className="text-xl font-bold text-navy-700 dark:text-white">
-                    {sumAllProducts()}
+                    {products && products.length > 0 ? sumAllProducts() : "0"}
+
                   </p>
                 </div>
               </div>
@@ -239,14 +309,14 @@ export const AdminMain = () => {
                     Топ 5 товаров
                   </h4>
                   <ul>
-                    {top.splice(0, 5).map((el, index) => (
+                  {products && products.length > 0 ? top.splice(0, 5).map((el, index) => (
                       <li
                         key={index}
                         className="text-[14px] font-bold text-navy-700 dark:text-white"
                       >
                         {`${index + 1}) ${el.join(': ')}`}
                       </li>
-                    ))}
+                    )) : "-"}
                   </ul>
                 </div>
               </div>
@@ -275,14 +345,14 @@ export const AdminMain = () => {
                     Топ 5 покупателей
                   </h4>
                   <ul>
-                    {usersTop.splice(0, 5).map((el, index) => (
+                  {products && products.length > 0 ? usersTop.splice(0, 5).map((el, index) => (
                       <li
                         key={index}
                         className="text-[14px] font-bold text-navy-700 dark:text-white"
                       >
                         {`${index + 1}) ${el.join(': ')}`}
                       </li>
-                    ))}
+                    )) : "-"}
                   </ul>
                 </div>
               </div>
@@ -307,10 +377,11 @@ export const AdminMain = () => {
                 </div>
                 <div className="h-50 ml-4 flex w-auto flex-col justify-center">
                   <p className="font-dm text-sm font-medium text-gray-600">
-                    Total Projects
+                    Топ категория
                   </p>
                   <h4 className="text-xl font-bold text-navy-700 dark:text-white">
-                    $2433
+                  {orders && orders.length > 0 ? topCategory() : "-"}
+
                   </h4>
                 </div>
               </div>
@@ -340,7 +411,7 @@ export const AdminMain = () => {
                         d="M4.5 12.75l6 6 9-13.5"
                       ></path>
                     </svg>
-                    <strong>{orders.length} заказов</strong> принято
+                    <strong>{orders.length} заказов</strong> всего принято 
                   </p>
                 </div>
                 <button
@@ -383,6 +454,11 @@ export const AdminMain = () => {
                           Сумма заказа
                         </p>
                       </th>
+                      <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
+                        <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">
+                          Товар месяца
+                        </p>
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -398,6 +474,11 @@ export const AdminMain = () => {
                           <td className="py-3 px-5 border-b border-blue-gray-50">
                             <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">
                               {el[1]}
+                            </p>
+                          </td>
+                          <td className="py-3 px-5 border-b border-blue-gray-50">
+                            <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">
+                              {el[2]}
                             </p>
                           </td>
                         </tr>

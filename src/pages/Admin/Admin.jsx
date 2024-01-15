@@ -14,12 +14,12 @@ const Admin = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50/50">
+    <div className="container min-h-screen">
       <AdminSideMenu
         isDashboardOpen={isDashboardOpen}
         onToggleDashboard={onToggleDashboard}
       />
-      <div className="container p-4 lg:ml-80">
+      <div className="p-4 lg:ml-80">
         <AdminNavigation onToggleDashboard={onToggleDashboard} />
 
         <Suspense>

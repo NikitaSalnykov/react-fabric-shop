@@ -38,7 +38,7 @@ export const getPostById = createAsyncThunk(
 );
 
 export const createPost = createAsyncThunk(
-  'posts/postPost',  
+  'posts/postPost',
   async (arg, thunkAPI) => {
     try {
       const { data } = await instance.post('/api/posts', arg, {
@@ -73,11 +73,7 @@ export const updateMain = createAsyncThunk(
   'posts/updateMain',
   async ({ id, arg }, thunkAPI) => {
     try {
-      const { data } = await instance.patch(`/api/posts/${id}/main`, arg, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const { data } = await instance.patch(`/api/posts/${id}/main`, arg);
       return data;
     } catch (evt) {
       return thunkAPI.rejectWithValue(evt.message);

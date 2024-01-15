@@ -5,7 +5,7 @@ import {
   fetchPosts,
   fetchPostsCount,
   getPostById,
-  updatePost, 
+  updatePost,
   updateMain,
 } from './postsOperation';
 
@@ -107,57 +107,53 @@ const postSlice = createSlice({
     });
     builder.addCase(deletePost.rejected, rejectFunc);
 
-        //update
+    //update
 
-        builder.addCase(updatePost.pending, pendingFunc);
+    builder.addCase(updatePost.pending, pendingFunc);
 
-        builder.addCase(updatePost.fulfilled, (state, action) => {
-          const updatedProduct = action.payload;
-    
-          const updatedItems = state.items.map((product) =>
-            product._id === updatedProduct._id ? updatedProduct : product
-          );
-    
-          return {
-            ...state,
-            items: updatedItems,
-            isLoading: false,
-            error: null,
-          };
-        });
-    
-        builder.addCase(updatePost.rejected, (state, action) => {
-          state.error = action.payload;
-        });
+    builder.addCase(updatePost.fulfilled, (state, action) => {
+      const updatedProduct = action.payload;
 
+      const updatedItems = state.posts.map((product) =>
+        product._id === updatedProduct._id ? updatedProduct : product
+      );
 
-         //updateMain
+      return {
+        ...state,
+        posts: updatedItems,
+        isLoading: false,
+        error: null,
+      };
+    });
 
-         builder.addCase(updateMain.pending, pendingFunc);
+    builder.addCase(updatePost.rejected, (state, action) => {
+      state.error = action.payload;
+    });
 
-         builder.addCase(updateMain.fulfilled, (state, action) => {
-           const updatedProduct = action.payload;
-     
-           const updatedItems = state.items.map((product) =>
-             product._id === updatedProduct._id ? updatedProduct : product
-           );
-     
-           return {
-             ...state,
-             items: updatedItems,
-             isLoading: false,
-             error: null,
-           };
-         });
-     
-         builder.addCase(updateMain.rejected, (state, action) => {
-           state.error = action.payload;
-         });
+    //updateMain
+
+    builder.addCase(updateMain.pending, pendingFunc);
+
+    builder.addCase(updateMain.fulfilled, (state, action) => {
+      const updatedProduct = action.payload;
+
+      const updatedItems = state.posts.map((product) =>
+        product._id === updatedProduct._id ? updatedProduct : product
+      );
+
+      return {
+        ...state,
+        posts: updatedItems,
+        isLoading: false,
+        error: null,
+      };
+    });
+
+    builder.addCase(updateMain.rejected, (state, action) => {
+      state.error = action.payload;
+    });
   },
 });
-
-
-
 
 export const postReducer = postSlice.reducer;
 export const { resetPostCreated } = postSlice.actions;

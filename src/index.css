@@ -119,3 +119,23 @@ input:active {
 #modal-basket-backdrop.closed {
   animation: slideOutBackdrop 0.3s ease-in-out;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #c5c5c5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+::-webkit-scrollbar {
+  border-radius: 15px;
+}

@@ -1,4 +1,4 @@
-import { NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 
 const AdminSideMenu = ({ isDashboardOpen, onToggleDashboard }) => {
   const location = useLocation();
@@ -10,11 +10,15 @@ const AdminSideMenu = ({ isDashboardOpen, onToggleDashboard }) => {
       } fixed inset-0 z-50 my-4 ml-4 h-[calc(100vh-32px)] w-72 rounded-xl transition-transform duration-300 lg:translate-x-0`}
     >
       <div className="relative border-b border-white/20">
-        <a className="flex items-center gap-4 py-6 px-8" href="#/">
+        <Link
+          to="/admin"
+          className="flex items-center gap-4 py-6 px-8"
+          href="#/"
+        >
           <h6 className="block antialiased tracking-normal font-sans text-base font-semibold leading-relaxed text-white">
             Меню администратора
           </h6>
-        </a>
+        </Link>
         <button
           onClick={onToggleDashboard}
           className="middle none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-white hover:bg-white/10 active:bg-white/30 absolute right-0 top-0 grid rounded-br-none rounded-tl-none lg:hidden"
@@ -98,7 +102,7 @@ const AdminSideMenu = ({ isDashboardOpen, onToggleDashboard }) => {
             </NavLink>
           </li>
           <li>
-          <NavLink to="posts" aria-current="page" href="#">
+            <NavLink to="posts" aria-current="page" href="#">
               <button
                 className={`middle none font-sans font-bold center transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none text-xs py-3 rounded-lg  text-white  hover:shadow-lg hover:shadow-blue-500/40 active:opacity-[0.85] w-full flex items-center gap-4 px-4 capitalize ${
                   location.pathname.includes('posts') &&

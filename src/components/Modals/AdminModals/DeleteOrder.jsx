@@ -15,7 +15,7 @@ const DeleteOrder = ({ onCloseModal, order }) => {
       <h3 className="text-neutral-900 text-2xl mb-11 font-medium font-['Manrope'] tracking-wide">
         Удалить Заказ №{order.order.orderNumber}?
       </h3>
-      <div className="flex gap-4">
+      <div className="flex flex-col md:flex-row gap-4">
         <button
           className={`"Frame36 hover:blue-gradient hover:text-white smOnly:w-64 smOnly:h-10 w-32 h-10 px-5 py-2 rounded-3xl border-2 border-blue justify-center items-center gap-2 inline-flex  text-blue text-base font-bold font-['Manrope'] tracking-wide"`}
           onClick={handleDelete}

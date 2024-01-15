@@ -2,8 +2,8 @@ import { Suspense, useState } from 'react';
 
 import AdminSideMenu from './AdminSideMenu';
 import AdminNavigation from './AdminNavigation';
-import AdminProducts from './AdminProducts';
 import { Outlet } from 'react-router-dom';
+import { AdminMain } from './AdminMain';
 
 const Admin = () => {
   const [isDashboardOpen, setDashboardOpen] = useState(false);
@@ -21,6 +21,7 @@ const Admin = () => {
       />
       <div className="container p-4 lg:ml-80">
         <AdminNavigation onToggleDashboard={onToggleDashboard} />
+
         <Suspense>
           <Outlet />
         </Suspense>

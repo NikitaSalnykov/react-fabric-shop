@@ -13,6 +13,7 @@ import MainLoader from './components/Loader/MainLoader/MainLoader';
 import PrivateRoute from './components/Route/PrivateRoute';
 import { Profile } from './pages/Profile/Profile';
 import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
+import { AdminMain } from './pages/Admin/AdminMain';
 
 const Product = lazy(() => import('pages/Product/Product'));
 const Category = lazy(() => import('pages/Category/Category'));
@@ -32,7 +33,7 @@ const AdminProducts = lazy(() => import('./pages/Admin/AdminProducts'));
 const AdminOrders = lazy(() => import('./pages/Admin/AdminOrders'));
 const AdminUsers = lazy(() => import('./pages/Admin/AdminUsers'));
 const AdminPosts = lazy(() => import('./pages/Admin/AdminPosts'));
-const { VerificationPage } = lazy(() =>
+const VerificationPage = lazy(() =>
   import('./pages/VerificationPage/VerificationPage')
 );
 
@@ -99,6 +100,7 @@ function App() {
             </Suspense>
           }
         >
+          <Route index element={<AdminMain />} />
           <Route path="products" element={<AdminProducts />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="users" element={<AdminUsers />} />

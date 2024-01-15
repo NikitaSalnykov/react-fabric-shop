@@ -1,9 +1,9 @@
-import { AddPostForm } from "./AddPostForm";
+import { AddPostForm } from './AddPostForm';
 
-const AddProduct = ({ onCloseModal }) => {
+const AddPost = ({ onCloseModal }) => {
   return (
-    <div className="md:max-w-2xl text-center py-12 smOnly:px-3 md:px-14 rounded-3xl ">
-      <h3 className="text-neutral-900 text-2xl mb-11 font-medium font-['Manrope'] tracking-wide">
+    <div className=" text-center smOnly:px-3 md:px-5 rounded-3xl">
+      <h3 className="text-neutral-900 text-2xl mb-11 font-medium font-['Manrope'] tracking-wide ">
         Добавить статью
       </h3>
       <div className="">
@@ -13,4 +13,4 @@ const AddProduct = ({ onCloseModal }) => {
   );
 };
 
-export default AddProduct;
+export default AddPost;

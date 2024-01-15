@@ -4,11 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { updateProduct } from '../../../Redux/products/productsOperation';
 import { useEffect, useState } from 'react';
 import { categories } from '../../../assets/categories';
-import {
-  getIsLoadingProducts,
-  getIsProductCreated,
-} from '../../../Redux/products/productsSelectors';
-import { resetProductCreated } from '../../../Redux/products/productsSlice';
+import { getIsLoadingPosts, getIsPostCreated } from '../../../Redux/posts/postsSelectors';
+import { resetPostCreated } from '../../../Redux/posts/postsSlice';
 
 const errorTextStyle =
   'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal top-6 left-[60px] xl:left-[85px]';
@@ -19,28 +16,25 @@ const labelStyle =
 const inputStyle =
   " outline-offset-0 outline-0  border border-blue outline-none text-neutral-900 text-xs font-normal font-['Manrope'] tracking-wide w-[190px] h-6 px-3 py-1 rounded-[20px] border border-blue-400 justify-start items-center gap-[191px] inline-flex md:w-[255px]  xl:w-[255px]";
 
-export const EditProductForm = ({ onCloseModal, product }) => {
+export const EditProductForm = ({ onCloseModal, post }) => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoadingProducts);
+  const isLoading = useSelector(getIsLoadingPosts);
   const [isMyCategory, setMyCategory] = useState(false);
-  const isProductCreated = useSelector(getIsProductCreated);
+  const isPostCreated = useSelector(getIsPostCreated);
 
   useEffect(() => {
-    if (isProductCreated) {
+    if (isPostCreated) {
       onCloseModal();
-      dispatch(resetProductCreated());
+      dispatch(resetPostCreated());
     }
-  }, [isProductCreated, onCloseModal, dispatch]);
+  }, [isPostCreated, onCloseModal, dispatch]);
 
   const formik = useFormik({
     initialValues: {
-      name: product.name,
-      category: product.category,
-      color: product.color,
-      price: product.price,
-      description: product.description,
-      article: product.article,
-      discount: product.discount || 0,
+      title: post.name,
+      text: produpostct.category,
+      description: post.color,
+      main: post.price,
       mainPhoto: null,
       extraPhotos: null,
     },
@@ -50,33 +44,24 @@ export const EditProductForm = ({ onCloseModal, product }) => {
     // validationSchema: ProductSchema,
 
     onSubmit: ({
-      name,
-      category,
-      color,
-      price,
+      title,
+      text,
       description,
-      article,
+      main,
       mainPhoto,
       extraPhotos,
-      discount,
     }) => {
       const updateUser = {
-        name,
-        category,
-        color,
-        price,
+        title,
+        text,
         description,
-        article,
+        main,
         mainPhoto,
         extraPhotos,
-        discount,
       };
 
       const formData = createUserFormData(updateUser);
-      console.log('ss', extraPhotos);
-      dispatch(updateProduct({ id: product._id, arg: formData }));
-
-      // if (!isLoading) onCloseModal();
+      dispatch(updatePost({ id: product._id, arg: formData }));
     },
   });
 
@@ -85,14 +70,10 @@ export const EditProductForm = ({ onCloseModal, product }) => {
 
   const createUserFormData = (data) => {
     const formData = new FormData();
-
-    formData.append('name', data.name);
-    formData.append('category', data.category);
-    formData.append('color', data.color);
-    formData.append('price', data.price);
-    formData.append('discount', data.discount);
+    formData.append('title', data.title);
+    formData.append('text', data.text);
     formData.append('description', data.description);
-    formData.append('article', data.article);
+    formData.append('main', data.main);
     if (data.mainPhoto) {
       formData.append('mainPhoto', data.mainPhoto);
     }
@@ -116,44 +97,44 @@ export const EditProductForm = ({ onCloseModal, product }) => {
       <div className="flex-row-reverse gap-[71px]">
         {/* All text-fields */}
         <div className="flex flex-col gap-[20px]">
-          {/* Name */}
+          {/* title */}
 
           <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="name">
+            <label className={labelStyle} htmlFor="title">
               Название:
             </label>
             <input
-              className={`${inputStyle} ${errors['name'] && 'border-rose-400'}`}
+              className={`${inputStyle} ${errors['title'] && 'border-rose-400'}`}
               type="text"
-              id="name"
-              name="name"
-              value={formikValues['name']}
+              id="title"
+              name="title"
+              value={formikValues['title']}
               onChange={formik.handleChange}
             />
-            {errors['name'] && (
-              <p className={errorTextStyle}>{errors['name']}</p>
+            {errors['title'] && (
+              <p className={errorTextStyle}>{errors['title']}</p>
             )}
           </div>
 
-          {/* category */}
+          {/* text */}
           <div className="flex-col">
             {isMyCategory ? (
               <div className="flex justify-between w-full relative">
-                <label className={labelStyle} htmlFor="category">
+                <label className={labelStyle} htmlFor="text">
                   Категория:
                 </label>
                 <input
                   className={`${inputStyle} ${
-                    errors['category'] && 'border-rose-400'
+                    errors['text'] && 'border-rose-400'
                   }`}
                   type="text"
-                  id="category"
-                  name="category"
-                  value={formikValues['category']}
+                  id="text"
+                  name="text"
+                  value={formikValues['text']}
                   onChange={formik.handleChange}
                 />
-                {errors['category'] && (
-                  <p className={errorTextStyle}>{errors['category']}</p>
+                {errors['text'] && (
+                  <p className={errorTextStyle}>{errors['text']}</p>
                 )}
               </div>
             ) : (
@@ -205,79 +186,19 @@ export const EditProductForm = ({ onCloseModal, product }) => {
             </div>
           </div>
 
-          {/* color */}
+          {/* description */}
           <div className="flex justify-between w-full relative">
             <label className={labelStyle} htmlFor="color">
               Цвет:
             </label>
             <input
               className={`${inputStyle} ${
-                errors['color'] && 'border-rose-400'
-              }`}
-              type="text"
-              id="color"
-              name="color"
-              placeholder={'+380123456789'}
-              value={formikValues['color']}
-              onChange={formik.handleChange}
-            />
-            {errors['color'] && (
-              <p className={errorTextStyle}>{errors['color']}</p>
-            )}
-          </div>
-
-          {/* price */}
-          <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="price">
-              Цена:
-            </label>
-            <input
-              className={`${inputStyle} ${
-                errors['price'] && 'border-rose-400'
-              }`}
-              type="text"
-              id="price"
-              name="price"
-              value={formikValues['price']}
-              onChange={formik.handleChange}
-            />
-            {errors['price'] && (
-              <p className={errorTextStyle}>{errors['price']}</p>
-            )}
-          </div>
-
-          {/* discount */}
-          <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="discount">
-              Скидка:
-            </label>
-            <input
-              className={`${inputStyle} ${
-                errors['discount'] && 'border-rose-400'
-              }`}
-              type="text"
-              id="discount"
-              name="discount"
-              value={formikValues['discount']}
-              onChange={formik.handleChange}
-            />
-            {errors['discount'] && (
-              <p className={errorTextStyle}>{errors['discount']}</p>
-            )}
-          </div>
-
-          {/* description */}
-          <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="description">
-              Описание:
-            </label>
-            <textarea
-              className={` outline-offset-0 outline-0  border-blue outline-none text-neutral-900 text-xs font-normal font-['Manrope'] tracking-wide w-[190px] h-24 px-3 py-1 rounded-[20px] border border-blue-400 justify-start items-center gap-[191px] inline-flex md:w-[255px]  xl:w-[255px] resize-none' ${
                 errors['description'] && 'border-rose-400'
               }`}
-              type="textarea"
+              type="text"
               id="description"
               name="description"
+              placeholder={'+380123456789'}
               value={formikValues['description']}
               onChange={formik.handleChange}
             />
@@ -286,23 +207,43 @@ export const EditProductForm = ({ onCloseModal, product }) => {
             )}
           </div>
 
+          {/* main */}
+          <div className="flex justify-between relative">
+            <label className={labelStyle} htmlFor="main">
+              Поместить на главную:
+            </label>
+            <input
+              className={`${inputStyle} ${
+                errors['price'] && 'border-rose-400'
+              }`}
+              type="text"
+              id="main"
+              name="main"
+              value={formikValues['main']}
+              onChange={formik.handleChange}
+            />
+            {errors['main'] && (
+              <p className={errorTextStyle}>{errors['main']}</p>
+            )}
+          </div>
+
           {/* article */}
           <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="article">
+            <label className={labelStyle} htmlFor="main">
               Артикль:
             </label>
             <input
               className={`${inputStyle} ${
-                errors['article'] && 'border-rose-400'
+                errors['main'] && 'border-rose-400'
               }`}
-              type="text"
-              id="article"
-              name="article"
-              value={formikValues['article']}
+              type="checkbox"
+              id="main"
+              name="main"
+              value={formikValues['main']}
               onChange={formik.handleChange}
             />
-            {errors['article'] && (
-              <p className={errorTextStyle}>{errors['article']}</p>
+            {errors['main'] && (
+              <p className={errorTextStyle}>{errors['main']}</p>
             )}
           </div>
 

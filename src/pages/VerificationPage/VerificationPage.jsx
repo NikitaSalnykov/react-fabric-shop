@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { selectAuth } from '../../Redux/auth/auth-selectors';
 
-export const VerificationPage = () => {
+const VerificationPage = () => {
   const navigate = useNavigate();
 
   const urlSearchParams = new URLSearchParams(window.location.search);
@@ -69,3 +69,5 @@ export const VerificationPage = () => {
     </div>
   );
 };
+
+export default VerificationPage;

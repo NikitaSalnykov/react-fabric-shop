@@ -32,16 +32,25 @@ export const UserOrders = () => {
   };
 
   const userOrders = (orders) => {
-    return orders.filter((el) => el.order.user?._id === user._id);
+    if (!user._id || orders.length === 0) {
+      return [];
+    }
+    return orders.filter((el) => el && el.order.user?._id === user._id);
   };
 
-  const paginatedOrders = (orders) =>
-    userOrders(orders).slice((currentPage - 1) * limit, currentPage * limit);
+  const paginatedOrders = (orders) => {
+    const currentUserOrders = userOrders(orders);
+    return currentUserOrders.slice(
+      (currentPage - 1) * limit,
+      currentPage * limit
+    );
+  };
 
+  console.log(paginatedOrders(orders));
   return (
     <>
       {!isLoading ? (
-        <div className="py-4 " >
+        <div className="py-4 ">
           <h3 className="mb-4 text-md font-medium text-gray-900 title-font">
             Мои заказы:
           </h3>

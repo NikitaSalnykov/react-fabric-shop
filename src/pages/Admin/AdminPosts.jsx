@@ -3,9 +3,10 @@ import { Fragment, useEffect, useState } from 'react';
 import { Menu, Transition } from '@headlessui/react';
 import { formattedDate } from '../../helpers/formattedDate';
 import { BasicModal } from '../../components/Modals/BasicModal/BasicModal';
-import DeleteOrder from '../../components/Modals/AdminModals/DeleteOrder';
+import DeletePost from '../../components/Modals/AdminModals/DeletePost';
 import { getIsLoadingPosts, getPosts } from '../../Redux/posts/postsSelectors';
-import { fetchPosts } from '../../Redux/posts/postsOperation';
+import { fetchPosts, updateMain } from '../../Redux/posts/postsOperation';
+import AddPost from '../../components/Modals/AdminModals/AddPost';
 
 const AdminOrders = () => {
   const dispatch = useDispatch();
@@ -17,16 +18,21 @@ const AdminOrders = () => {
 
   useEffect(() => {
     dispatch(fetchPosts());
-  }, [dispatch]);
+  }, [dispatch, isModalPostCreateOpen]);
 
-  const onTogleDeletePostModal = (post) => {
+  const onToggleDeletePostModal = (post) => {
     setSelectedPost(post);
     setModalDeletePostOpen(!isModalDeletePostOpen);
   };
 
+  const onTogglePostCreateModal = (post) => {
+    setSelectedPost(post);
+    setModalPostCreateOpen(!isModalPostCreateOpen);
+  };
+
   return (
     <div>
-            <div className="flex p-2 gap-2">
+      <div className="flex p-2 gap-2">
         <button
           onClick={() => {
             setModalPostCreateOpen(true);
@@ -98,7 +104,7 @@ const AdminOrders = () => {
                 <tr>
                   <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
                     <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">
-                      Название    
+                      Название
                     </p>
                   </th>
                   <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
@@ -114,6 +120,11 @@ const AdminOrders = () => {
                   <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
                     <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">
                       Главная
+                    </p>
+                  </th>
+                  <th className="border-b border-blue-gray-50 py-3 px-6 text-left">
+                    <p className="block antialiased font-sans text-[11px] font-medium uppercase text-blue-gray-400">
+                      Создано/Отред.
                     </p>
                   </th>
                 </tr>
@@ -132,9 +143,7 @@ const AdminOrders = () => {
                               >
                                 <div className="p-2 rounded-xl border-[1px]">
                                   <Menu.Button className="block antialiased font-sans text-sm leading-normal text-blue-gray-900 font-bold text-left">
-                                    {el.posts.title
-                                      ? el.posts.title
-                                      : '-'}
+                                    {el.title ? el.title : '-'}
                                   </Menu.Button>
                                 </div>
 
@@ -154,7 +163,7 @@ const AdminOrders = () => {
                                           <button
                                             className="block px-4 py-2 text-sm"
                                             onClick={() =>
-                                              onTogleDeletePostModal(el)
+                                              onToggleDeletePostModal(el)
                                             }
                                             href="#"
                                           >
@@ -171,12 +180,40 @@ const AdminOrders = () => {
 
                           <td className="py-3 px-5 border-b border-blue-gray-50">
                             <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">
-                              {el.posts.text ? el.posts.text.splice(0, 20) : '-'}{' '}
+                              {el.text
+                                ? el.text.split('').splice(0, 20).join(' ') +
+                                  '...'
+                                : '-'}{' '}
                             </p>
                           </td>
 
                           <td className="py-3 px-5 border-b border-blue-gray-50">
-                            <input type="checkbox" id={el.posts._id} name={el.posts._id} checked={el.posts.main}/>
+                            <p className="block antialiased font-sans text-xs font-medium text-blue-gray-600">
+                              {el.text
+                                ? el.description
+                                    .split('')
+                                    .splice(0, 20)
+                                    .join(' ') + '...'
+                                : '-'}{' '}
+                            </p>
+                          </td>
+
+                          <td className="py-3 px-5 border-b border-blue-gray-50">
+                            <input
+                              type="checkbox"
+                              id={el._id}
+                              name={el._id}
+                              checked={el.main}
+                              onChange={(e) => {
+                                dispatch(
+                                  updateMain({
+                                    id: el._id,
+                                    arg: { main: e.target.checked },
+                                  })
+                                );
+                                dispatch(fetchPosts());
+                              }}
+                            />
                           </td>
 
                           <td className="py-3 px-5 border-b border-blue-gray-50">
@@ -209,12 +246,18 @@ const AdminOrders = () => {
       </div>
       <BasicModal
         isOpen={isModalDeletePostOpen}
-        onCloseModal={onTogleDeletePostModal}
+        onCloseModal={onToggleDeletePostModal}
       >
-        <DeleteOrder
-          onCloseModal={onTogleDeletePostModal}
+        <DeletePost
+          onCloseModal={onToggleDeletePostModal}
           post={selectedPost}
         />
+      </BasicModal>
+      <BasicModal
+        isOpen={isModalPostCreateOpen}
+        onCloseModal={onTogglePostCreateModal}
+      >
+        <AddPost onCloseModal={onTogglePostCreateModal} post={selectedPost} />
       </BasicModal>
     </div>
   );

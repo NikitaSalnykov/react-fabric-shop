@@ -1,8 +1,8 @@
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import { Filter } from '../../components/Filter/Filter';
-import NewProductList from '../../components/NewProductsList/NewProductsList';
+import AllProductList from '../../components/AllProductsList/AllProductsList';
 
-const NewItems = () => {
+const AllProducts = () => {
   return (
     <div className="container">
       <Breadcrumbs />
@@ -10,14 +10,14 @@ const NewItems = () => {
       <div className="">
        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl pb-4">
-          Новые поступления:
+          Весь ассортимент:
         </h2>
         <Filter/>
        </div>
-        <NewProductList />
+        <AllProductList />
       </div>
     </div>
   );
 };
 
-export default NewItems;
+export default AllProducts;

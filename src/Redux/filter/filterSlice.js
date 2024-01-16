@@ -5,6 +5,8 @@ const initialState = {
   filterdCategory: "",
   filterPrice: '',
   filterColor: '',
+  filterSale: false,
+  filterNew: false,
 };
 
 export const filterSlice = createSlice({
@@ -14,7 +16,7 @@ export const filterSlice = createSlice({
     setFilterName: (state, { payload }) => {
       state.filterName = payload;
     },
-    setFilterdCategory: (state, { payload }) => {
+    setFilterCategory: (state, { payload }) => {
       state.filterdCategory = payload;
     },
     setFilterColor: (state, { payload }) => {
@@ -23,19 +25,32 @@ export const filterSlice = createSlice({
     setFilterPrice: (state, { payload }) => {
       state.filterPrice = payload;
     },
+    setFilterSale: (state, { payload }) => {
+      state.filterSale = payload;
+    },
+    setFilterNew: (state, { payload }) => {
+      state.filterNew = payload;
+    },
   },
 });
 
 export const { setFilterName,
-  setFilterdCategory,
+  setFilterCategory,
   setFilterColor,
-  setFilterPrice
+  setFilterPrice,
+  setFilterSale,
+  setFilterNew,
  } = filterSlice.actions;
 
 export default filterSlice.reducer;
 
 //Selectors
-export const getFilterdCategory = (state) => state.filter.filterdCategory;
+export const getFilterCategory = (state) => state.filter.filterdCategory;
 export const getFilterPrice = (state) => state.filter.filterPrice;
 export const getFilterColor = (state) => state.filter.filterColor;
 export const getFilterName = (state) => state.filter.filterName;
+export const getFilterSale = (state) => state.filter.filterSale;
+export const getFilterNew = (state) => state.filter.filterNew;
+
+
+

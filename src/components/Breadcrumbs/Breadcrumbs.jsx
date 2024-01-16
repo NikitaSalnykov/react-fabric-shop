@@ -81,10 +81,10 @@ const Breadcrumbs = ({ name }) => {
             О нас
           </Link>
         );
-      case 'new':
+      case 'all':
         return (
-          <Link to={'/new'} className="p-[2px] md:p-1">
-            Новинки
+          <Link to={'/all'} className="p-[2px] md:p-1">
+            Все товары
           </Link>
         );
       case 'admin':

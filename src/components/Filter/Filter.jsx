@@ -1,19 +1,59 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Svg from '../Svg/Svg';
-import { setFilterName } from '../../Redux/filter/filterSlice';
+import { setFilterCategory, setFilterColor, setFilterName, setFilterNew, setFilterPrice, setFilterSale } from '../../Redux/filter/filterSlice';
+import { categories } from '../../assets/categories';
+import { fetchProducts } from '../../Redux/products/productsOperation';
+import { getProducts } from '../../Redux/products/productsSelectors';
 
 export const Filter = () => {
   const dispatch = useDispatch();
-
+  const products = useSelector(getProducts)
+  useEffect(() => {
+    dispatch(fetchProducts())
+  }, [])
+  
   const handleFilter = ({ currentTarget }) => {
     dispatch(setFilterName(currentTarget.value));
   };
 
+  const handleFilterColor = ({ currentTarget }) => {
+    dispatch(setFilterColor(currentTarget.value));
+  };
 
+  const handleFilterCategory = ({ currentTarget }) => {
+    dispatch(setFilterCategory(currentTarget.value));
+  };
+
+  const handleFilterPrice = ({ currentTarget }) => {
+    console.log(currentTarget.value);
+    dispatch(setFilterPrice(currentTarget.value));
+  };
+
+  const handleFilterNew = (e) => {
+    const isChecked = e.currentTarget.checked;
+    dispatch(setFilterNew(isChecked));
+  };
+
+  const handleFilterSale = (e) => {
+    const isChecked = e.currentTarget.checked;
+    dispatch(setFilterSale(isChecked));
+  };
+
+  const filteredColors = () => {
+    const colors = [];
+    products.map(el => colors.push(el.color));
+    const uniqueColors = colors.filter((item, index, arr) => {
+      return arr.indexOf(item) === index;
+    });
+    return uniqueColors;
+  };
+  
   return (
-        <div className='flex gap-1'>
-      <label style={{ marginRight: '14px' }} htmlFor="filter">
+<div className="flex flex-col gap-4">
+<div className="flex gap-4 flex-wrap">
+<div className='flex gap-1'>
+      <label className='flex justify-center items-center' style={{ marginRight: '14px' }} htmlFor="filter">
       <Svg id={'icon-search'} size={22} />
       </label>
       <input
@@ -23,8 +63,87 @@ export const Filter = () => {
         required
         onChange={handleFilter}
         variant="standard"
-        className='border-b-2 px-2 text-gray-800 border-gray-600 hover:outline-none focus:outline-none'
+        className='bg-transparent border-b-2 px-2 text-gray-800 border-gray-600 hover:outline-none focus:outline-none w-full'
       />
     </div>
+      <div className="flex gap-4">
+      <div className="flex justify-center items-center">
+      <label className='sr-only' style={{ marginRight: '14px' }} htmlFor="filterColor">
+       Цвет
+       </label>
+       <select id="filterColor" onChange={handleFilterColor}
+ class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+         <option selected>Все цвета</option>
+         {products && filteredColors().map(el => <option>{el}</option>)}
+     </select>
+      </div>
+      <div className="flex justify-center items-center">
+      <label className='sr-only' style={{ marginRight: '14px' }} htmlFor="filterCategory">
+       Категория
+       </label>
+       <select id="filterCategory" onChange={handleFilterCategory} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+         <option selected>Все категории</option>
+         {categories.map(el => <option>{el.name}</option>
+)}
+     </select>
+      </div>
+      <div className="flex justify-center items-center">
+      <label className='sr-only' style={{ marginRight: '14px' }} htmlFor="filterPrice">
+       Цена
+       </label>
+       <select id="filterPrice" onChange={handleFilterPrice} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 
+       dark:focus:border-blue-500" 
+       >
+         <option value="1000000" selected>Все цены</option>
+         <option value="100">До 100</option>
+         <option value="200">До 200</option>
+         <option value="300">До 300</option>
+         <option value="1000">До 1000</option>
+         <option value="2500">До 2500</option>
+         <option value="100000">более 2500</option>
+     </select>
+      </div>
+      </div>
+      
+</div>
+<div className="flex items-start ml-auto gap-6">
+                <div className="flex items-start">
+                  <div className="flex items-center h-5">
+                    <input
+                      id="salesProducts"
+                      type="checkbox"
+                      className="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded "
+                      onChange={handleFilterSale}
+                    />
+                  </div>
+                  <div className="text-sm ml-1">
+                    <label
+                      htmlFor="salesProducts"
+                      className="font-medium text-gray-900 "
+                    >
+                      Со скидкой
+                    </label>
+                  </div>
+                </div>
+                <div className="flex items-start">
+                  <div className="flex items-center h-5">
+                    <input
+                      id="newProducts"
+                      type="checkbox"
+                      className="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded "
+                      onChange={handleFilterNew}
+                    />
+                  </div>
+                  <div className="text-sm ml-1">
+                    <label
+                      htmlFor="newProducts"
+                      className="font-medium text-gray-900 "
+                    >
+                      Новые поступления
+                    </label>
+                  </div>
+                </div>
+              </div>
+</div>
   );
 };

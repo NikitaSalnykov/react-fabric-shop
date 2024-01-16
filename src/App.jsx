@@ -14,13 +14,14 @@ import PrivateRoute from './components/Route/PrivateRoute';
 import { Profile } from './pages/Profile/Profile';
 import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
 import { AdminMain } from './pages/Admin/AdminMain';
+import { BlogPost } from './pages/BlogPost/BlogPost';
 
 const Product = lazy(() => import('pages/Product/Product'));
 const Category = lazy(() => import('pages/Category/Category'));
 const Categories = lazy(() => import('pages/Categories/Categories'));
 const About = lazy(() => import('./pages/About/About'));
 const Blog = lazy(() => import('./pages/Blog/Blog'));
-const NewItems = lazy(() => import('./pages/NewItems/NewItems'));
+const AllProducts = lazy(() => import('./pages/AllProducts/AllProducts'));
 const LoginPage = lazy(() => import('./pages/LoginPage/LoginPage'));
 const RegistrationPage = lazy(() =>
   import('./pages/RegisterPage/RegisterPage')
@@ -54,8 +55,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/categories" element={<Categories />} />
           <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:postId" element={<Blog />} />
-          <Route path="/new" element={<NewItems />} />
+          <Route path="/blog/:postId" element={<BlogPost />} />
+          <Route path="/all" element={<AllProducts />} />
           <Route
             path="/login"
             element={

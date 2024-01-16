@@ -8,8 +8,13 @@ import {
 import { fetchProducts } from '../../Redux/products/productsOperation';
 import SkeletonList from '../Loader/SkeletonList';
 import {
+  getFilterCategory,
+  getFilterColor,
   // getFilterColor,
   getFilterName,
+  getFilterNew,
+  getFilterPrice,
+  getFilterSale,
   // getFilterPrice,
   // getFilterdCategory,
 } from '../../Redux/filter/filterSlice';
@@ -19,7 +24,7 @@ import Svg from '../Svg/Svg';
 import { deleteFavorite, getFavorite, setFavorite } from '../../Redux/favorites/favoriteSlice';
 import { Price } from '../../pages/Price/Price';
 
-const NewProductList = ({ title }) => {
+const AllProductsList = ({ title }) => {
   const dispatch = useDispatch();
   const products = useSelector(getProducts);
   const isLoading = useSelector(getIsLoadingProducts);
@@ -28,13 +33,16 @@ const NewProductList = ({ title }) => {
     useSelector(getFavorite) || []
   );
   const favorites = useSelector(getFavorite);
+  const filterCategory = useSelector(getFilterCategory);
+  const filterPrice = useSelector(getFilterPrice);
+  const filterColor = useSelector(getFilterColor);
+  const filterSale = useSelector(getFilterSale);
+  const filterNew = useSelector(getFilterNew);
+
 
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 12;
 
-  // const filterCategory = useSelector(getFilterdCategory);
-  // const filterPrice = useSelector(getFilterPrice);
-  // const filterColor = useSelector(getFilterColor);
 
   const handleClickPage = (target) => {
     setCurrentPage(target.selected + 1);
@@ -54,29 +62,36 @@ const NewProductList = ({ title }) => {
   const paginatedProducts = (products) =>
     newProducts(products).slice((currentPage - 1) * limit, currentPage * limit);
 
-  const filteredProducts = (sortedProductObjects) => {
-    let filtered;
-    if (!products) return;
+    const filteredProducts = (sortedProductObjects) => {
+      if (!products) return sortedProductObjects;
+    
+      return sortedProductObjects.filter((el) => {
+        const nameMatch = el.name.toLowerCase().includes(filterName.toLowerCase());
+        const categoryMatch = filterCategory === 'Все категории' || el.category.toLowerCase().includes(filterCategory.toLowerCase());
+        const colorMatch = filterColor === 'Все цвета' || el.color.toLowerCase().includes(filterColor.toLowerCase());
+        const discountMatch = !filterSale || el.discount > 0
+        // const priceMatch = el.price < parseInt(filterPrice.replace(/\D/g, ''))
 
-    filtered = products.filter((el) =>
-      el.name.toLowerCase().includes(filterName.toLowerCase())
-    );
-
-    if (filterName.trim() === '') {
-      return sortedProductObjects;
-    }
-    return filtered;
-  };
+        return nameMatch && categoryMatch && colorMatch && discountMatch ;
+      });
+    };
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
 
   const newProducts = (products) => {
+
+    if (!filterNew) {
+      return filteredProducts(products)
+    }
+
     const productsWithTimestamps = products.map((el) => ({
       timestamp: new Date(el.createdAt).getTime(),
       product: el,
     }));
+
+    console.log(productsWithTimestamps)
     const sortedProducts = productsWithTimestamps.sort(
       (a, b) => b.timestamp - a.timestamp
     );
@@ -84,6 +99,7 @@ const NewProductList = ({ title }) => {
     return filteredProducts(sortedProductObjects);
   };
 
+console.log(filteredProducts(products));
   return (
     <div className="md:min-h-[400px]">
       <div className="mx-auto max-w-2xl lg:max-w-7xl">
@@ -160,4 +176,4 @@ const NewProductList = ({ title }) => {
   );
 };
 
-export default NewProductList;
+export default AllProductsList;

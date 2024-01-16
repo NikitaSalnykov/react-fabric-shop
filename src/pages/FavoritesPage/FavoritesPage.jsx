@@ -1,7 +1,6 @@
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import FavoritesList from '../../components/FavoritesList/FavoritesList';
 import { Filter } from '../../components/Filter/Filter';
-import NewProductList from '../../components/NewProductsList/NewProductsList';
 
 const FavoritesPage = () => {
   return (

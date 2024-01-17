@@ -6,7 +6,7 @@ import { categories } from '../../assets/categories';
 import { fetchProducts } from '../../Redux/products/productsOperation';
 import { getProducts } from '../../Redux/products/productsSelectors';
 
-export const Filter = () => {
+export const Filter = ({nameFilter=false, filterColor=false, filterCategory=false, filterPrice=false, filterNew=false, filterSale=false}) => {
   const dispatch = useDispatch();
   const products = useSelector(getProducts)
   useEffect(() => {
@@ -52,7 +52,7 @@ export const Filter = () => {
   return (
 <div className="flex flex-col gap-4">
 <div className="flex gap-4 flex-wrap">
-<div className='flex gap-1'>
+{nameFilter && <div className='flex gap-1'>
       <label className='flex justify-center items-center' style={{ marginRight: '14px' }} htmlFor="filter">
       <Svg id={'icon-search'} size={22} />
       </label>
@@ -65,9 +65,9 @@ export const Filter = () => {
         variant="standard"
         className='bg-transparent border-b-2 px-2 text-gray-800 border-gray-600 hover:outline-none focus:outline-none w-full'
       />
-    </div>
+    </div>}
       <div className="flex gap-4">
-      <div className="flex justify-center items-center">
+      {filterColor && <div className="flex justify-center items-center">
       <label className='sr-only' style={{ marginRight: '14px' }} htmlFor="filterColor">
        Цвет
        </label>
@@ -76,8 +76,8 @@ export const Filter = () => {
          <option selected>Все цвета</option>
          {products && filteredColors().map(el => <option>{el}</option>)}
      </select>
-      </div>
-      <div className="flex justify-center items-center">
+      </div>}
+      {filterCategory && <div className="flex justify-center items-center">
       <label className='sr-only' style={{ marginRight: '14px' }} htmlFor="filterCategory">
        Категория
        </label>
@@ -86,15 +86,15 @@ export const Filter = () => {
          {categories.map(el => <option>{el.name}</option>
 )}
      </select>
-      </div>
-      <div className="flex justify-center items-center">
+      </div>}
+      {filterPrice && <div className="flex justify-center items-center">
       <label className='sr-only' style={{ marginRight: '14px' }} htmlFor="filterPrice">
        Цена
        </label>
        <select id="filterPrice" onChange={handleFilterPrice} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 
        dark:focus:border-blue-500" 
        >
-         <option value="1000000" selected>Все цены</option>
+         <option value="10000000" selected>Все цены</option>
          <option value="100">До 100</option>
          <option value="200">До 200</option>
          <option value="300">До 300</option>
@@ -102,12 +102,12 @@ export const Filter = () => {
          <option value="2500">До 2500</option>
          <option value="100000">более 2500</option>
      </select>
-      </div>
+      </div>}
       </div>
       
 </div>
 <div className="flex items-start ml-auto gap-6">
-                <div className="flex items-start">
+                {filterSale && <div className="flex items-start">
                   <div className="flex items-center h-5">
                     <input
                       id="salesProducts"
@@ -124,8 +124,8 @@ export const Filter = () => {
                       Со скидкой
                     </label>
                   </div>
-                </div>
-                <div className="flex items-start">
+                </div>}
+                {filterNew && <div className="flex items-start">
                   <div className="flex items-center h-5">
                     <input
                       id="newProducts"
@@ -142,7 +142,7 @@ export const Filter = () => {
                       Новые поступления
                     </label>
                   </div>
-                </div>
+                </div>}
               </div>
 </div>
   );

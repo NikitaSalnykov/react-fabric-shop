@@ -10,13 +10,10 @@ import SkeletonList from '../Loader/SkeletonList';
 import {
   getFilterCategory,
   getFilterColor,
-  // getFilterColor,
   getFilterName,
   getFilterNew,
   getFilterPrice,
   getFilterSale,
-  // getFilterPrice,
-  // getFilterdCategory,
 } from '../../Redux/filter/filterSlice';
 import { categoryURL } from '../../helpers/categoryURL';
 import { Pagination } from '../Pagination/Pagination';
@@ -64,15 +61,16 @@ const AllProductsList = ({ title }) => {
 
     const filteredProducts = (sortedProductObjects) => {
       if (!products) return sortedProductObjects;
-    
+      const price = filterPrice.replace(/\D/g, '')
+console.log("filterPrice", filterPrice);
       return sortedProductObjects.filter((el) => {
         const nameMatch = el.name.toLowerCase().includes(filterName.toLowerCase());
         const categoryMatch = filterCategory === 'Все категории' || el.category.toLowerCase().includes(filterCategory.toLowerCase());
         const colorMatch = filterColor === 'Все цвета' || el.color.toLowerCase().includes(filterColor.toLowerCase());
         const discountMatch = !filterSale || el.discount > 0
-        // const priceMatch = el.price < parseInt(filterPrice.replace(/\D/g, ''))
+        const priceMatch = filterPrice === '' || +el.price < price
 
-        return nameMatch && categoryMatch && colorMatch && discountMatch ;
+        return nameMatch && categoryMatch && colorMatch && discountMatch && priceMatch ;
       });
     };
 

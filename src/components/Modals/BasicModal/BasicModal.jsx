@@ -36,14 +36,14 @@ export function BasicModal({ isOpen, onCloseModal, children }) {
     <>
       {isOpen &&
         createPortal(
-          <div className="modal-overlay flex items-center justify-center fixed bg-black bg-opacity-50 top-0 left-0 w-full h-full z-50">
+          <div className=" modal-overlay flex items-center justify-center fixed bg-black bg-opacity-50 top-0 left-0 w-full h-full z-50">
             <div
-              className="modal shadow-lg bg-white p-1   rounded-xl "
+              className="relative modal shadow-lg bg-white p-1   rounded-xl "
               ref={modalRef}
             >
-              <div className="modal-content bg-white relative justify-center w-full smOnly:p-3 md:p-6 max-h-[90vh] overflow-y-auto">
+              <div className=" modal-content bg-white  justify-center w-full smOnly:p-3 md:p-6 max-h-[90vh] overflow-y-auto">
                 <Svg
-                  className="ml-auto mb-2  absolute smOnly:right-3 md:right-6 cursor-pointer"
+                  className=" ml-auto mb-2  absolute smOnly:right-3 md:right-6 cursor-pointer"
                   classNameSvg=" hover:stroke-red hover:scale-125 transition-transform transform-all hover:rotate-90"
                   id={'icon-cross'}
                   size={'24px'}

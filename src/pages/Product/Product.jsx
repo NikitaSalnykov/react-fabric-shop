@@ -13,6 +13,8 @@ import { getCart } from '../../Redux/cart/cartSelectors';
 import SkeletonProduct from '../../components/Loader/SkeletonProduct';
 import { resultPrice } from '../../helpers/resultPrice';
 import { Price } from '../Price/Price';
+import { ReviewCart } from '../../components/ReviewCart/ReviewCart';
+import { ReviewsList } from '../../components/ReviewsList/ReviewsList';
 
 const Product = () => {
   const { id } = useParams();
@@ -207,6 +209,7 @@ const Product = () => {
               </div>
             </div>
           </div>
+          <ReviewsList/>
         </div>
       ) : (
         <div>

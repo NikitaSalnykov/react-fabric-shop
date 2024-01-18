@@ -114,8 +114,8 @@ export const AddProductForm = ({ onCloseModal }) => {
         <div className="flex flex-col gap-[20px]">
           {/* Name */}
 
-          <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="name">
+         <div className="flex justify-between w-full relative flex-wrap gap-2">
+                <label className={labelStyle}  htmlFor="name">
               Название:
             </label>
             <input
@@ -134,7 +134,7 @@ export const AddProductForm = ({ onCloseModal }) => {
           {/* category */}
           <div className="flex-col">
             {isMyCategory ? (
-              <div className="flex justify-between w-full relative">
+              <div className="flex justify-between w-full relative flex-wrap gap-2">
                 <label className={labelStyle} htmlFor="category">
                   Категория:
                 </label>
@@ -153,7 +153,7 @@ export const AddProductForm = ({ onCloseModal }) => {
                 )}
               </div>
             ) : (
-              <div className="flex justify-between w-full relative">
+              <div className="flex justify-between w-full relative flex-wrap gap-2">
                 <label className={labelStyle} htmlFor="category">
                   Категория:
                 </label>
@@ -178,31 +178,10 @@ export const AddProductForm = ({ onCloseModal }) => {
                 )}
               </div>
             )}
-            <div>
-              {!isMyCategory ? (
-                <button
-                  className="text-xs text-left"
-                  onClick={() => {
-                    setMyCategory(true);
-                  }}
-                >
-                  Добавить свою категорию
-                </button>
-              ) : (
-                <button
-                  className="text-xs"
-                  onClick={() => {
-                    setMyCategory(false);
-                  }}
-                >
-                  Выбрать категорию
-                </button>
-              )}
-            </div>
           </div>
 
           {/* color */}
-          <div className="flex justify-between w-full relative">
+          <div className="flex justify-between w-full relative flex-wrap gap-2">
             <label className={labelStyle} htmlFor="color">
               Цвет:
             </label>
@@ -223,8 +202,8 @@ export const AddProductForm = ({ onCloseModal }) => {
           </div>
 
           {/* price */}
-          <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="price">
+         <div className="flex justify-between w-full relative flex-wrap gap-2">
+                <label className={labelStyle}  htmlFor="price">
               Цена:
             </label>
             <input
@@ -243,8 +222,8 @@ export const AddProductForm = ({ onCloseModal }) => {
           </div>
 
           {/* discount */}
-          <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="discount">
+         <div className="flex justify-between w-full relative flex-wrap gap-2">
+                <label className={labelStyle}  htmlFor="discount">
               Скидка:
             </label>
             <input
@@ -263,8 +242,8 @@ export const AddProductForm = ({ onCloseModal }) => {
           </div>
 
           {/* description */}
-          <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="description">
+         <div className="flex justify-between w-full relative flex-wrap gap-2">
+                <label className={labelStyle}  htmlFor="description">
               Описание:
             </label>
             <textarea
@@ -283,8 +262,8 @@ export const AddProductForm = ({ onCloseModal }) => {
           </div>
 
           {/* article */}
-          <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="article">
+         <div className="flex justify-between w-full relative flex-wrap gap-2">
+                <label className={labelStyle}  htmlFor="article">
               Артикль:
             </label>
             <input
@@ -307,8 +286,8 @@ export const AddProductForm = ({ onCloseModal }) => {
             <label className={labelStyle} htmlFor="mainPhoto">
               Главная фотка:
             </label>
-            <input
-              className={``}
+           <input
+              className={`w-full`}
               type="file"
               id="mainPhoto"
               name="mainPhoto"
@@ -329,7 +308,7 @@ export const AddProductForm = ({ onCloseModal }) => {
               Дополнительные фото до 3х:
             </label>
             <input
-              className=""
+              className={`w-full`}
               type="file"
               id="extraPhotos"
               name="extraPhotos"
@@ -351,7 +330,7 @@ export const AddProductForm = ({ onCloseModal }) => {
               type="submit"
               // onClick={onCloseModal}
               disabled={false}
-              className={`"Frame36 hover:blue-gradient hover:text-white smOnly:w-64 smOnly:h-10 w-32 h-10 px-5 py-2 rounded-3xl border-2 border-blue justify-center items-center gap-2 inline-flex  text-blue text-base font-bold font-['Manrope'] tracking-wide"`}
+              className={`"Frame36 hover:blue-gradient hover:text-white smOnly:h-10 h-10 px-5 py-2 rounded-3xl border-2 border-blue justify-center items-center gap-2 inline-flex  text-blue text-base font-bold font-['Manrope']tracking-wide"`}
             >
               Добавить{' '}
             </button>

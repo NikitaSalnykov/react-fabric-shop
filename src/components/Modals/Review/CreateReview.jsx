@@ -7,9 +7,9 @@ import {
   getIsProductCreated,
 } from '../../../Redux/products/productsSelectors';
 import { resetProductCreated } from '../../../Redux/products/productsSlice';
-import { createPost } from '../../../Redux/posts/postsOperation';
 import { getUser } from '../../../Redux/auth/auth-selectors';
 import { ReviewSchma } from '../../../schemas/ReviewSchma';
+import { createReview } from '../../../Redux/reviews/reviewsOperation';
 
 
 const errorTextStyle =
@@ -19,8 +19,8 @@ const errorTextStyle =
 const labelStyle =
   "text-neutral-900 text-sm font-semibold font-['Manrope'] tracking-wide mdOnly:text-[16px] ";
 
-export const CreateReview = ({onCloseModal}) => {
-  const author = useSelector(getUser);
+export const CreateReview = ({onCloseModal, postId}) => {
+  const user = useSelector(getUser);
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoadingProducts);
   const isProductCreated = useSelector(getIsProductCreated);
@@ -34,7 +34,7 @@ export const CreateReview = ({onCloseModal}) => {
 
   const formik = useFormik({
     initialValues: {
-      author: '',
+      author: `${user.name} ${user.surname}` || '',
       text: '',
       extraPhotos: null,
       rating: 0
@@ -50,11 +50,12 @@ export const CreateReview = ({onCloseModal}) => {
         author,
         extraPhotos,
         rating,
+        postId,
+        authorId: user._id
       };
 
       const formData = createReviewFormData(newReview);
-
-      dispatch(createPost(formData));
+      dispatch(createReview(formData));
     },
   });
 
@@ -64,9 +65,15 @@ export const CreateReview = ({onCloseModal}) => {
   const createReviewFormData = (data) => {
     const formData = new FormData();
 
-    formData.append('title', data.title);
-    formData.append('rating', data.title);
-    formData.append('author', data.description);
+    formData.append('text', data.text);
+    formData.append('rating', data.rating);
+    formData.append('author', data.author);
+    formData.append('postId', data.postId);
+
+    if(data.authorId) {
+    formData.append('authorId', data.authorId);
+    }
+
     if (data.extraPhotos) {
       [...data.extraPhotos].forEach((file) => {
         formData.append('extraPhotos', file);

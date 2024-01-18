@@ -118,7 +118,7 @@ export const EditProductForm = ({ onCloseModal, product }) => {
         <div className="flex flex-col gap-[20px]">
           {/* Name */}
 
-          <div className="flex justify-between relative">
+          <div className="flex justify-between relative flex-wrap gap-2">
             <label className={labelStyle} htmlFor="name">
               Название:
             </label>
@@ -137,8 +137,7 @@ export const EditProductForm = ({ onCloseModal, product }) => {
 
           {/* category */}
           <div className="flex-col">
-            {isMyCategory ? (
-              <div className="flex justify-between w-full relative">
+              <div className="flex justify-between w-full relative flex-wrap gap-2">
                 <label className={labelStyle} htmlFor="category">
                   Категория:
                 </label>
@@ -156,57 +155,10 @@ export const EditProductForm = ({ onCloseModal, product }) => {
                   <p className={errorTextStyle}>{errors['category']}</p>
                 )}
               </div>
-            ) : (
-              <div className="flex justify-between w-full relative">
-                <label className={labelStyle} htmlFor="category">
-                  Категория:
-                </label>
-                <select
-                  className={`${inputStyle} ${
-                    errors['category'] && 'border-rose-400'
-                  }`}
-                  type="text"
-                  id="category"
-                  name="category"
-                  value={formikValues['category']}
-                  onChange={formik.handleChange}
-                >
-                  {categories.map((el, index) => (
-                    <option key={index} value={el.name}>
-                      {el.name}
-                    </option>
-                  ))}
-                </select>
-                {errors['category'] && (
-                  <p className={errorTextStyle}>{errors['category']}</p>
-                )}
-              </div>
-            )}
-            <div>
-              {!isMyCategory ? (
-                <button
-                  className="text-xs text-left"
-                  onClick={() => {
-                    setMyCategory(true);
-                  }}
-                >
-                  Добавить свою категорию
-                </button>
-              ) : (
-                <button
-                  className="text-xs"
-                  onClick={() => {
-                    setMyCategory(false);
-                  }}
-                >
-                  Выбрать категорию
-                </button>
-              )}
-            </div>
           </div>
 
           {/* color */}
-          <div className="flex justify-between w-full relative">
+          <div className="flex justify-between w-full relative flex-wrap gap-2">
             <label className={labelStyle} htmlFor="color">
               Цвет:
             </label>
@@ -227,7 +179,7 @@ export const EditProductForm = ({ onCloseModal, product }) => {
           </div>
 
           {/* price */}
-          <div className="flex justify-between relative">
+          <div className="flex justify-between relative flex-wrap gap-2">
             <label className={labelStyle} htmlFor="price">
               Цена:
             </label>
@@ -247,7 +199,7 @@ export const EditProductForm = ({ onCloseModal, product }) => {
           </div>
 
           {/* discount */}
-          <div className="flex justify-between relative">
+          <div className="flex justify-between relative flex-wrap gap-2">
             <label className={labelStyle} htmlFor="discount">
               Скидка:
             </label>
@@ -267,7 +219,7 @@ export const EditProductForm = ({ onCloseModal, product }) => {
           </div>
 
           {/* description */}
-          <div className="flex justify-between relative">
+          <div className="flex justify-between relative flex-wrap gap-2">
             <label className={labelStyle} htmlFor="description">
               Описание:
             </label>
@@ -287,7 +239,7 @@ export const EditProductForm = ({ onCloseModal, product }) => {
           </div>
 
           {/* article */}
-          <div className="flex justify-between relative">
+          <div className="flex justify-between relative flex-wrap gap-2">
             <label className={labelStyle} htmlFor="article">
               Артикль:
             </label>
@@ -312,7 +264,7 @@ export const EditProductForm = ({ onCloseModal, product }) => {
               Главная фотка:
             </label>
             <input
-              className={``}
+              className={`w-full`}
               type="file"
               id="mainPhoto"
               name="mainPhoto"
@@ -333,7 +285,7 @@ export const EditProductForm = ({ onCloseModal, product }) => {
               Дополнительные фото до 3х:
             </label>
             <input
-              className=""
+              className="w-full"
               type="file"
               id="extraPhotos"
               name="extraPhotos"
@@ -355,7 +307,7 @@ export const EditProductForm = ({ onCloseModal, product }) => {
               type="submit"
               // onClick={onCloseModal}
               disabled={false}
-              className={`"Frame36 hover:blue-gradient hover:text-white smOnly:w-64 smOnly:h-10 w-32 h-10 px-5 py-2 rounded-3xl border-2 border-blue justify-center items-center gap-2 inline-flex  text-blue text-base font-bold font-['Manrope'] tracking-wide"`}
+              className={`&quot;Frame36 hover:blue-gradient hover:text-white smOnly:h-10 h-10 px-5 py-2 rounded-3xl border-2 border-blue justify-center items-center gap-2 inline-flex  text-blue text-base font-bold font-['Manrope'] tracking-wide&quot`}
             >
               Добавить{' '}
             </button>

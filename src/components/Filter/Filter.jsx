@@ -72,7 +72,7 @@ export const Filter = ({nameFilter=false, filterColor=false, filterCategory=fals
        Цвет
        </label>
        <select id="filterColor" onChange={handleFilterColor}
- class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+ class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
          <option selected>Все цвета</option>
          {products && filteredColors().map(el => <option>{el}</option>)}
      </select>
@@ -81,7 +81,7 @@ export const Filter = ({nameFilter=false, filterColor=false, filterCategory=fals
       <label className='sr-only' style={{ marginRight: '14px' }} htmlFor="filterCategory">
        Категория
        </label>
-       <select id="filterCategory" onChange={handleFilterCategory} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+       <select id="filterCategory" onChange={handleFilterCategory} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
          <option selected>Все категории</option>
          {categories.map(el => <option>{el.name}</option>
 )}
@@ -91,8 +91,7 @@ export const Filter = ({nameFilter=false, filterColor=false, filterCategory=fals
       <label className='sr-only' style={{ marginRight: '14px' }} htmlFor="filterPrice">
        Цена
        </label>
-       <select id="filterPrice" onChange={handleFilterPrice} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 
-       dark:focus:border-blue-500" 
+       <select id="filterPrice" onChange={handleFilterPrice} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " 
        >
          <option value="10000000" selected>Все цены</option>
          <option value="100">До 100</option>

@@ -65,14 +65,6 @@ const AdminProducts = () => {
         >
           Добавить товар
         </button>
-        <button
-          onClick={() => {
-            setModalCategoryOpen(true);
-          }}
-          className="w-29 h-14 bg-red rounded-[10px] flex justify-center items-center text-white p-2"
-        >
-          Добавить категорию
-        </button>
       </div>
       <div className="mb-4 grid grid-cols-1 gap-6">
         <div className="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md overflow-hidden lg:col-span-2">

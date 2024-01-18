@@ -99,8 +99,8 @@ export const EditProductForm = ({ onCloseModal, post }) => {
         <div className="flex flex-col gap-[20px]">
           {/* title */}
 
-          <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="title">
+         <div className="flex justify-between w-full relative flex-wrap gap-2">
+                <label className={labelStyle}  htmlFor="title">
               Название:
             </label>
             <input
@@ -119,7 +119,7 @@ export const EditProductForm = ({ onCloseModal, post }) => {
           {/* text */}
           <div className="flex-col">
             {isMyCategory ? (
-              <div className="flex justify-between w-full relative">
+              <div className="flex justify-between w-full relative flex-wrap gap-2">
                 <label className={labelStyle} htmlFor="text">
                   Категория:
                 </label>
@@ -138,7 +138,7 @@ export const EditProductForm = ({ onCloseModal, post }) => {
                 )}
               </div>
             ) : (
-              <div className="flex justify-between w-full relative">
+              <div className="flex justify-between w-full relative flex-wrap gap-2">
                 <label className={labelStyle} htmlFor="category">
                   Категория:
                 </label>
@@ -187,7 +187,7 @@ export const EditProductForm = ({ onCloseModal, post }) => {
           </div>
 
           {/* description */}
-          <div className="flex justify-between w-full relative">
+          <div className="flex justify-between w-full relative flex-wrap gap-2">
             <label className={labelStyle} htmlFor="color">
               Цвет:
             </label>
@@ -208,8 +208,8 @@ export const EditProductForm = ({ onCloseModal, post }) => {
           </div>
 
           {/* main */}
-          <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="main">
+         <div className="flex justify-between w-full relative flex-wrap gap-2">
+                <label className={labelStyle}  htmlFor="main">
               Поместить на главную:
             </label>
             <input
@@ -228,8 +228,8 @@ export const EditProductForm = ({ onCloseModal, post }) => {
           </div>
 
           {/* article */}
-          <div className="flex justify-between relative">
-            <label className={labelStyle} htmlFor="main">
+         <div className="flex justify-between w-full relative flex-wrap gap-2">
+                <label className={labelStyle}  htmlFor="main">
               Артикль:
             </label>
             <input
@@ -252,8 +252,8 @@ export const EditProductForm = ({ onCloseModal, post }) => {
             <label className={labelStyle} htmlFor="mainPhoto">
               Главная фотка:
             </label>
-            <input
-              className={``}
+           <input
+              className={`w-full`}
               type="file"
               id="mainPhoto"
               name="mainPhoto"
@@ -274,7 +274,7 @@ export const EditProductForm = ({ onCloseModal, post }) => {
               Дополнительные фото до 3х:
             </label>
             <input
-              className=""
+              className={`w-full`}
               type="file"
               id="extraPhotos"
               name="extraPhotos"
@@ -296,7 +296,7 @@ export const EditProductForm = ({ onCloseModal, post }) => {
               type="submit"
               // onClick={onCloseModal}
               disabled={false}
-              className={`"Frame36 hover:blue-gradient hover:text-white smOnly:w-64 smOnly:h-10 w-32 h-10 px-5 py-2 rounded-3xl border-2 border-blue justify-center items-center gap-2 inline-flex  text-blue text-base font-bold font-['Manrope'] tracking-wide"`}
+              className={`"Frame36 hover:blue-gradient hover:text-white smOnly:h-10 h-10 px-5 py-2 rounded-3xl border-2 border-blue justify-center items-center gap-2 inline-flex  text-blue text-base font-bold font-['Manrope']tracking-wide"`}
             >
               Добавить{' '}
             </button>

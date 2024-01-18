@@ -195,10 +195,10 @@ export const AdminMain = () => {
       </div>
           <div className="flex flex-col pt-4 mb-12">
             <div className="min-w-[375px] md:min-w-[700px] xl:min-w-[800px] mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
-              <div className="relative flex flex-grow !flex-row flex-col items-center rounded-[10px] rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+              <div className="relative flex flex-grow !flex-row flex-col items-center rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] ">
                 <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
-                  <div className="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
-                    <span className="flex items-center text-brand-500 dark:text-white">
+                  <div className="rounded-full bg-lightPrimary p-3 ">
+                    <span className="flex items-center text-brand-500 d">
                       <svg
                         stroke="currentColor"
                         fill="currentColor"
@@ -219,15 +219,15 @@ export const AdminMain = () => {
                   <h4 className="font-dm text-sm font-medium text-gray-600">
                     Заказов
                   </h4>
-                  <p className="text-xl font-bold text-navy-700 dark:text-white">
+                  <p className="text-xl font-bold text-navy-700 d">
                     {orders.length}
                   </p>
                 </div>
               </div>
-              <div className="relative flex flex-grow !flex-row flex-col items-center rounded-[10px] rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+              <div className="relative flex flex-grow !flex-row flex-col items-center rounded-[10px] rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] ">
                 <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
-                  <div className="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
-                    <span className="flex items-center text-brand-500 dark:text-white">
+                  <div className="rounded-full bg-lightPrimary p-3 ">
+                    <span className="flex items-center text-brand-500 d">
                       <svg
                         stroke="currentColor"
                         fill="currentColor"
@@ -249,15 +249,15 @@ export const AdminMain = () => {
                   <h4 className="font-dm text-sm font-medium text-gray-600">
                     Количество товаров заказанно
                   </h4>
-                  <p className="text-xl font-bold text-navy-700 dark:text-white">
+                  <p className="text-xl font-bold text-navy-700 d">
                     {orders && orders.length > 0 ? countQuantityProducts() : "0"}
                   </p>
                 </div>
               </div>
-              <div className="relative flex flex-grow !flex-row flex-col items-center rounded-[10px] rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+              <div className="relative flex flex-grow !flex-row flex-col items-center rounded-[10px] rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] ">
                 <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
-                  <div className="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
-                    <span className="flex items-center text-brand-500 dark:text-white">
+                  <div className="rounded-full bg-lightPrimary p-3 ">
+                    <span className="flex items-center text-brand-500 d">
                       <svg
                         stroke="currentColor"
                         fill="currentColor"
@@ -278,32 +278,13 @@ export const AdminMain = () => {
                   <h4 className="font-dm text-sm font-medium text-gray-600">
                     Общая сумма заказов
                   </h4>
-                  <p className="text-xl font-bold text-navy-700 dark:text-white">
+                  <p className="text-xl font-bold text-navy-700 d">
                     {products && products.length > 0 ? sumAllProducts() : "0"}
 
                   </p>
                 </div>
               </div>
-              <div className="p-4 relative flex flex-grow flex-row items-center rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
-                <div className="ml-[18px] flex min-h-[110px] h-full w-auto flex-row items-center">
-                  <div className="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
-                    <span className="flex items-center text-brand-500 dark:text-white">
-                      <svg
-                        stroke="currentColor"
-                        fill="currentColor"
-                        strokeWidth="0"
-                        viewBox="0 0 24 24"
-                        className="h-6 w-6"
-                        height="1em"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path fill="none" d="M0 0h24v24H0z"></path>
-                        <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"></path>
-                      </svg>
-                    </span>
-                  </div>
-                </div>
+              <div className="p-4 relative flex flex-grow flex-row items-center rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] ">
                 <div className="h-50 ml-4 flex w-auto flex-col justify-center">
                   <h4 className="font-dm text-sm font-medium text-gray-600">
                     Топ 5 товаров
@@ -312,7 +293,7 @@ export const AdminMain = () => {
                   {products && products.length > 0 ? top.splice(0, 5).map((el, index) => (
                       <li
                         key={index}
-                        className="text-[14px] font-bold text-navy-700 dark:text-white"
+                        className="text-[14px] font-bold text-navy-700 d"
                       >
                         {`${index + 1}) ${el.join(': ')}`}
                       </li>
@@ -320,26 +301,7 @@ export const AdminMain = () => {
                   </ul>
                 </div>
               </div>
-              <div className="p-4 relative flex flex-grow flex-row items-center rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
-                <div className="ml-[18px] flex min-h-[110px] h-full w-auto flex-row items-center">
-                  <div className="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
-                    <span className="flex items-center text-brand-500 dark:text-white">
-                      <svg
-                        stroke="currentColor"
-                        fill="currentColor"
-                        strokeWidth="0"
-                        viewBox="0 0 24 24"
-                        className="h-7 w-7"
-                        height="1em"
-                        width="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path fill="none" d="M0 0h24v24H0z"></path>
-                        <path d="M4 9h4v11H4zM16 13h4v7h-4zM10 4h4v16h-4z"></path>
-                      </svg>
-                    </span>
-                  </div>
-                </div>
+              <div className="p-4 relative flex flex-grow flex-row items-center rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] ">
                 <div className="h-50 ml-4 flex w-auto flex-col justify-center">
                   <h4 className="font-dm text-sm font-medium text-gray-600">
                     Топ 5 покупателей
@@ -348,7 +310,7 @@ export const AdminMain = () => {
                   {products && products.length > 0 ? usersTop.splice(0, 5).map((el, index) => (
                       <li
                         key={index}
-                        className="text-[14px] font-bold text-navy-700 dark:text-white"
+                        className="text-[14px] font-bold text-navy-700 d"
                       >
                         {`${index + 1}) ${el.join(': ')}`}
                       </li>
@@ -356,10 +318,10 @@ export const AdminMain = () => {
                   </ul>
                 </div>
               </div>
-              <div className="relative flex flex-grow !flex-row flex-col items-center rounded-[10px] rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] dark:border-[#ffffff33] dark:!bg-navy-800 dark:text-white dark:shadow-none">
+              <div className="relative flex flex-grow !flex-row flex-col items-center rounded-[10px] rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] ">
                 <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
-                  <div className="rounded-full bg-lightPrimary p-3 dark:bg-navy-700">
-                    <span className="flex items-center text-brand-500 dark:text-white">
+                  <div className="rounded-full bg-lightPrimary p-3 ">
+                    <span className="flex items-center text-brand-500 d">
                       <svg
                         stroke="currentColor"
                         fill="currentColor"
@@ -379,7 +341,7 @@ export const AdminMain = () => {
                   <p className="font-dm text-sm font-medium text-gray-600">
                     Топ категория
                   </p>
-                  <h4 className="text-xl font-bold text-navy-700 dark:text-white">
+                  <h4 className="text-xl font-bold text-navy-700 d">
                   {orders && orders.length > 0 ? topCategory() : "-"}
 
                   </h4>

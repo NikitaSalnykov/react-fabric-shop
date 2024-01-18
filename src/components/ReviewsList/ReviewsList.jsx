@@ -30,9 +30,9 @@ export const ReviewsList = ({postId}) => {
       <button onClick={onToggleReviewCreateModal} className='items-center shadow-sm max-w-[250px] rounded-md border border-transparent bg-lime-500 px-4 py-3 text-base font-medium text-white hover:bg-lime-600 focus:outline-none focus:ring-2 focus:ring-lime-600 focus:ring-offset-2'>Оставить отзыв</button>
       </div>
       {!reviewsIsLoading && reviews && reviews.length > 0 ? <ul className='flex flex-col gap-4'>
-        {reviews.map((el,index) => <li key={el._id || index} className={index !== reviews.length - 1 ? 'border-b border-gray-300 pb-12 pt-8' : 'pb-4 pt-8'}>
+        {reviews.map((el,index) => el && (<li key={el._id || index} className={index !== reviews.length - 1 ? 'border-b border-gray-300 pb-12 pt-8' : 'pb-4 pt-8'}>
 <ReviewCart review={el} />
-</li> )}
+</li> ))}
       </ul> : <div className=' text-center p-10 text-gray-500'>Пока нет отзывов к этом товару</div>}
     </div>
     <BasicModal

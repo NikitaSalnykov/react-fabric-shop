@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {
   createReview,
+  createReviewComment,
   deleteReview,
+  deleteReviewComment,
   fetchReviews,
   getReviewById,
 } from './reviewsOperation';
@@ -89,6 +91,38 @@ const reviewsSlice = createSlice({
       };
     });
     builder.addCase(deleteReview.rejected, rejectFunc);
+
+        // create comment
+
+        builder.addCase(createReviewComment.pending, pendingFunc);
+        builder.addCase(createReviewComment.fulfilled, (state, action) => {
+          const updatedReview = action.payload;
+
+          const updatedReviews = state.reviews.map((review) =>
+          review._id === updatedReview._id ? updatedReview : review
+          );
+    
+          return {
+            ...state,
+            reviews: updatedReviews,
+            isLoading: false,
+            error: null,
+            isReviewCreated: true,
+          };
+        });
+        builder.addCase(createReviewComment.rejected, rejectFunc);
+    
+        // delete comment
+    
+        builder.addCase(deleteReviewComment.pending, pendingFunc);
+        builder.addCase(deleteReviewComment.fulfilled, (state, action) => {
+          return {
+            reviews: [...state.reviews.comments.filter((el) => el._id !== action.payload)],
+            isLoading: false,
+            error: null,
+          };
+        });
+        builder.addCase(deleteReviewComment.rejected, rejectFunc);
   },
 });
 

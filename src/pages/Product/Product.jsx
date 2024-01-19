@@ -209,7 +209,7 @@ const Product = () => {
               </div>
             </div>
           </div>
-          <ReviewsList postId={product._id}/>
+          <ReviewsList productId={product._id}/>
         </div>
       ) : (
         <div>

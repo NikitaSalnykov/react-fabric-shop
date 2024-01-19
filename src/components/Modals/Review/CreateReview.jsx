@@ -2,14 +2,11 @@ import { useFormik } from 'formik';
 import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import {
-  getIsLoadingProducts,
-  getIsProductCreated,
-} from '../../../Redux/products/productsSelectors';
-import { resetProductCreated } from '../../../Redux/products/productsSlice';
 import { getUser } from '../../../Redux/auth/auth-selectors';
 import { ReviewSchma } from '../../../schemas/ReviewSchma';
 import { createReview } from '../../../Redux/reviews/reviewsOperation';
+import { resetReviewCreated } from '../../../Redux/reviews/reviewsSlice';
+import { getIsLoadingReview, getIsReviewCreated } from '../../../Redux/reviews/reviewsSelectors';
 
 
 const errorTextStyle =
@@ -19,18 +16,19 @@ const errorTextStyle =
 const labelStyle =
   "text-neutral-900 text-sm font-semibold font-['Manrope'] tracking-wide mdOnly:text-[16px] ";
 
-export const CreateReview = ({onCloseModal, postId}) => {
+export const CreateReview = ({onCloseModal, productId}) => {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoadingProducts);
-  const isProductCreated = useSelector(getIsProductCreated);
+  const isLoading = useSelector(getIsLoadingReview);
+  const isReviewCreated = useSelector(getIsReviewCreated);
 
   useEffect(() => {
-    if (isProductCreated) {
+    if (isReviewCreated) {
+      console.log(1);
       onCloseModal();
-      dispatch(resetProductCreated());
+      dispatch(resetReviewCreated());
     }
-  }, [isProductCreated, onCloseModal, dispatch]);
+  }, [isReviewCreated, onCloseModal, dispatch]);
 
   const formik = useFormik({
     initialValues: {
@@ -50,7 +48,7 @@ export const CreateReview = ({onCloseModal, postId}) => {
         author,
         extraPhotos,
         rating,
-        postId,
+        productId,
         authorId: user._id
       };
 
@@ -68,7 +66,7 @@ export const CreateReview = ({onCloseModal, postId}) => {
     formData.append('text', data.text);
     formData.append('rating', data.rating);
     formData.append('author', data.author);
-    formData.append('postId', data.postId);
+    formData.append('productId', data.productId);
 
     if(data.authorId) {
     formData.append('authorId', data.authorId);
@@ -207,7 +205,6 @@ export const CreateReview = ({onCloseModal, postId}) => {
           {!isLoading ? (
             <button
               type="submit"
-              // onClick={onCloseModal}
               disabled={false}
               className={`"Frame36 hover:blue-gradient hover:text-white smOnly:h-10 h-10 px-5 py-2 rounded-3xl border-2 border-blue justify-center items-center gap-2 inline-flex  text-blue text-base font-bold font-['Manrope'] tracking-wide"`}
             >

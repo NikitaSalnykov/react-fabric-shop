@@ -42,12 +42,35 @@ export const createReview = createAsyncThunk(
   }
 );
 
-
 export const deleteReview = createAsyncThunk(
   'reviews/deleteReviews',
   async (arg, thunkAPI) => {
     try {
       instance.delete(`/api/reviews/${arg}`);
+      return arg;
+    } catch (evt) {
+      return thunkAPI.rejectWithValue(evt.message);
+    }
+  }
+);
+
+export const createReviewComment = createAsyncThunk(
+  'reviews/postReviewComment',
+  async ({reviewId, post}, thunkAPI) => {
+    try {
+      const { data } = await instance.patch(`/api/reviews/${reviewId}/comments`, post);
+      return data;
+    } catch (evt) {
+      return thunkAPI.rejectWithValue(evt.message);
+    }
+  }
+);
+
+export const deleteReviewComment = createAsyncThunk(
+  'reviews/deleteReviewComment',
+  async ({reviewId, commentId}, thunkAPI) => {
+    try {
+      instance.delete(`/api/reviews/${reviewId}/comments/${commentId}`);
       return arg;
     } catch (evt) {
       return thunkAPI.rejectWithValue(evt.message);

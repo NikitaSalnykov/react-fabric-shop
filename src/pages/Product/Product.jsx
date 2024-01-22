@@ -24,8 +24,9 @@ const Product = () => {
   const isLoading = useSelector(getIsLoadingProducts);
   const getUserCart = useSelector(getCart);
   const [type, setType] = useState('roll');
+  const [price, setPrice] = useState(null);
 
-  console.log(category);
+  console.log(products);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -49,6 +50,7 @@ const Product = () => {
       id: product._id,
       count,
       product,
+      type
     };
     console.log(order);
     dispatch(setCart(order));
@@ -82,13 +84,18 @@ const Product = () => {
             {/* Options */}
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 mb-4">
+              <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-2 mb-4">
                 <label>
                   <input
                     type="radio"
-                    value="1"
+                    value="roll"
                     className="peer hidden"
                     name="framework"
+                    defaultChecked 
+                    onChange={() => {
+                      setType('roll')
+                      setPrice(product.price);
+                    }}
                   />
 
                   <div className="hover:bg-gray-50 flex items-center justify-between px-4 py-2 border-2 rounded-lg cursor-pointer text-sm border-gray-200 group peer-checked:border-blue-500">
@@ -98,7 +105,7 @@ const Product = () => {
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
-                      stroke="currentColor"
+                      stroke="green"
                       className="w-9 h-9 text-blue-600 invisible group-[.peer:checked+&]:visible"
                     >
                       <path
@@ -116,16 +123,21 @@ const Product = () => {
                     value="1"
                     className="peer hidden"
                     name="framework"
+                    disabled={(product.pricePerMeter && product.pricePerMeter < 0) ||  !product.pricePerMeter}
+                    onChange={() => {
+                      setType('meter');
+                      setPrice(product.pricePerMeter || 0); 
+                    }}
                   />
 
-                  <div className="hover:bg-gray-50 flex items-center justify-between px-4 py-2 border-2 rounded-lg cursor-pointer text-sm border-gray-200 group peer-checked:border-blue-500">
-                    <h2 className="font-medium text-gray-700">Метр</h2>
+                  <div className={`hover:bg-gray-50 flex items-center justify-between px-4 py-2 border-2 rounded-lg cursor-pointer text-sm border-gray-200 group peer-checked:border-blue-500 ${(product.pricePerMeter && product.pricePerMeter > 0) ||  !product.pricePerMeter && "opacity-50"}`}>
+                    <h2 className="font-medium text-gray-700">Метраж</h2>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
-                      stroke="currentColor"
+                      stroke="green"
                       className="w-9 h-9 text-blue-600 invisible group-[.peer:checked+&]:visible"
                     >
                       <path
@@ -140,7 +152,7 @@ const Product = () => {
               <h3 className="text-sm font-medium text-gray-900  mb-4">
                 Стоимость:
               </h3>
-              <Price discount={product.discount || 0} price={product.price} />
+              <Price discount={product.discount || 0} price={price || product.price} />
               <form className="mt-10">
                 {/* Colors */}
                 {anotherColors && anotherColors.length > 0 && (

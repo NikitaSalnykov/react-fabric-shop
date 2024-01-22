@@ -21,6 +21,7 @@ import categoryName from '../../helpers/categoryName';
 import { deleteFavorite, getFavorite, setFavorite } from '../../Redux/favorites/favoriteSlice';
 import Svg from '../Svg/Svg';
 import { Price } from '../../pages/Price/Price';
+import { TypeProductSwitcher } from '../TypeProductSwitcher/TypeProductSwitcher';
 
 const ProductList = ({ title }) => {
   const { category } = useParams();
@@ -111,7 +112,6 @@ console.log("filterPrice", filterPrice);
   const paginatedProducts = (products) =>
   newProducts(products).slice((currentPage - 1) * limit, currentPage * limit);
 
-console.log("products", paginatedProducts(productsByCategory));
   return (
 <>
 <div className="">
@@ -138,10 +138,12 @@ console.log("products", paginatedProducts(productsByCategory));
                     className="h-full w-full object-cover object-center group-hover:opacity-75 sm:h-[280px]"
                   />
                 </div>
-                <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
-                <Price price={product.price} discount={product.discount} orientation='row' size='small'/>
-              </Link>
-              {product.discount > 0 && <div className={`absolute top-4 left-4 w-12 h-12 rounded-full bg-red flex justify-center items-center cursor-pointer `}>
+                <h3 className="mt-4 text-lg text-gray-700">{product.name}</h3>
+                </Link>
+                <div className="mt-4">
+                <TypeProductSwitcher product={product}/>
+                </div>
+                              {product.discount > 0 && <div className={`absolute top-4 left-4 w-12 h-12 rounded-full bg-red flex justify-center items-center cursor-pointer `}>
                              <p className='flex justify-center items-center gap-[1px] text-white font-semibold'><span className=' text-[10px]'>-</span>{product.discount}<span className=' text-[10px]'>%</span></p>
                               </div>}
                               <div onClick={() => handleFavorite(product)} className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex justify-center items-center  ${favoritesStyle.some((item) => item._id === product._id) ? " opacity-80" : "opacity-40"} hover:opacity-80 cursor-pointer `}>
@@ -157,6 +159,7 @@ console.log("products", paginatedProducts(productsByCategory));
                                   : 'gray'
                               }`}/>
                               </div>
+                              
 </div>
             ))}
           </div>

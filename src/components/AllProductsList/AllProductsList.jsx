@@ -20,6 +20,7 @@ import { Pagination } from '../Pagination/Pagination';
 import Svg from '../Svg/Svg';
 import { deleteFavorite, getFavorite, setFavorite } from '../../Redux/favorites/favoriteSlice';
 import { Price } from '../../pages/Price/Price';
+import { TypeProductSwitcher } from '../TypeProductSwitcher/TypeProductSwitcher';
 
 const AllProductsList = ({ title }) => {
   const dispatch = useDispatch();
@@ -128,8 +129,10 @@ console.log(filteredProducts(products));
                   <p className="mt-1 text-sm font-medium text-gray-900">
                     {product.category}
                   </p>
-                  <Price price={product.price} discount={product.discount} orientation='row' size='small'/>
                 </Link>
+                <div className="mt-2">
+                <TypeProductSwitcher product={product}/>
+                </div>
                 {product.discount > 0 && <div className={`absolute top-4 w-12 h-12 rounded-full bg-red flex justify-center items-center cursor-pointer  left-4 `}>
                              <p className='flex justify-center items-center gap-[1px] text-white font-semibold'><span className=' text-[10px]'>-</span>{product.discount}<span className=' text-[10px]'>%</span></p>
                               </div>}

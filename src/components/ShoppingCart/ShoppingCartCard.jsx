@@ -15,7 +15,7 @@ const ShoppingCartCard = ({ product, closeModal }) => {
     e.preventDefault(dispatch(deleteCart(product.id)));
   };
 
-  console.log(12, categoryURL(product.product.category));
+  console.log(12, product);
 
   return (
     <div className="w-full h-auto py-8 px-3 md:px-5 border-[1px] border-lightgray rounded-[20px]  flex flex-col md:flex-row relative">
@@ -38,17 +38,37 @@ const ShoppingCartCard = ({ product, closeModal }) => {
             </p>
             <div
               onClick={closeModal}
-              className="flex items-center justify-between w-full pt-1"
+              className="flex flex-col"
             >
               <Link
                 to={`/categories/${categoryURL(product.product.category)}/${
                   product.product._id
                 }`}
-                className="text-base font-black leading-none text-gray-800 "
+                className="text-lg md:text-xl font-black leading-none text-gray-800 "
               >
-                {product.product.name}
+                <p>{product.product.name} <span>{product.type === "roll" ? "(рулон)" : "(метраж)"}</span></p>
               </Link>
             </div>
+            {product.product.pricePerMeter && <div className=" text-sm underline">
+            {product.type === 'roll' ? <button onClick={(e) => {
+                e.preventDefault();
+                dispatch(
+                  updateCart({
+                    ...product,
+                    type: "meter",
+                  })
+                );
+              }} className='flex'>Сменить на метраж</button>
+              : <button onClick={(e) => {
+                e.preventDefault();
+                dispatch(
+                  updateCart({
+                    ...product,
+                    type: "roll",
+                  })
+                );
+              }} className='flex'>Сменить на рулон</button>}
+            </div>}
             <p className="text-base text-gray-900 text-xs">
               {product.product.description.split('\r\n').map((line, index) => (
                 <div key={index}>
@@ -83,6 +103,7 @@ const ShoppingCartCard = ({ product, closeModal }) => {
                       updateCart({
                         id: product.id,
                         product: product.product,
+                        type: product.type,
                         count: count - 1,
                       })
                     );
@@ -106,6 +127,7 @@ const ShoppingCartCard = ({ product, closeModal }) => {
                       updateCart({
                         id: product.id,
                         product: product.product,
+                        type: product.type,
                         count: count + 1,
                       })
                     );
@@ -119,7 +141,7 @@ const ShoppingCartCard = ({ product, closeModal }) => {
             </div>
           </div>
                   <div className=" mr-6 lg:mr-0">
-                  <Price price={product.product.price} discount={product.product.discount} size={"small"}/>
+                  <Price price={product.type === "roll" ? product.product.price * product.count : product.product.pricePerMeter * product.count} discount={product.product.discount} size={"small"}/>
                   </div>
         </div>
       </div>

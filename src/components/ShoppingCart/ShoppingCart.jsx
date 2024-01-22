@@ -91,7 +91,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const totalPrice = () => {
     let result = 0;
     products.map((el) => {
-      result += resultPrice(el.product.price, el.product.discount ) * el.count;
+      result += +resultPrice(el.type === "roll" ? Number(el.product.price) * el.count : Number(el.product.pricePerMeter) * el.count, el.product.discount ) ;
     });
     return result;
   };
@@ -115,14 +115,15 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
         .map((el, index) => {
           return `${index + 1}) Название: ${el.product.name}, цвет: ${
             el.product.color
-          }, категория: ${el.product.category}, количество: ${
+          }, категория: ${el.product.category}, Тип: ${el.type === "roll" ? "рулон" : "метраж"}, количество: ${
             el.count
-          }, цена: ${resultPrice(el.product.price, el.product.discount)} ${el.product.discount > 0 && `Включая скидку ${el.product.discount}%`}.`;
+          }, цена: ${el.product.discount && el.product.discount > 0 ? resultPrice(el.type && el.type !== "roll" ? el.product.price : el.product.pricePerMeter, el.product.discount) : resultPrice(el.type && el.type !== "roll" ? el.product.price : el.product.pricePerMeter)} ${el.product.discount && el.product.discount > 0 ? `Включая скидку ${el.product.discount}%` : ``}.`;
         })
         .join(' ');
       const newOrder = {
         orderNumber,
         name,
+        type: "roll",
         surname,
         tel,
         delivery,
@@ -130,6 +131,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
         total,
         products,
         user,
+        
       };
       dispatch(createOrder({ order: newOrder }));
       console.log({ order: newOrder });

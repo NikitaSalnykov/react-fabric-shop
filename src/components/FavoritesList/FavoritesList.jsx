@@ -11,6 +11,7 @@ import {
   setFavorite,
 } from '../../Redux/favorites/favoriteSlice';
 import { Price } from '../../pages/Price/Price';
+import { TypeProductSwitcher } from '../TypeProductSwitcher/TypeProductSwitcher';
 
 const FavoritesList = ({ title }) => {
   const dispatch = useDispatch();
@@ -71,13 +72,10 @@ const FavoritesList = ({ title }) => {
                     <p className="mt-1 text-sm font-medium text-gray-900">
                       {product.category}
                     </p>
-                    <Price
-                      price={product.price}
-                      discount={product.discount}
-                      size={'small'}
-                      orientation={'row'}
-                    />
                   </Link>
+                  <div className="mt-2">
+                <TypeProductSwitcher product={product}/>
+                </div>
                   <div
                     onClick={() => handleFavorite(product)}
                     className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex justify-center items-center  ${

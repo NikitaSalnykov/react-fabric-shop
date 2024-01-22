@@ -111,6 +111,10 @@ export const UserOrders = () => {
                     </div>
                   </div>
                   <div className="w-full">
+                  <p>Заказ:</p>
+                  <p className='text-xs mt-2'>{el.order.info}</p>
+                  </div>
+                  <div className="w-full">
                     <p>Список товаров:</p>
                     <div className="w-full flex flex-row">
                       {el.order.products && (
@@ -148,10 +152,10 @@ export const UserOrders = () => {
                                   Цвет: <strong>{el.product.color}</strong>
                                 </p>
                                 <p className="text-base text-gray-900 text-xs">
-                                  Количество: <strong>{el.count}</strong>
+                                  Количество: <strong>{el.count}</strong> {el.type && el.type !== "roll" ? "(метраж)" : "(рулон)"}
                                 </p>
                                 <p className="text-base text-gray-900 text-xs">
-                                  Цена: <strong>{el.product.price}</strong>
+                                  Цена: <strong>{el.type && el.type !== "roll" ? el.product.pricePerMeter : el.product.price}</strong>
                                 </p>
                               </div>
                             </div>

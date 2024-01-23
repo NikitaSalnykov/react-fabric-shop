@@ -73,7 +73,7 @@ export const ReviewsList = ({ productId }) => {
                         key={el._id || index}
                         className={
                           index !== productReviews.length - 1
-                            ? 'border-b border-gray-300 pb-8 pt-8'
+                            ? 'border-b border-gray-200 pb-8 pt-8'
                             : 'pb-4 pt-8'
                         }
                       >

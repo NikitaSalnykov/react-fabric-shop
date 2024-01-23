@@ -77,7 +77,6 @@ const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isBasketOpen, setIsBasketOpen] = useState(false);
   const [isLeavingModalOpen, setLeavingModalOpen] = useState(false);
-  console.log(user);
 
   const onToogleLeavingModal = () => {
     setLeavingModalOpen(!isLeavingModalOpen);

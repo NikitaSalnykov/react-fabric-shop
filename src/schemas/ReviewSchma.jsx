@@ -17,7 +17,9 @@ export const ReviewSchma = yup.object({
     .test('maxFiles', 'Максимальное количество файлов - 3', (value) => {
       if (!value) return true;
       return value.length <= 3;
-    }),
+    })
+    .nullable(),
+    
 
   rating: yup
     .number('Оценка должна быть числом')

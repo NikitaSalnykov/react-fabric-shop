@@ -70,8 +70,8 @@ export const deleteReviewComment = createAsyncThunk(
   'reviews/deleteReviewComment',
   async ({reviewId, commentId}, thunkAPI) => {
     try {
-      instance.delete(`/api/reviews/${reviewId}/comments/${commentId}`);
-      return arg;
+      const { data } = await instance.delete(`/api/reviews/${reviewId}/comments/${commentId}`);
+      return data;
     } catch (evt) {
       return thunkAPI.rejectWithValue(evt.message);
     }

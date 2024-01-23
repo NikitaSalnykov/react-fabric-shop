@@ -9,6 +9,7 @@ import {
   getIsProductCreated,
 } from '../../../Redux/products/productsSelectors';
 import { resetProductCreated } from '../../../Redux/products/productsSlice';
+import { productSchema } from '../../../schemas/ProductSchema';
 
 const errorTextStyle =
   'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal top-6 left-[60px] xl:left-[85px]';
@@ -24,6 +25,7 @@ export const AddProductForm = ({ onCloseModal }) => {
   const isLoading = useSelector(getIsLoadingProducts);
   const [isMyCategory, setMyCategory] = useState(false);
   const isProductCreated = useSelector(getIsProductCreated);
+  const [showPricePerMeterInput, setShowPricePerMeterInput] = useState(false)
 
   useEffect(() => {
     if (isProductCreated) {
@@ -35,9 +37,10 @@ export const AddProductForm = ({ onCloseModal }) => {
   const formik = useFormik({
     initialValues: {
       name: '',
-      category: '',
+      category: 'Фатин',
       color: '',
       price: '',
+      pricePerMeter: '',
       discount: 0,
       description: '',
       article: '',
@@ -47,7 +50,7 @@ export const AddProductForm = ({ onCloseModal }) => {
 
     validateOnChange: false,
     validateOnBlur: true,
-    // validationSchema: ProductSchema,
+    validationSchema: productSchema,
 
     onSubmit: ({
       name,
@@ -59,6 +62,7 @@ export const AddProductForm = ({ onCloseModal }) => {
       article,
       mainPhoto,
       extraPhotos,
+      pricePerMeter,
     }) => {
       const updateUser = {
         name,
@@ -71,6 +75,10 @@ export const AddProductForm = ({ onCloseModal }) => {
         mainPhoto,
         extraPhotos,
       };
+
+      if (pricePerMeter && +pricePerMeter > 0) {
+        updateUser.pricePerMeter = pricePerMeter
+      }
 
       const formData = createUserFormData(updateUser);
 
@@ -90,10 +98,13 @@ export const AddProductForm = ({ onCloseModal }) => {
     formData.append('color', data.color);
     formData.append('price', data.price);
     formData.append('discount', data.discount);
-
     formData.append('description', data.description);
     formData.append('article', data.article);
     formData.append('mainPhoto', data.mainPhoto);
+
+    if (data.pricePerMeter) {
+      formData.append('pricePerMeter', data.pricePerMeter);
+    }
     if (data.extraPhotos) {
       [...data.extraPhotos].forEach((file) => {
         formData.append('extraPhotos', file);
@@ -114,7 +125,7 @@ export const AddProductForm = ({ onCloseModal }) => {
         <div className="flex flex-col gap-[20px]">
           {/* Name */}
 
-         <div className="flex justify-between w-full relative flex-wrap gap-2">
+         <div className="flex justify-between w-full relative flex-wrap gap-2 items-center">
                 <label className={labelStyle}  htmlFor="name">
               Название:
             </label>
@@ -134,7 +145,7 @@ export const AddProductForm = ({ onCloseModal }) => {
           {/* category */}
           <div className="flex-col">
             {isMyCategory ? (
-              <div className="flex justify-between w-full relative flex-wrap gap-2">
+              <div className="flex justify-between w-full relative flex-wrap gap-2 items-center">
                 <label className={labelStyle} htmlFor="category">
                   Категория:
                 </label>
@@ -153,7 +164,7 @@ export const AddProductForm = ({ onCloseModal }) => {
                 )}
               </div>
             ) : (
-              <div className="flex justify-between w-full relative flex-wrap gap-2">
+              <div className="flex justify-between w-full relative flex-wrap gap-2 items-center">
                 <label className={labelStyle} htmlFor="category">
                   Категория:
                 </label>
@@ -181,7 +192,7 @@ export const AddProductForm = ({ onCloseModal }) => {
           </div>
 
           {/* color */}
-          <div className="flex justify-between w-full relative flex-wrap gap-2">
+          <div className="flex justify-between w-full relative flex-wrap gap-2 items-center">
             <label className={labelStyle} htmlFor="color">
               Цвет:
             </label>
@@ -192,7 +203,6 @@ export const AddProductForm = ({ onCloseModal }) => {
               type="text"
               id="color"
               name="color"
-              placeholder={'+380123456789'}
               value={formikValues['color']}
               onChange={formik.handleChange}
             />
@@ -202,7 +212,7 @@ export const AddProductForm = ({ onCloseModal }) => {
           </div>
 
           {/* price */}
-         <div className="flex justify-between w-full relative flex-wrap gap-2">
+         <div className="flex justify-between w-full relative flex-wrap gap-2 items-center">
                 <label className={labelStyle}  htmlFor="price">
               Цена:
             </label>
@@ -221,6 +231,32 @@ export const AddProductForm = ({ onCloseModal }) => {
             )}
           </div>
 
+                    {/* pricePerMeter */}
+         <div className={`flex  w-full relative flex-wrap gap-2 ${showPricePerMeterInput && "justify-between "} items-center`}>
+                <label className={labelStyle}  htmlFor="pricePerMeter">
+              Цена за метр:
+            </label>
+            {showPricePerMeterInput ? <div className='flex flex-col gap-1'>
+              <input
+              className={`${inputStyle} ${
+                errors['pricePerMeter'] && 'border-rose-400'
+              }`}
+              type="text"
+              id="pricePerMeter"
+              name="pricePerMeter"
+              value={formikValues['pricePerMeter']}
+              onChange={formik.handleChange}
+            /> 
+<div className=' cursor-pointer text-xs p-1 border-[1px] mx-auto w-full' 
+onClick={() => {
+  formik.setFieldValue('pricePerMeter', null)
+  setShowPricePerMeterInput(false)}}>Убрать</div>
+            </div> : <div className=' cursor-pointer text-xs p-1 border-[1px]' onClick={() => setShowPricePerMeterInput(true)}>Добавить</div>}
+            {errors['pricePerMeter'] && (
+              <p className={errorTextStyle}>{errors['pricePerMeter']}</p>
+            )}
+          </div>
+
           {/* discount */}
          <div className="flex justify-between w-full relative flex-wrap gap-2">
                 <label className={labelStyle}  htmlFor="discount">
@@ -228,7 +264,7 @@ export const AddProductForm = ({ onCloseModal }) => {
             </label>
             <input
               className={`${inputStyle} ${
-                errors['price'] && 'border-rose-400'
+                errors['discount'] && 'border-rose-400'
               }`}
               type="text"
               id="discount"
@@ -257,7 +293,7 @@ export const AddProductForm = ({ onCloseModal }) => {
               onChange={formik.handleChange}
             />
             {errors['description'] && (
-              <p className={errorTextStyle}>{errors['description']}</p>
+              <p className={`${errorTextStyle} top-[95px] left-[20%]`}>{errors['description']}</p>
             )}
           </div>
 
@@ -298,8 +334,8 @@ export const AddProductForm = ({ onCloseModal }) => {
               }}
             />
             {errors['mainPhoto'] && (
-              <p className={errorTextStyle}>{errors['mainPhoto']}</p>
-            )}
+              <p className={`${errorTextStyle} top-[-20px] left-[20%]`}>{errors['mainPhoto']}</p>
+              )}
           </div>
 
           {/* extraPhotos */}

@@ -19,7 +19,6 @@ export const CreateReviewComment = ({onCloseModal, reviewId}) => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoadingReview);
   const isReviewCreated = useSelector(getIsReviewCreated);
-  console.log("reviewId", reviewId);
 
   useEffect(() => {
     if (isReviewCreated) {

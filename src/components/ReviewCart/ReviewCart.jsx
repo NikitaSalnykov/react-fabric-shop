@@ -13,7 +13,6 @@ export const ReviewCart = ({ review, openCommentModal, openImageModal }) => {
   const user = useSelector(getUser);
   const dispatch = useDispatch();
 
-  console.log(review);
 
   return (
     <article>
@@ -96,8 +95,9 @@ export const ReviewCart = ({ review, openCommentModal, openImageModal }) => {
             Свернуть
           </button>
         )}
+        {review.extraPhotos && review.extraPhotos.length > 0 &&
         <div className="py-4">
-          <div className="flex items-center gap-2 mb-4 opacity-70">
+           <div className="flex items-center gap-2 mb-4 opacity-70">
             <Svg id={'icon-clip'} size={16} />
             <p className=" font-semibold text-sm">Прикрепленные фотографии:</p>
           </div>
@@ -118,6 +118,7 @@ export const ReviewCart = ({ review, openCommentModal, openImageModal }) => {
               ))}
           </ul>
         </div>
+}
         <div className="flex flex-row-reverse gap-4">
           {user && (user._id === review.authorId || user.role === 'admin') && (
             <button
@@ -142,7 +143,7 @@ export const ReviewCart = ({ review, openCommentModal, openImageModal }) => {
         review.comments.map(
           (el) =>
             el && (
-              <div key={el._id} className="ml-8 pl-4 border-l-[3px]">
+              <div key={el._id} className="ml-8 pl-4 border-l-[3px] mt-4">
                 <p className="font-bold text-xl ">Ответ Администратора</p>
 
                 <div className="mb-5 text-sm ">

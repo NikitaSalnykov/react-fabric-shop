@@ -26,7 +26,6 @@ const Product = () => {
   const [type, setType] = useState('roll');
   const [price, setPrice] = useState(null);
 
-  console.log(products);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -39,7 +38,6 @@ const Product = () => {
     .filter((el) => el.name === product.name)
     .filter((el) => el.category === product.category)
     .filter((el) => el.color !== product.color);
-  console.log(anotherColors);
 
   const [count, setCount] = useState(1);
 

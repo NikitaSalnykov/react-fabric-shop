@@ -84,6 +84,7 @@ const reviewsSlice = createSlice({
 
     builder.addCase(deleteReview.pending, pendingFunc);
     builder.addCase(deleteReview.fulfilled, (state, action) => {
+      console.log(action.payload);
       return {
         reviews: [...state.reviews.filter((el) => el._id !== action.payload)],
         isLoading: false,
@@ -101,6 +102,7 @@ const reviewsSlice = createSlice({
           const updatedReviews = state.reviews.map((review) =>
           review._id === updatedReview._id ? updatedReview : review
           );
+
     
           return {
             ...state,
@@ -114,15 +116,25 @@ const reviewsSlice = createSlice({
     
         // delete comment
     
-        builder.addCase(deleteReviewComment.pending, pendingFunc);
         builder.addCase(deleteReviewComment.fulfilled, (state, action) => {
+          const { reviewId, commentId } = action.meta.arg;
+        
+          // Find the review in the state
+          const updatedReviews = state.reviews.map((review) => {
+            if (review._id === reviewId) {
+              // Update the comments array by removing the comment with the specified ID
+              const updatedComments = review.comments.filter((comment) => comment._id !== commentId);
+              return { ...review, comments: updatedComments };
+            }
+            return review;
+          });
+        
           return {
-            reviews: [...state.reviews.comments.filter((el) => el._id !== action.payload)],
+            reviews: updatedReviews,
             isLoading: false,
             error: null,
           };
         });
-        builder.addCase(deleteReviewComment.rejected, rejectFunc);
   },
 });
 

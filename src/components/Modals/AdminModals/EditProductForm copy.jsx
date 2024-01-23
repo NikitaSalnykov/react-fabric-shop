@@ -9,7 +9,6 @@ import {
   getIsProductCreated,
 } from '../../../Redux/products/productsSelectors';
 import { resetProductCreated } from '../../../Redux/products/productsSlice';
-import { productEditSchema } from '../../../schemas/ProductEditSchema';
 
 const errorTextStyle =
   'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal top-6 left-[60px] xl:left-[85px]';
@@ -40,7 +39,7 @@ export const EditProductForm = ({ onCloseModal, product }) => {
       category: product.category,
       color: product.color,
       price: product.price,
-      pricePerMeter: product.pricePerMeter || "",
+      pricePerMeter: product.pricePerMeter || '',
       description: product.description,
       article: product.article,
       discount: product.discount || 0,
@@ -50,7 +49,7 @@ export const EditProductForm = ({ onCloseModal, product }) => {
 
     validateOnChange: false,
     validateOnBlur: true,
-    validationSchema: productEditSchema,
+    // validationSchema: ProductSchema,
 
     onSubmit: ({
       name,
@@ -62,7 +61,6 @@ export const EditProductForm = ({ onCloseModal, product }) => {
       mainPhoto,
       extraPhotos,
       discount,
-      pricePerMeter
     }) => {
       const updateUser = {
         name,
@@ -74,7 +72,6 @@ export const EditProductForm = ({ onCloseModal, product }) => {
         mainPhoto,
         extraPhotos,
         discount,
-        pricePerMeter
       };
 
       const formData = createUserFormData(updateUser);
@@ -95,11 +92,12 @@ export const EditProductForm = ({ onCloseModal, product }) => {
     formData.append('category', data.category);
     formData.append('color', data.color);
     formData.append('price', data.price);
-    formData.append('pricePerMeter', data.pricePerMeter);
     formData.append('discount', data.discount);
     formData.append('description', data.description);
     formData.append('article', data.article);
-
+    if (data.mainPhoto) {
+      formData.append('mainPhoto', data.mainPhoto);
+    }
 
     // Добавляем extraPhotos, если они существуют
     if (data.extraPhotos && data.extraPhotos.length > 0) {
@@ -221,7 +219,7 @@ export const EditProductForm = ({ onCloseModal, product }) => {
             /> 
 <div className=' cursor-pointer text-xs p-1 border-[1px] mx-auto w-full' 
 onClick={() => {
-  formik.setFieldValue('pricePerMeter', '')
+  formik.setFieldValue('pricePerMeter', null)
   setShowPricePerMeterInput(false)}}>Убрать</div>
             </div> : <div className=' cursor-pointer text-xs p-1 border-[1px]' onClick={() => setShowPricePerMeterInput(true)}>Добавить</div>}
             {errors['pricePerMeter'] && (

@@ -46,7 +46,7 @@ const links = [
   {
     name: 'Акционные предложения',
     description: 'Покупайте по выгодным ценам',
-    href: '/categories',
+    href: '/all?value=sale',
     icon: 'icon-sale',
   },
   {

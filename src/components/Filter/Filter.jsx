@@ -6,7 +6,7 @@ import { categories } from '../../assets/categories';
 import { fetchProducts } from '../../Redux/products/productsOperation';
 import { getProducts } from '../../Redux/products/productsSelectors';
 
-export const Filter = ({nameFilter=false, filterColor=false, filterCategory=false, filterPrice=false, filterNew=false, filterSale=false}) => {
+export const Filter = ({nameFilter=false, filterColor=false, filterCategory=false, filterPrice=false, filterNew=false, filterSale=false, value}) => {
   const dispatch = useDispatch();
   const products = useSelector(getProducts)
   useEffect(() => {

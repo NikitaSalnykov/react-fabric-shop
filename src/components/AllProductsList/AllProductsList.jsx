@@ -14,6 +14,7 @@ import {
   getFilterNew,
   getFilterPrice,
   getFilterSale,
+  setFilterNew,
 } from '../../Redux/filter/filterSlice';
 import { categoryURL } from '../../helpers/categoryURL';
 import { Pagination } from '../Pagination/Pagination';
@@ -36,7 +37,7 @@ const AllProductsList = ({ title }) => {
   const filterColor = useSelector(getFilterColor);
   const filterSale = useSelector(getFilterSale);
   const filterNew = useSelector(getFilterNew);
-
+  
 
   const [currentPage, setCurrentPage] = useState(1);
   const limit = 12;
@@ -44,7 +45,7 @@ const AllProductsList = ({ title }) => {
 
   const handleClickPage = (target) => {
     setCurrentPage(target.selected + 1);
-  };
+  };  
 
   
   const handleFavorite = (product) => {
@@ -63,7 +64,6 @@ const AllProductsList = ({ title }) => {
     const filteredProducts = (sortedProductObjects) => {
       if (!products) return sortedProductObjects;
       const price = filterPrice.replace(/\D/g, '')
-console.log("filterPrice", filterPrice);
       return sortedProductObjects.filter((el) => {
         const nameMatch = el.name.toLowerCase().includes(filterName.toLowerCase());
         const categoryMatch = filterCategory === 'Все категории' || el.category.toLowerCase().includes(filterCategory.toLowerCase());
@@ -90,7 +90,6 @@ console.log("filterPrice", filterPrice);
       product: el,
     }));
 
-    console.log(productsWithTimestamps)
     const sortedProducts = productsWithTimestamps.sort(
       (a, b) => b.timestamp - a.timestamp
     );
@@ -98,7 +97,6 @@ console.log("filterPrice", filterPrice);
     return filteredProducts(sortedProductObjects);
   };
 
-console.log(filteredProducts(products));
   return (
     <div className="md:min-h-[400px]">
       <div className="mx-auto max-w-2xl lg:max-w-7xl">

@@ -10,6 +10,7 @@ import { formattedDate } from '../../helpers/formattedDate';
 import { BasicModal } from '../../components/Modals/BasicModal/BasicModal';
 import DeleteOrder from '../../components/Modals/AdminModals/DeleteOrder';
 import { Filter } from '../../components/Filter/Filter';
+import { getFilterName } from '../../Redux/filter/filterSlice';
 
 const AdminOrders = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ const AdminOrders = () => {
   const isLoadingOrders = useSelector(getIsLoadingOrders);
   const [isModalDeleteOrderOpen, setModalDeleteOrderOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
+  const filterName = useSelector(getFilterName);
+
 
   useEffect(() => {
     dispatch(fetchOrders());
@@ -25,6 +28,26 @@ const AdminOrders = () => {
   const onTogleDeleteOrderModal = (order) => {
     setSelectedOrder(order);
     setModalDeleteOrderOpen(!isModalDeleteOrderOpen);
+  };
+
+  const filteredOrders = (items) => {
+    if (!orders) return items;
+  
+    const searchFields = ['name', 'info', 'tel'];
+  
+    return items
+    .filter((el) =>
+      searchFields.some((field) =>
+        el.order[field].toLowerCase().includes(filterName.toLowerCase())
+      )
+    )
+    .sort((a, b) => {
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+
+      // Сортировка от новых к старым
+      return dateB - dateA;
+    });
   };
 
   return (
@@ -60,7 +83,7 @@ const AdminOrders = () => {
               )}
             </div>
             <div className="">
-              <Filter nameFilter={true}/>
+              <Filter nameFilter={true} />
             </div>
           </div>
           <div className="p-6 overflow-x-scroll px-0 pt-0 pb-[100px]">
@@ -101,7 +124,7 @@ const AdminOrders = () => {
               </thead>
               <tbody>
                 {orders && !isLoadingOrders ? (
-                  orders.map(
+                  filteredOrders(orders).map(
                     (el) =>
                       el && (
                         <tr key={el._id ? el._id : '-'}>

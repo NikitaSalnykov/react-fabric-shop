@@ -125,7 +125,8 @@ console.log(filteredProducts(products));
                       className="h-full w-full object-cover object-center group-hover:opacity-75 sm:h-[280px]"
                     />
                   </div>
-                  <h3 className="mt-4 text-sm text-gray-700">{product.name}</h3>
+                  <h3 className="mt-4 text-lg text-gray-700">{product.name}</h3>
+                  <p className=" capitalize text-sm text-gray-700">Цвет: {product.color}</p>
                   <p className="mt-1 text-sm font-medium text-gray-900">
                     {product.category}
                   </p>

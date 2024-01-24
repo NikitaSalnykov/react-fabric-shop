@@ -139,6 +139,7 @@ console.log("filterPrice", filterPrice);
                   />
                 </div>
                 <h3 className="mt-4 text-lg text-gray-700">{product.name}</h3>
+                <p className=" capitalize text-sm text-gray-700">Цвет: {product.color}</p>
                 </Link>
                 <div className="mt-4">
                 <TypeProductSwitcher product={product}/>

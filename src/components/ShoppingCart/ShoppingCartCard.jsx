@@ -1,21 +1,35 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deleteCart, updateCart } from '../../Redux/cart/cartSlice';
 import Svg from '../Svg/Svg';
 import { Link } from 'react-router-dom';
 import { categoryURL } from '../../helpers/categoryURL';
 import { resultPrice } from '../../helpers/resultPrice';
 import { Price } from '../../pages/Price/Price';
+import { deleteFavorite, getFavorite, setFavorite } from '../../Redux/favorites/favoriteSlice';
 
 const ShoppingCartCard = ({ product, closeModal }) => {
+
   const [count, setCount] = useState(product.count);
+  const [favoritesStyle, setFavoritesStyle] = useState(
+    useSelector(getFavorite) || []
+  );
   const dispatch = useDispatch();
+  const favorites = useSelector(getFavorite);
 
   const handleDeleteFromCart = (e) => {
     e.preventDefault(dispatch(deleteCart(product.id)));
   };
 
-  console.log(12, product);
+  const handleFavorite = (product) => {
+    if (favorites.some((item) => item._id === product._id)) {
+      dispatch(deleteFavorite(product._id));
+      setFavoritesStyle(favoritesStyle.filter((el) => el._id !== product._id));
+    } else {
+      dispatch(setFavorite(product));
+      setFavoritesStyle([...favoritesStyle, product]);
+    }
+  };
 
   return (
     <div className="w-full h-auto py-8 px-3 md:px-5 border-[1px] border-lightgray rounded-[20px]  flex flex-col md:flex-row relative">
@@ -80,9 +94,29 @@ const ShoppingCartCard = ({ product, closeModal }) => {
             
             <div className="flex items-center justify-between absolute top-4 right-4">
               <div className="flex itemms-center gap-4">
-                <button className="">
-                  <Svg id={'icon-favorite'} size={22} />
-                </button>
+              <div
+                    onClick={() => handleFavorite(product.product)}
+                    className={`rounded-full bg-white flex justify-center items-center  ${
+                      favoritesStyle.some((item) => item._id === product._id)
+                        ? ' opacity-80'
+                        : 'opacity-80'
+                    } hover:opacity-80 cursor-pointer `}
+                  >
+                  <Svg
+                      id={'icon-favorite-product'}
+                      size={22}
+                      fill={`${
+                        favoritesStyle.some((item) => item._id === product.product._id)
+                          ? 'red'
+                          : 'transparent'
+                      }`}
+                      stroke={`${
+                        favoritesStyle.some((item) => item._id === product.product._id)
+                          ? 'transparent'
+                          : 'black'
+                      }`}
+                    />
+                </div>
                 <button className="" onClick={handleDeleteFromCart}>
                   <Svg id={'icon-cross'} size={22} stroke={'black'} />
                 </button>

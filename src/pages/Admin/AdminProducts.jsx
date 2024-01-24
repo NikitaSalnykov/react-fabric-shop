@@ -59,12 +59,17 @@ const AdminProducts = () => {
 
   const filteredProducts = (items) => {
     if (!products) return items;
-    return items.filter((el) => el.name.toLowerCase().includes(filterName.toLowerCase()));
+    return items.filter((el) => el.name.toLowerCase().includes(filterName.toLowerCase())).sort((a, b) => {
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+
+      return dateB - dateA;
+    });
   };
 
   return (
-    <div className="mt-2 lg:mt-12">
-      <div className="flex p-2 gap-2">
+    <div className="">
+      <div className="flex mb-4 gap-2">
         <button
           onClick={() => {
             setModalProductOpen(true);

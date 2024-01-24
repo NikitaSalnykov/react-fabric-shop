@@ -2,7 +2,7 @@ const SkeletonProduct = () => {
   return (
     <div className="container pt-6 animate-pulse">
       <div className="w-full lg:w-1/3 h-12 lg:h-6 bg-slate-200 mb-8"></div>
-      <div className="mx-auto bg-slate-200 h-[450px] w-[450px] md:h-[550px]  md:w-[650px] flex items-center justify-center"></div>
+      <div className="mx-auto bg-slate-200 h-[450px] w-full md:h-[550px]  md:w-[650px] flex items-center justify-center"></div>
       <div className="mx-auto max-w-2xl pt-10 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:grid-rows-[auto,auto,1fr] lg:gap-x-8 lg:pt-16">
         <div className="lg:col-span-2 lg:border-r lg:border-gray-200 lg:pr-8">
           <div className="h-6 w-1/2 bg-slate-200"></div>

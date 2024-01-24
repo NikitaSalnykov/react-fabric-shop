@@ -1,12 +1,21 @@
-import { Suspense, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import AdminSideMenu from './AdminSideMenu';
 import AdminNavigation from './AdminNavigation';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation  } from 'react-router-dom';
 import { AdminMain } from './AdminMain';
+import { setFilterName } from '../../Redux/filter/filterSlice';
 
 const Admin = () => {
+  const dispatch = useDispatch();
   const [isDashboardOpen, setDashboardOpen] = useState(false);
+  const {pathname: currentPath } = useLocation();
+
+  useEffect(() => {
+    dispatch(setFilterName(''));
+  }, [currentPath ])
+  
 
   const onToggleDashboard = () => {
     setDashboardOpen(!isDashboardOpen);
@@ -14,7 +23,7 @@ const Admin = () => {
   };
 
   return (
-    <div className="container min-h-screen">
+    <div className="smOnly:container min-h-screen">
       <AdminSideMenu
         isDashboardOpen={isDashboardOpen}
         onToggleDashboard={onToggleDashboard}

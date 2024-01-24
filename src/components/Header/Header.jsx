@@ -94,9 +94,12 @@ const Header = () => {
           aria-label="Global"
         >
           <div className="flex lg:flex-1 ">
-            <Link to="/" className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
+            <Link to="/" className="-m-1.5 p-1.5 flex justify-center items-center gap-2">
               <Svg id={'logo'} size={42}></Svg>
+              <div className="flex flex-col  leading-none ">
+              <p className="text-[#cb1183] font-extrabold text-[20px] uppercase ">Dream</p>
+              <p className="text-[white] bg-[#f96786] text-center font-extrabold text-[20px] uppercase ">Fatin</p>
+              </div>
             </Link>
           </div>
           <div className="flex lg:hidden gap-6 items-center">
@@ -329,6 +332,7 @@ const Header = () => {
             <div className="flex items-center justify-between">
               <Link to="/" className="-m-1.5 p-1.5">
                 <span className="sr-only">Your Company</span>
+                <Svg id={'logo'} size={32}></Svg>
               </Link>
               <button
                 type="button"

@@ -6,12 +6,13 @@ const Footer = () => {
     <footer className="w-full text-gray-700 bg-gray-100 body-font mt-8 md:mt-16">
       <div className="container flex flex-col flex-wrap px-5 py-12 md:py-24 mx-auto md:items-center lg:items-start md:flex-row md:flex-no-wrap md:gap-9">
         <div className="md:pl-20 flex-shrink-0 justify-center items-center w-64 mx-auto text-center md:mx-0 md:text-left">
-          <Link
-            to="/"
-            className=" flex items-center justify-center font-medium text-gray-900 title-font md:justify-start"
-          >
-            <Svg id={'logo'} size={54} />
-          </Link>
+        <Link to="/" className="-m-1.5 p-1.5 flex justify-center md:justify-start items-center gap-2">
+              <Svg id={'logo'} size={42}></Svg>
+              <div className="flex flex-col  leading-none ">
+              <p className="text-[#cb1183] font-extrabold text-[20px] uppercase ">Dream</p>
+              <p className="text-[white] bg-[#f96786] text-center font-extrabold text-[20px] uppercase ">Fatin</p>
+              </div>
+            </Link>
           <p className="mt-2 text-sm text-gray-500">
             Лучший выбор свадебных тканей{' '}
           </p>

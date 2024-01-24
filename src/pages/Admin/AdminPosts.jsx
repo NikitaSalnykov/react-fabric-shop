@@ -32,7 +32,7 @@ const AdminOrders = () => {
 
   return (
     <div>
-      <div className="flex p-2 gap-2">
+      <div className="flex mb-4 gap-2">
         <button
           onClick={() => {
             setModalPostCreateOpen(true);

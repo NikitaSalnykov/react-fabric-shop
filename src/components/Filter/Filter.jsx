@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Svg from '../Svg/Svg';
 import { setFilterCategory, setFilterColor, setFilterName, setFilterNew, setFilterPrice, setFilterSale } from '../../Redux/filter/filterSlice';
@@ -9,9 +9,24 @@ import { getProducts } from '../../Redux/products/productsSelectors';
 export const Filter = ({nameFilter=false, filterColor=false, filterCategory=false, filterPrice=false, filterNew=false, filterSale=false, value}) => {
   const dispatch = useDispatch();
   const products = useSelector(getProducts)
+  const [isCheckedSale, setCheckedSale] = useState(value === "sale" ? true : false)
+
   useEffect(() => {
     dispatch(fetchProducts())
-  }, [])
+    
+    dispatch(setFilterSale(isCheckedSale));
+
+    if(value === "main") {
+      setCheckedSale(false)
+      dispatch(setFilterSale(isCheckedSale))
+      dispatch(setFilterCategory("Основные ткани"))
+    };
+    if(value === "accessories") {
+      dispatch(setFilterCategory("Основные ткани"))
+      setCheckedSale(false)
+      dispatch(setFilterCategory("Аксессуары"))
+    };
+  }, [dispatch, value])
   
   const handleFilter = ({ currentTarget }) => {
     dispatch(setFilterName(currentTarget.value));
@@ -37,7 +52,8 @@ export const Filter = ({nameFilter=false, filterColor=false, filterCategory=fals
 
   const handleFilterSale = (e) => {
     const isChecked = e.currentTarget.checked;
-    dispatch(setFilterSale(isChecked));
+    setCheckedSale(!isCheckedSale)
+    dispatch(setFilterSale(!isCheckedSale));
   };
 
   const filteredColors = () => {
@@ -82,7 +98,9 @@ export const Filter = ({nameFilter=false, filterColor=false, filterCategory=fals
        Категория
        </label>
        <select id="filterCategory" onChange={handleFilterCategory} class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
-         <option selected>Все категории</option>
+         <option selected={true}>Все категории</option>
+         <option selected={value === "main" ? true : false}>Основные ткани</option>
+         <option selected={value === "accessories" ? true : false}>Аксессуары</option>
          {categories.map(el => <option>{el.name}</option>
 )}
      </select>
@@ -111,6 +129,7 @@ export const Filter = ({nameFilter=false, filterColor=false, filterCategory=fals
                     <input
                       id="salesProducts"
                       type="checkbox"
+                      checked={isCheckedSale}
                       className="bg-gray-50 border border-gray-300 focus:ring-3 focus:ring-blue-300 h-4 w-4 rounded "
                       onChange={handleFilterSale}
                     />

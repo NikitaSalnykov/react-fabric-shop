@@ -4,7 +4,7 @@ import { formattedDate } from "../../helpers/formattedDate";
 const BlogCard = ({post}) => {
   return (
     <li className="flex flex-col items-start col-span-6 space-y-3 sm:col-span-4 md:col-span-4 xl:col-span-4 w-full">
-      <div className="overflow-hidden rounded-lg shadow-sm  w-[100%] h-[300px] mb-4">
+      <div className="overflow-hidden rounded-lg shadow-sm  w-[100%] h-full max-h-[300px] mb-4">
         <img
           src={post.mainPhoto}
           className="object-cover w-[100%] h-auto"

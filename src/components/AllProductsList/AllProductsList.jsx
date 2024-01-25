@@ -31,6 +31,7 @@ const AllProductsList = ({ title }) => {
   const [favoritesStyle, setFavoritesStyle] = useState(
     useSelector(getFavorite) || []
   );
+
   const favorites = useSelector(getFavorite);
   const filterCategory = useSelector(getFilterCategory);
   const filterPrice = useSelector(getFilterPrice);
@@ -65,8 +66,19 @@ const AllProductsList = ({ title }) => {
       if (!products) return sortedProductObjects;
       const price = filterPrice.replace(/\D/g, '')
       return sortedProductObjects.filter((el) => {
+        let categoryMatch
         const nameMatch = el.name.toLowerCase().includes(filterName.toLowerCase());
-        const categoryMatch = filterCategory === 'Все категории' || el.category.toLowerCase().includes(filterCategory.toLowerCase());
+       
+        if(filterCategory === "Основные ткани") {
+        const fabricsCategories  = ["Фатин", 'Атлас', "Подкладочная ткань", "Органза", "Сетка", "Глиттер", "Гипюры и кружева"]
+          categoryMatch = fabricsCategories.some(category => el.category.toLowerCase().includes(category.toLowerCase()));
+      } else if (filterCategory === "Аксессуары") {
+          const fabricsCategories  = ["Фурнитура"]
+          categoryMatch = fabricsCategories.some(category => el.category.toLowerCase().includes(category.toLowerCase()));
+        } else {
+           categoryMatch = filterCategory === 'Все категории' || el.category.toLowerCase().includes(filterCategory.toLowerCase());
+        }
+
         const colorMatch = filterColor === 'Все цвета' || el.color.toLowerCase().includes(filterColor.toLowerCase());
         const discountMatch = !filterSale || el.discount > 0
         const priceMatch = filterPrice === '' || +el.price < price
@@ -108,7 +120,7 @@ const AllProductsList = ({ title }) => {
           <>
             <div className=" grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 ">
               {paginatedProducts(products).map((product) => (
-                <div className='relative'>
+                <div className='relative flex flex-col justify-between'>
                   <Link
                   to={`/categories/${categoryURL(product.category)}/${
                     product._id

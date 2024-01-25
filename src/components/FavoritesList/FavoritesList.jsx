@@ -51,7 +51,7 @@ const FavoritesList = ({ title }) => {
           <>
             <div className=" grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8 ">
               {paginatedProducts(favorites).map((product) => (
-                <div key={product._id} className="relative">
+                <div key={product._id} className="relative flex flex-col justify-between">
                   <Link
                     to={`/categories/${categoryURL(product.category)}/${
                       product._id
@@ -66,9 +66,8 @@ const FavoritesList = ({ title }) => {
                         className="h-full w-full object-cover object-center group-hover:opacity-75 sm:h-[280px]"
                       />
                     </div>
-                    <h3 className="mt-4 text-sm text-gray-700">
-                      {product.name}
-                    </h3>
+                    <h3 className="mt-4 text-lg text-gray-700">{product.name}</h3>
+                    <p className=" capitalize text-sm text-gray-700">Цвет: {product.color}</p>
                     <p className="mt-1 text-sm font-medium text-gray-900">
                       {product.category}
                     </p>

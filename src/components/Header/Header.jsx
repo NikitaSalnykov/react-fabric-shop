@@ -28,14 +28,16 @@ const links = [
   {
     name: 'Основные ткани',
     description: 'Огромный выбор основных тканей',
-    href: '/categories',
+    href: '/all?value=main',
     icon: 'icon-main-fabric',
+
   },
   {
     name: 'Аксессуары',
     description: 'Создавайте незабываемые образы',
-    href: '/categories#',
+    href: '/all?value=accessories',
     icon: 'icon-accessories',
+
   },
   {
     name: 'Все категории',
@@ -48,6 +50,8 @@ const links = [
     description: 'Покупайте по выгодным ценам',
     href: '/all?value=sale',
     icon: 'icon-sale',
+    target: "_blank"
+
   },
   {
     name: 'Условия доставки',
@@ -161,6 +165,7 @@ const Header = () => {
                           <Link
                             to={item.href}
                             className="block font-semibold text-gray-900"
+                            target={item.target}
                           >
                             {item.name}
                             <span className="absolute inset-0" />
@@ -367,6 +372,7 @@ const Header = () => {
                               }}
                               key={item.name}
                               to={item.href}
+                              target={item.target}
                               className="block rounded-lg py-2 pl-6 pr-3 font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                             >
                               {item.name}

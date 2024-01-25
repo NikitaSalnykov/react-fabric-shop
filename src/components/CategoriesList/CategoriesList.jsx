@@ -4,7 +4,7 @@ import { categories } from '../../assets/categories';
 const CategoriesList = ({ title }) => {
   return (
     <div className="">
-      <div className="mx-auto max-w-2xl lg:max-w-7xl">
+      <div className="mx-auto">
         <h2 className="mb-6 text-xl font-bold tracking-tight text-gray-900 sm:text-2xl ">
           {title}
         </h2>

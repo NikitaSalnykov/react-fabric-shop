@@ -111,7 +111,7 @@ const AllProductsList = ({ title }) => {
 
   return (
     <div className="md:min-h-[400px]">
-      <div className="mx-auto max-w-2xl lg:max-w-7xl">
+      <div className="mx-auto">
         <h2 className="mb-6 text-xl font-bold tracking-tight text-red-900 sm:text-2xl ">
           {title}
         </h2>

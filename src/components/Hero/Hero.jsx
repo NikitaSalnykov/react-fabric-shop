@@ -4,7 +4,7 @@ import { SwiperHero } from '../Swiper/SwiperHero'
 
 const Hero = () => {
   return (
-    <div className="relative isolate py-14 flex flex-col md:flex-row  items-center gap-8 md:gap-12 ">
+    <div className="relative isolate py-6 lg:py-12 flex flex-col md:flex-row  items-center gap-8 md:gap-12 ">
       <SwiperHero images={['https://ideia.ua/storage/products/images/big/12255.jpg?v=1565791134', 'https://lh3.googleusercontent.com/proxy/SmigrWMBiam1ytIUcg3I2_t5JL1yaJx7EXCuYRjV67ZtxZMhm6TkZwzaL-tB9jPurPxIvUE5Y058pRHQ-X4OZ48d33ULVDGxwvXuQpNLBtcWAwQFz1M', 'https://punjabtextiles.com.ua/image/cache/catalog/fatin/tkani-fatin(fuksiya)-punjabtextiles.com.ua-1000x665.jpg']}/>
     <div className="mx-auto max-w-2xl">
       <div className="hidden lg:mb-8 lg:flex lg:justify-center">

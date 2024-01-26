@@ -107,10 +107,15 @@ const Header = () => {
             </Link>
           </div>
           <div className="flex lg:hidden gap-6 items-center">
-            <div className="flex gap-3">
-              <Link to="/favorites">
-                <Svg id={'icon-favorite'} size={22} />
-              </Link>
+            <div className=" relative flex gap-3">
+            <Link to="/favorites">
+              <Svg id={'icon-favorite'} size={22} />
+              {favoriteProducts.length > 0 && (
+                <div className=" text-white text-[10px] flex justify-center items-center rounded-[50%] w-4 h-4 absolute bg-slate-400 top-[-6px] left-[12px]">
+                  {favoriteProducts.length}
+                </div>
+              )}
+            </Link>
               <div onClick={onToggleBasket} className="relative cursor-pointer">
                 <Svg id={'icon-basket'} size={22} />
                 {cartProducts.length > 0 && (

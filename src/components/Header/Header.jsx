@@ -248,7 +248,7 @@ const Header = () => {
                       </Menu.Button>
                     </div> : <div className="p-2 rounded-xl border-[1px]">
                       <div className="gap-2 flex justify-center items-center antialiased font-sans text-sm text-left font-bold leading-6 text-indigo-600">
-                      Аккаунт <LoaderSpin/>
+                      Аккаунт <LoaderSpin size={"5"}/>
                       </div>
                     </div>}
 

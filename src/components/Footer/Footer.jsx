@@ -156,10 +156,27 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/categories"
+                  to="/all?value=main"
                   className="text-gray-500 cursor-pointer hover:text-gray-900"
                 >
-                  Сетка
+                  Основные ткани
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/all?value=accessories"
+                  className="text-gray-500 cursor-pointer hover:text-gray-900"
+                >
+                  Аксессуары
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/all?value=accessories"
+                  target="_blank"
+                  className="text-gray-500 cursor-pointer hover:text-gray-900"
+                >
+                  Скидки
                 </Link>
               </li>
               <li>
@@ -178,19 +195,19 @@ const Footer = () => {
             </h2>
             <nav className="mb-10 list-none flex flex-col gap-3">
               <li>
-                <p className="text-gray-500 cursor-pointer hover:text-gray-900">
+                <a href="mailto:test@gmail.com" className="text-gray-500 cursor-pointer hover:text-gray-900">
                   test@gmail.com
+                </a>
+              </li>
+              <li>
+                <p className="text-gray-500 cursor-pointer hover:text-gray-900">
+                  Адрес
                 </p>
               </li>
               <li>
-                <Link className="text-gray-500 cursor-pointer hover:text-gray-900">
-                  Адрес
-                </Link>
-              </li>
-              <li>
-                <Link className="text-gray-500 cursor-pointer hover:text-gray-900">
+                <a href="tel:+1234567890" className="text-gray-500 cursor-pointer hover:text-gray-900">
                   +123-456-7890
-                </Link>
+                </a>
               </li>
             </nav>
           </div>

@@ -23,7 +23,7 @@ const CategoriesList = ({ title }) => {
                   className=" h-full w-full object-cover object-center group-hover:opacity-75 sm:h-[280px]"
                 />
               </div>
-              <h3 className="mt-4 text-sm text-gray-700">{category.name}</h3>
+              <h3 className="mt-4 text-lg text-gray-700">{category.name}</h3>
               <p className="mt-1 text-lg font-medium text-gray-900">
                 {category.price}
               </p>

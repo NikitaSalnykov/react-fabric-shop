@@ -7,7 +7,7 @@ import fatinImage3 from '../../images/fatin/fatin-slide-3.jpg'
 
 const Hero = () => {
   return (
-    <div className="relative isolate py-6 lg:py-12 flex flex-col md:flex-row  items-center gap-8 md:gap-12 ">
+    <div className="relative isolate pb-6 lg:pb-12 flex flex-col md:flex-row  items-center gap-8 md:gap-12 ">
     <SwiperHero images={[fatinImage, fatinImage2, fatinImage3]}/>
     <div className="mx-auto max-w-2xl">
       <div className="hidden lg:mb-8 lg:flex lg:justify-center">
@@ -26,7 +26,7 @@ const Hero = () => {
         <p className="mt-6 text-lg leading-8 text-gray-600">
           Материалы высокого качества, приятные цены и широкий ассортимент цветов, для наших клиентов отпускаем от 1 метра!
         </p>
-        <div className="mt-10 flex items-center justify-center gap-x-6">
+        <div className="mt-6 flex items-center justify-center gap-x-6">
           <Link
             to={'categories/fatin'}
             className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"

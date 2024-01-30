@@ -14,7 +14,7 @@ const CategoriesList = ({ title }) => {
             <Link
               to={`/categories/${category.category}`}
               key={index}
-              className="group"
+              className="group shad"
             >
               <div className="shadow-md h-[250px] aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                 <img

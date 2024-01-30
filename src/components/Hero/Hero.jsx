@@ -1,11 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { SwiperHero } from '../Swiper/SwiperHero'
+import fatinImage from '../../images/fatin/fatin-slide.jpg'
+import fatinImage2 from '../../images/fatin/fatin-slide-2.jpg'
+import fatinImage3 from '../../images/fatin/fatin-slide-3.jpg'
 
 const Hero = () => {
   return (
     <div className="relative isolate py-6 lg:py-12 flex flex-col md:flex-row  items-center gap-8 md:gap-12 ">
-      <SwiperHero images={['https://ideia.ua/storage/products/images/big/12255.jpg?v=1565791134', 'https://lh3.googleusercontent.com/proxy/SmigrWMBiam1ytIUcg3I2_t5JL1yaJx7EXCuYRjV67ZtxZMhm6TkZwzaL-tB9jPurPxIvUE5Y058pRHQ-X4OZ48d33ULVDGxwvXuQpNLBtcWAwQFz1M', 'https://punjabtextiles.com.ua/image/cache/catalog/fatin/tkani-fatin(fuksiya)-punjabtextiles.com.ua-1000x665.jpg']}/>
+    <SwiperHero images={[fatinImage, fatinImage2, fatinImage3]}/>
     <div className="mx-auto max-w-2xl">
       <div className="hidden lg:mb-8 lg:flex lg:justify-center">
         <div className="relative rounded-full px-3 py-1 text-sm leading-6 text-gray-600 ring-1 ring-gray-900/10 hover:ring-gray-900/20">

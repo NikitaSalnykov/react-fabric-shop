@@ -30,7 +30,7 @@ export const SwiperCards = ({ products }) => {
     <>
       {products && (
         <Swiper
-          className="flex justify-center items-center w-full rounded-xl "
+          className="flex justify-center items-center w-full rounded-xl  pl-4"
           modules={[Autoplay, Scrollbar, Navigation]}
           loop={true}
           spaceBetween={30}
@@ -44,7 +44,7 @@ export const SwiperCards = ({ products }) => {
           {products.map((product, index) => (
             <SwiperSlide
               key={index}
-              className="w-full min-h-[450px]"
+              className="w-full min-h-[450px] pb-4"
               style={{"display": "flex", "justifyContent": "center"}}
             >
              <ProductCard product={product}/>

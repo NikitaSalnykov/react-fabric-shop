@@ -6,10 +6,10 @@ import { TypeProductSwitcher } from "../TypeProductSwitcher/TypeProductSwitcher"
 import { useParams } from 'react-router-dom';
 import { deleteFavorite, getFavorite, setFavorite } from "../../Redux/favorites/favoriteSlice";
 import Svg from "../Svg/Svg";
+import { Price } from "../../pages/Price/Price";
 
 const categoryURL = (category) => {
   const result = categories.find((el) => el.name === category);
-  
   if (result) {
     return result.category;
   } else {
@@ -26,6 +26,7 @@ export const ProductCard = ({product}) => {
   useSelector(getFavorite) || []
 );
   const { category } = useParams();
+  console.log(product);
 
   const handleFavorite = (product) => {
     if (favorites.some((item) => item._id === product._id)) {
@@ -38,7 +39,7 @@ export const ProductCard = ({product}) => {
   };
 
   return (
-    <div className="relative flex flex-col justify-between" key={product._id}>
+    <div className="relative p-[8px] md:p-4 rounded-xl shadow-md flex flex-col justify-between" key={product._id}>
 <Link
                 to={`/categories/${category || categoryURL(product.category)}/${
                   product._id
@@ -59,8 +60,9 @@ export const ProductCard = ({product}) => {
                 </p>
                 </Link>
                 <div className="mt-4">
-                <TypeProductSwitcher product={product}/>
-                </div>
+{product.category !== "Фурнитура" ? <TypeProductSwitcher product={product}/> :
+    <Price price={product.price} discount={product.discount} orientation='row' size='small'/>
+  }                </div>
                               {product.discount > 0 && <div className={`absolute top-4 left-4 w-12 h-12 rounded-full bg-red flex justify-center items-center cursor-pointer `}>
                              <p className='flex justify-center items-center gap-[1px] text-white font-semibold'><span className=' text-[10px]'>-</span>{product.discount}<span className=' text-[10px]'>%</span></p>
                               </div>}

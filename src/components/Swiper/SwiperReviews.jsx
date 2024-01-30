@@ -9,19 +9,27 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import { useState } from 'react';
+import Svg from '../Svg/Svg';
+import { Link } from 'react-router-dom';
+import { categoryURL } from '../../helpers/categoryURL';
 
-export const SwiperReviews = ({ reviews }) => {
+export const SwiperReviews = ({ reviews, products }) => {
   const [readMore, setReadMore] = useState(false);
+  const [openPhotos, setOpenPhotos] = useState(false);
+console.log(products);
 
+  const filteredProduct = (id) => products.filter(product => product._id === id)[0];
+  
   const handleSlideChange = () => {
     setReadMore(false);
+    setOpenPhotos(false);
   };
 
   return (
     <>
       {reviews && (
         <Swiper
-          className="flex justify-center items-center w-full rounded-xl "
+          className="flex justify-center items-center w-full rounded-xl mb-4"
           modules={[Autoplay, Scrollbar, Navigation, Pagination]}
           spaceBetween={30}
           slidesPerView={1}
@@ -38,11 +46,11 @@ export const SwiperReviews = ({ reviews }) => {
           {reviews.map((review, index) => (
             <SwiperSlide
               key={index}
-              className="py-12 md:py-20"
+              className="pt-4 pb-12 md:pb-18 "
               style={{"display": "flex", "justifyContent": "center"}}
             >
-             <div className='cursor-pointer w-[600px] border-slate-200 border-[1px] p-4 rounded-xl'>
-        <div className="flex items-center justify-between mb-4">
+             <div className=' cursor-grab	active:cursor-grabbing	 w-[700px] border-slate-200 border-[1px] p-4 rounded-xl shadow-lg'>
+        <div className="flex items-center justify-between mb-2">
           <p className="font-bold text-xl">{review.author}</p>
           <div className="flex items-center mb-1 space-x-1 rtl:space-x-reverse">
             <svg
@@ -92,6 +100,17 @@ export const SwiperReviews = ({ reviews }) => {
             </svg>
           </div>
         </div>
+        <div>
+          <p className=' font-semibold text-sm mb-2 opacity-70'>Отзыв к товару: </p>
+        <div className="flex justify-start items-center gap-2 mb-4">
+          <div className=" w-8 h-8 rounded-full overflow-hidden">
+            <img src={filteredProduct(review.productId).mainPhoto} alt={filteredProduct(review.productId).name} />
+          </div>
+          <Link to={`/categories/${categoryURL(filteredProduct(review.productId).category)}/${filteredProduct(review.productId)._id}`}>
+          <p className=' font-bold'>{filteredProduct(review.productId).name}</p>
+          </Link>
+        </div>
+        </div>
         <div className="flex items-center mb-2 text-xl">
           <p>
             {review.text.split('').length >= 150 && !readMore
@@ -116,12 +135,13 @@ export const SwiperReviews = ({ reviews }) => {
           </button>
         )}
         {review.extraPhotos && review.extraPhotos.length > 0 &&
-        <div className="py-4">
-           <div className="flex items-center gap-2 mb-4 opacity-70">
+        <div className="py-1" onClick={() => setOpenPhotos(!openPhotos)}>
+           <div className="flex items-center gap-2 mb-2 opacity-70">
             <Svg id={'icon-clip'} size={16} />
-            <p className=" font-semibold text-sm">Прикрепленные фотографии:</p>
+            <p className=" font-semibold text-sm">Открыть прикрепленные фотографии</p>
           </div>
-          <ul className="flex flex-wrap gap-4">
+
+          {openPhotos && <ul className="flex flex-wrap gap-4">
             {review.extraPhotos &&
               review.extraPhotos.map((el, index) => (
                 <li
@@ -136,7 +156,7 @@ export const SwiperReviews = ({ reviews }) => {
                   />
                 </li>
               ))}
-          </ul>
+          </ul>}
         </div>
 }
       </div>

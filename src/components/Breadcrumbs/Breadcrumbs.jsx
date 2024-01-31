@@ -105,7 +105,12 @@ const Breadcrumbs = ({ name }) => {
             Заказы
           </Link>
         );
-
+        case 'reviews':
+          return (
+            <Link to={'/admin/reviews'} className="p-[2px] md:p-1">
+              Отзывы
+            </Link>
+          );
       default:
         return null;
     }

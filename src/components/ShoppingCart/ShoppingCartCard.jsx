@@ -60,7 +60,7 @@ const ShoppingCartCard = ({ product, closeModal }) => {
                 }`}
                 className="text-lg md:text-xl font-black leading-none text-gray-800 "
               >
-                <p>{product.product.name} <span>{product.type === "roll" ? "(рулон)" : "(метраж)"}</span></p>
+                <p>{product.product.name} {product.product.category !== "Фурнитура" && <span>{product.type === "roll" ? "(рулон)" : "(метраж)"}</span>}</p>
               </Link>
             </div>
             {product.product.pricePerMeter && <div className=" text-sm underline">

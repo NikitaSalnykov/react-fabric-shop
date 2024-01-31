@@ -38,6 +38,10 @@
   box-shadow: 3px 8px 14px 0px rgba(136, 198, 253, 0.19);
 }
 
+.active {
+  color: #cb1183; /* ваш цвет текста для активной ссылки */
+}
+
 textarea:focus,
 input:hover,
 input:focus,

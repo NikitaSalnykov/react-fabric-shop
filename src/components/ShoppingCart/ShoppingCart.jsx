@@ -115,9 +115,9 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
         .map((el, index) => {
           return `${index + 1}) Название: ${el.product.name}, цвет: ${
             el.product.color
-          }, категория: ${el.product.category}, Тип: ${el.type === "roll" ? "рулон" : "метраж"}, количество: ${
+          }, категория: ${el.product.category}, Тип: ${el.product.category !== "Фурнитура" ? (el.type === "roll" ? "рулон" : "метраж") : "шт."}, количество: ${
             el.count
-          }, цена: ${el.product.discount && el.product.discount > 0 ? resultPrice(el.type && el.type !== "roll" ? el.product.price : el.product.pricePerMeter, el.product.discount) : resultPrice(el.type && el.type !== "roll" ? el.product.price : el.product.pricePerMeter)} ${el.product.discount && el.product.discount > 0 ? `Включая скидку ${el.product.discount}%` : ``}.`;
+          }, цена: ${el.product.discount && el.product.discount > 0 ? resultPrice(el.type && el.type === "roll" ? el.product.price : el.product.pricePerMeter, el.product.discount) : resultPrice(el.type && el.type !== "roll" ? el.product.price : el.product.pricePerMeter)} ${el.product.discount && el.product.discount > 0 ? `Включая скидку ${el.product.discount}%` : ``}.`;
         })
         .join(' ');
       const newOrder = {

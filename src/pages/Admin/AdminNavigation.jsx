@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
 import Svg from '../../components/Svg/Svg';
+import { Logo } from '../../components/Logo/Logo';
 
 const AdminNavigation = ({ onToggleDashboard }) => {
   return (
@@ -33,11 +34,8 @@ const AdminNavigation = ({ onToggleDashboard }) => {
             </span>
           </button>
           <Link to="/" className=" hidden -m-1.5 p-1.5 lg:flex justify-center items-center gap-2">
-              <Svg id={'logo'} size={42}></Svg>
-              <div className="flex flex-col  leading-none ">
-              <p className="text-[#cb1183] font-extrabold text-[20px] uppercase ">Dream</p>
-              <p className="text-[white] bg-[#f96786] text-center font-extrabold text-[20px] uppercase ">Fatin</p>
-              </div>
+          <Logo size={42} textSize={20}/>
+
             </Link>
         </div>
       </div>

@@ -60,7 +60,7 @@ const Home = () => {
 
   const topProducts = () => {
     let productsArr = [];
-    orders.forEach((el) =>
+    orders.forEach((el) => el &&
       el.order.products
         .map((el) => el.product)
         .forEach((el) => productsArr.push(el.name))

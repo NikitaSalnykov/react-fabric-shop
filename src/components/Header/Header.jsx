@@ -13,7 +13,7 @@ import {
 } from '@heroicons/react/24/outline';
 import Svg from '../Svg/Svg';
 import { ChevronDownIcon, PhoneIcon } from '@heroicons/react/20/solid';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { createPortal } from 'react-dom';
 import ShoppingCart from '../ShoppingCart/ShoppingCart';
 import { useSelector } from 'react-redux';
@@ -23,6 +23,7 @@ import { BasicModal } from '../Modals/BasicModal/BasicModal';
 import Leaving from '../Modals/Leaving/Leaving';
 import { getFavorite } from '../../Redux/favorites/favoriteSlice';
 import { LoaderSpin } from '../Loader/LoaderSpin/LoaderSpin';
+import { Logo } from '../Logo/Logo';
 
 const links = [
   {
@@ -98,13 +99,7 @@ const Header = () => {
           aria-label="Global"
         >
           <div className="flex lg:flex-1 ">
-            <Link to="/" className="-m-1.5 p-1.5 flex justify-center items-center gap-2">
-              <Svg id={'logo'} size={42}></Svg>
-              <div className="flex flex-col  leading-none ">
-              <p className="text-[#cb1183] font-extrabold text-[20px] uppercase ">Dream</p>
-              <p className="text-[white] bg-[#f96786] text-center font-extrabold text-[20px] uppercase ">Fatin</p>
-              </div>
-            </Link>
+            <Logo size={42} textSize={20}/>
           </div>
           <div className="flex lg:hidden gap-6 items-center">
             <div className=" relative flex gap-3">
@@ -184,7 +179,7 @@ const Header = () => {
                   </div>
                   <div className="grid grid-cols-2 divide-x divide-gray-900/5 bg-gray-50">
                     {callsToAction.map((item) => (
-                      <Link
+                      <NavLink
                         key={item.name}
                         to={item.href}
                         className="flex items-center justify-center gap-x-2.5 p-3 font-semibold leading-6 text-gray-900 hover:bg-gray-100"
@@ -194,22 +189,25 @@ const Header = () => {
                           aria-hidden="true"
                         />
                         {item.name}
-                      </Link>
+                      </NavLink>
                     ))}
                   </div>
                 </Popover.Panel>
               </Transition>
             </Popover>
 
-            <Link to="/all" className="font-semibold leading-6 text-gray-900">
+            <NavLink to="/all" 
+ className="font-semibold leading-6 text-gray-900">
               Поиск
-            </Link>
-            <Link to="/blog" className="font-semibold leading-6 text-gray-900">
+            </NavLink>
+            <NavLink to="/blog"                             activeClassName="active-a" 
+ className="font-semibold leading-6 text-gray-900">
               Блог
-            </Link>
-            <Link to="/about" className="font-semibold leading-6 text-gray-900">
+            </NavLink>
+            <NavLink to="/about"                             activeClassName="active-a" 
+ className="font-semibold leading-6 text-gray-900">
               О нас
-            </Link>
+            </NavLink>
           </Popover.Group>
           <div className=" hidden lg:flex lg:flex-1 lg:justify-end gap-3 justify-center items-center">
             <div className="relative">
@@ -387,7 +385,7 @@ const Header = () => {
                       </>
                     )}
                   </Disclosure>
-                  <Link
+                  <NavLink
                     onClick={() => {
                       setMobileMenuOpen(false);
                     }}
@@ -395,8 +393,8 @@ const Header = () => {
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Поиск
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     onClick={() => {
                       setMobileMenuOpen(false);
                     }}
@@ -404,8 +402,8 @@ const Header = () => {
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     Блог
-                  </Link>
-                  <Link
+                  </NavLink>
+                  <NavLink
                     onClick={() => {
                       setMobileMenuOpen(false);
                     }}
@@ -413,7 +411,7 @@ const Header = () => {
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                   >
                     О нас
-                  </Link>
+                  </NavLink>
                 </div>
                 <div
                   className="py-6"

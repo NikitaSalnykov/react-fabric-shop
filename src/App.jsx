@@ -32,6 +32,7 @@ const ShoppingCart = lazy(() =>
 const Admin = lazy(() => import('./pages/Admin/Admin'));
 const AdminProducts = lazy(() => import('./pages/Admin/AdminProducts'));
 const AdminOrders = lazy(() => import('./pages/Admin/AdminOrders'));
+const AdminReviews = lazy(() => import('./pages/Admin/AdminReviews'));
 const AdminUsers = lazy(() => import('./pages/Admin/AdminUsers'));
 const AdminPosts = lazy(() => import('./pages/Admin/AdminPosts'));
 const VerificationPage = lazy(() =>
@@ -106,6 +107,7 @@ function App() {
           <Route path="orders" element={<AdminOrders />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="posts" element={<AdminPosts />} />
+          <Route path="reviews" element={<AdminReviews />} />
         </Route>
       </Routes>
     </div>

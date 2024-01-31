@@ -59,7 +59,7 @@ const AdminProducts = () => {
 
   const filteredProducts = (items) => {
     if (!products) return items;
-    return items.filter((el) => el.name.toLowerCase().includes(filterName.toLowerCase())).sort((a, b) => {
+    return items.filter((el) => el && el.name.toLowerCase().includes(filterName.toLowerCase())).sort((a, b) => {
       const dateA = new Date(a.createdAt);
       const dateB = new Date(b.createdAt);
 

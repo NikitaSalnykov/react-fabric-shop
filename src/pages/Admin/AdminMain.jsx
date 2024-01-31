@@ -194,7 +194,7 @@ export const AdminMain = () => {
         </Link>
       </div>
           <div className="flex flex-col pt-4 mb-12">
-            <div className="min-w-[375px] md:min-w-[700px] xl:min-w-[800px] mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
+            <div className="min-w-[275px] md:min-w-[700px] xl:min-w-[800px] mt-3 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-3 3xl:grid-cols-6">
               <div className="relative flex flex-grow !flex-row flex-col items-center rounded-[10px] border-[1px] border-gray-200 bg-white bg-clip-border shadow-md shadow-[#F3F3F3] ">
                 <div className="ml-[18px] flex h-[90px] w-auto flex-row items-center">
                   <div className="rounded-full bg-lightPrimary p-3 ">

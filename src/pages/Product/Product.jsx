@@ -82,7 +82,7 @@ const Product = () => {
             {/* Options */}
             <div className="mt-4 lg:row-span-3 lg:mt-0">
               <h2 className="sr-only">Product information</h2>
-              <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-2 mb-4">
+              {product.category !== "Фурнитура" && <div className="grid grid-cols-2 md:grid-cols-2 xl:grid-cols-3 gap-2 mb-4">
                 <label>
                   <input
                     type="radio"
@@ -146,7 +146,7 @@ const Product = () => {
                     </svg>
                   </div>
                 </label>
-              </div>
+              </div>}
               <h3 className="text-sm font-medium text-gray-900  mb-4">
                 Стоимость:
               </h3>

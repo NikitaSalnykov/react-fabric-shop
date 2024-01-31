@@ -33,11 +33,11 @@ export const SwiperCards = ({ products }) => {
           className="flex justify-center items-center w-full rounded-xl  pl-4"
           modules={[Autoplay, Scrollbar, Navigation]}
           loop={true}
-          spaceBetween={30}
+          spaceBetween={20}
           breakpoints={breakpoints}
           autoplay={{
-            delay: 0, // Указывает время между сменой слайдов в миллисекундах (в данном случае, 5 секунд)
-            disableOnInteraction: false, // Отключает остановку автоплея при взаимодействии с пользователем
+            delay: 100, // Указывает время между сменой слайдов в миллисекундах (в данном случае, 5 секунд)
+            disableOnInteraction: true, // Отключает остановку автоплея при взаимодействии с пользователем
           }}
           speed={5000}
         >

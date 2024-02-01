@@ -5,6 +5,8 @@ import {
   currentUser,
   logout,
   update,
+  forgotPassword,
+  resetPassword,
 } from './auth-operations';
 
 const initialState = {
@@ -25,7 +27,6 @@ export const authSlice = createSlice({
     },
 
     refreshToken: (state, action) => {
-      console.log('refresh');
       state.token = action.payload;
     },
   },
@@ -124,5 +125,43 @@ export const authSlice = createSlice({
       state.error = action.payload;
       state.isRequestActive = false;
     });
+
+    // forgot 
+
+    builder.addCase(forgotPassword.pending, (state) => {
+      state.error = null;
+      state.isRequestActive = true;
+    });
+
+    builder.addCase(forgotPassword.fulfilled, (state, action) => {
+      state.user = action.payload.user;
+      state.isLoggedIn = true;
+      state.error = null;
+      state.isRequestActive = false;
+    });
+
+    builder.addCase(forgotPassword.rejected, (state, action) => {
+      state.error = action.payload;
+      state.isRequestActive = false;
+    });
+
+        // reset 
+
+        builder.addCase(resetPassword.pending, (state) => {
+          state.error = null;
+          state.isRequestActive = true;
+        });
+    
+        builder.addCase(resetPassword.fulfilled, (state, action) => {
+          state.user = action.payload.user;
+          state.isLoggedIn = true;
+          state.error = null;
+          state.isRequestActive = false;
+        });
+    
+        builder.addCase(resetPassword.rejected, (state, action) => {
+          state.error = action.payload;
+          state.isRequestActive = false;
+        });
   },
 });

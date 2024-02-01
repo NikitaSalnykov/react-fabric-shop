@@ -41,7 +41,6 @@ export const Filter = ({nameFilter=false, filterColor=false, filterCategory=fals
   };
 
   const handleFilterPrice = ({ currentTarget }) => {
-    console.log(currentTarget.value);
     dispatch(setFilterPrice(currentTarget.value));
   };
 

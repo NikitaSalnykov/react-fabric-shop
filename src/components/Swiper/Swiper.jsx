@@ -58,7 +58,6 @@ export const SwiperComponent = ({ images, id, name }) => {
           <button
             className="flex justify-center items-center absolute z-10 top-[50%] w-[25px] h-[25px] bg-black  opacity-70 rounded-[50%] right-[10px] "
             ref={nextRef}
-            onClick={() => console.log(1)}
           >
             <Svg id={'icon-arrow'} size={24} stroke={'white'} fill={'white'} />
           </button>

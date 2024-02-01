@@ -11,8 +11,6 @@ const VerificationPage = () => {
   const isFromEmail = urlSearchParams.get('fromEmail') === 'true';
 
   const email = urlSearchParams.get('email');
-  const { token } = useSelector(selectAuth);
-  console.log('aaa', token);
 
   useEffect(() => {
     if ((!isFromRegistration && !email) || (!isFromEmail && !email)) {

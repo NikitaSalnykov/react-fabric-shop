@@ -3,7 +3,6 @@ import { deletePost } from '../../../Redux/posts/postsOperation';
 
 const DeletePost = ({ onCloseModal, post }) => {
   const dispatch = useDispatch();
-  console.log(post);
 
   const handleDelete = () => {
     dispatch(deletePost(post._id));

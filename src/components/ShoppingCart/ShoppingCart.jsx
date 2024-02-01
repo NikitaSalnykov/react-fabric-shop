@@ -28,7 +28,6 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const currentDate = new Date();
   const dayOfMonth = currentDate.getDate();
   const user = useSelector(getUser) ?? {};
-  console.log('user', user);
 
   const [animationClose, setAnimationClose] = useState(false);
   const [isModalOrderOpen, setModalOrderOpen] = useState(false);
@@ -43,7 +42,6 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
     dispatch(fetchOrdersCount());
   }, [dispatch]);
 
-  console.log(ordersCount);
 
   useEffect(() => {
     const handleEsc = (event) => {
@@ -134,7 +132,6 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
         
       };
       dispatch(createOrder({ order: newOrder }));
-      console.log({ order: newOrder });
     },
   });
 

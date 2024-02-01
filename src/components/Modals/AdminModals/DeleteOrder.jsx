@@ -3,7 +3,6 @@ import { deleteOrder } from '../../../Redux/orders/ordersOperation';
 
 const DeleteOrder = ({ onCloseModal, order }) => {
   const dispatch = useDispatch();
-  console.log(order);
 
   const handleDelete = () => {
     dispatch(deleteOrder(order._id));

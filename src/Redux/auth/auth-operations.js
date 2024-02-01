@@ -35,7 +35,6 @@ export const login = createAsyncThunk(
   async (credentials, thunkAPI) => {
     try {
       const { data } = await instance.post(`/api/auth/login`, credentials);
-      console.log(data);
       setToken(data.accessToken);
       localStorage.setItem('refresh', data.refreshToken);
 
@@ -101,4 +100,28 @@ export const update = createAsyncThunk(
       return thunkAPI.rejectWithValue(error.response.status);
     }
   }
+);
+
+export const forgotPassword = createAsyncThunk(
+  'auth/forgotPassword',
+  async (arg, thunkAPI) => {
+    try {
+       await instance.post(`/api/auth/password/forgot`, arg,  { headers: { 'Content-Type': 'application/json' } });
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response.status);
+    }
+  }
+)
+
+  export const resetPassword = createAsyncThunk(
+    'auth/resetPassword',
+    async (credentials, thunkAPI) => {
+      try {
+        const { data } = await instance.post(`/api/auth/password/reset`, credentials);
+        return { user: data.user };
+  
+      } catch (error) {
+        return thunkAPI.rejectWithValue(error.response.status);
+      }
+    }
 );

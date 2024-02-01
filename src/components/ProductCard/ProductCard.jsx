@@ -26,7 +26,6 @@ export const ProductCard = ({product}) => {
   useSelector(getFavorite) || []
 );
   const { category } = useParams();
-  console.log(product);
 
   const handleFavorite = (product) => {
     if (favorites.some((item) => item._id === product._id)) {

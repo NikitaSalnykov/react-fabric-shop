@@ -16,7 +16,6 @@ import { categoryURL } from '../../helpers/categoryURL';
 export const SwiperReviews = ({ reviews, products }) => {
   const [readMore, setReadMore] = useState(false);
   const [openPhotos, setOpenPhotos] = useState(false);
-console.log(products);
 
   const filteredProduct = (id) => products.filter(product => product._id === id)[0];
   

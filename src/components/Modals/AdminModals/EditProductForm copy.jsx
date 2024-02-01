@@ -75,7 +75,6 @@ export const EditProductForm = ({ onCloseModal, product }) => {
       };
 
       const formData = createUserFormData(updateUser);
-      console.log('ss', extraPhotos);
       dispatch(updateProduct({ id: product._id, arg: formData }));
 
       // if (!isLoading) onCloseModal();

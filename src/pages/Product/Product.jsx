@@ -50,7 +50,6 @@ const Product = () => {
       product,
       type
     };
-    console.log(order);
     dispatch(setCart(order));
   };
 

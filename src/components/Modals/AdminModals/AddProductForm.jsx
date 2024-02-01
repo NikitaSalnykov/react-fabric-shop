@@ -83,7 +83,6 @@ export const AddProductForm = ({ onCloseModal }) => {
       const formData = createUserFormData(updateUser);
 
       dispatch(createProduct(formData));
-      console.log(formData);
     },
   });
 

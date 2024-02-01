@@ -84,7 +84,6 @@ const reviewsSlice = createSlice({
 
     builder.addCase(deleteReview.pending, pendingFunc);
     builder.addCase(deleteReview.fulfilled, (state, action) => {
-      console.log(action.payload);
       return {
         reviews: [...state.reviews.filter((el) => el._id !== action.payload)],
         isLoading: false,

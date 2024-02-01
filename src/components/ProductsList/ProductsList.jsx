@@ -56,7 +56,6 @@ const ProductList = ({ title }) => {
   const filteredProducts = (sortedProductObjects) => {
     if (!products) return sortedProductObjects;
     const price = filterPrice.replace(/\D/g, '')
-console.log("filterPrice", filterPrice);
     return sortedProductObjects.filter((el) => {
       const nameMatch = el.name.toLowerCase().includes(filterName.toLowerCase());
       const categoryMatch = filterCategory === 'Все категории' || el.category.toLowerCase().includes(filterCategory.toLowerCase());
@@ -79,7 +78,6 @@ console.log("filterPrice", filterPrice);
       product: el,
     }));
 
-    console.log(productsWithTimestamps)
     const sortedProducts = productsWithTimestamps.sort(
       (a, b) => b.timestamp - a.timestamp
     );

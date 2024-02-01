@@ -56,7 +56,6 @@ export const UserOrders = () => {
     );
   };
 
-  console.log(paginatedOrders(orders));
   return (
     <>
       {!isLoading ? (

@@ -19,7 +19,6 @@ const Admin = () => {
 
   const onToggleDashboard = () => {
     setDashboardOpen(!isDashboardOpen);
-    console.log(isDashboardOpen);
   };
 
   return (

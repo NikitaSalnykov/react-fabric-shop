@@ -15,6 +15,7 @@ import { Profile } from './pages/Profile/Profile';
 import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
 import { AdminMain } from './pages/Admin/AdminMain';
 import { BlogPost } from './pages/BlogPost/BlogPost';
+import ForgotPage from './pages/ForgotPage/ForgotPage';
 
 const Product = lazy(() => import('pages/Product/Product'));
 const Category = lazy(() => import('pages/Category/Category'));
@@ -60,6 +61,22 @@ function App() {
           <Route path="/all" element={<AllProducts />} />
           <Route
             path="/login"
+            element={
+              <PublicRoute restricted>
+                <LoginPage />
+              </PublicRoute>
+            }
+          />
+            <Route
+            path="/forgot-password"
+            element={
+              <PublicRoute restricted>
+                <ForgotPage />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path="/reset-password"
             element={
               <PublicRoute restricted>
                 <LoginPage />

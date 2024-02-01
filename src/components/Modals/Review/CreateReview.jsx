@@ -26,7 +26,6 @@ export const CreateReview = ({ onCloseModal, productId }) => {
 
   useEffect(() => {
     if (isReviewCreated) {
-      console.log(1);
       onCloseModal();
       dispatch(resetReviewCreated());
     }

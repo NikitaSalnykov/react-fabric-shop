@@ -58,7 +58,7 @@ export const AddPostForm = ({ onCloseModal }) => {
       const formData = createUserFormData(updateUser);
 
       dispatch(createPost(formData));
-      console.log(formData);
+
     },
   });
 

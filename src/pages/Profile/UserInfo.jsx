@@ -28,7 +28,6 @@ const UserInfo = () => {
     validationSchema: UpdateUserSchema,
 
     onSubmit: ({ name, surname, phone }) => {
-      console.log('Отправка формы с значениями:', name, surname, phone);
       dispatch(update({ name, surname, phone }));
     },
   });

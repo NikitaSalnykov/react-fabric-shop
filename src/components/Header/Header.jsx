@@ -267,7 +267,6 @@ const Header = () => {
                                 <Link
                                   className="block px-4 py-2 text-sm"
                                   onClick={() => {
-                                    console.log(1);
                                   }}
                                   to="/admin"
                                 >
@@ -282,10 +281,8 @@ const Header = () => {
                             {() => (
                               <button
                                 className="block px-4 py-2 text-sm"
-                                onClick={() => {
-                                  console.log(1);
-                                }}
-                                href="#"
+        
+                                to="/profile"
                               >
                                 Заказы
                               </button>
@@ -297,9 +294,7 @@ const Header = () => {
                             {() => (
                               <Link
                                 className="block px-4 py-2 text-sm"
-                                onClick={() => {
-                                  console.log(1);
-                                }}
+                  
                                 to="/profile"
                               >
                                 Профиль
@@ -443,18 +438,14 @@ const Header = () => {
                       </Link>
                       <Link
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                        onClick={() => {
-                          console.log(1);
-                        }}
+
                         to="/profile"
                       >
                         Ваши заказы
                       </Link>
                       <Link
                         className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                        onClick={() => {
-                          console.log(1);
-                        }}
+     
                         to="/profile"
                       >
                         Профиль

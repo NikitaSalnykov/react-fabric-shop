@@ -14,6 +14,7 @@ import { SwiperReviews } from '../../components/Swiper/SwiperReviews';
 import { fetchReviews } from '../../Redux/reviews/reviewsOperation';
 import { BasicImageModal } from '../../components/Modals/BasicModal/BasicImageModal';
 import { FullSizeImage } from '../../components/Modals/FullSizeImage/FullSizeImage';
+import SkeletonHeroReviews from '../../components/Loader/SkeletonHeroReviews';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -55,8 +56,6 @@ const Home = () => {
 
     return reviewsArr;
   }
-  console.log(reviews);
-  console.log(topRatedReviews());
 
   const topProducts = () => {
     let productsArr = [];
@@ -121,7 +120,7 @@ const Home = () => {
         <div className='mb-6'>Информация временно отсутвует</div>}
       </div> 
       :
-      <div className='mb-6'><SkeletonItems/></div>
+      <div className='mb-6'><SkeletonHeroReviews/></div>
       }
         </div>
 

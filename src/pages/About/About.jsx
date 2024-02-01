@@ -7,7 +7,6 @@ import { useLocation } from 'react-router-dom';
 const About = () => {
   const location = useLocation();
   const section = location.state?.section;
-  console.log(section);
 
   useEffect(() => {
     if (section) {

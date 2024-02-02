@@ -27,13 +27,8 @@ const ForgotPage = () => {
     validateOnBlur: true,
     // validationSchema: LoginSchma,
 
-    onSubmit: async ({ email }) => {
-      const data = { email: email };
-      try {
-        await dispatch(forgotPassword(data)).unwrap();
-      } catch (error) {
-        console.error("Ошибка сброса пароля:", error);
-      }
+    onSubmit: ({ email }) => {
+      dispatch(forgotPassword({email}));
     },
   });
 
@@ -89,7 +84,7 @@ const ForgotPage = () => {
               <div className="text-sm font-medium text-gray-500 flex justify-center">
                 
                 <Link
-                  to="/registration"
+                  to="/login"
                   className="text-blue-700 hover:underline"
                 >
                   Вернуться на страницу авторизации

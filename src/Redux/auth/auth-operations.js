@@ -106,7 +106,7 @@ export const forgotPassword = createAsyncThunk(
   'auth/forgotPassword',
   async (arg, thunkAPI) => {
     try {
-       await instance.post(`/api/auth/password/forgot`, arg,  { headers: { 'Content-Type': 'application/json' } });
+      await instance.post(`/api/auth/password/forgot`, arg,  { headers: { 'Content-Type': 'application/json' } });
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.status);
     }
@@ -115,9 +115,9 @@ export const forgotPassword = createAsyncThunk(
 
   export const resetPassword = createAsyncThunk(
     'auth/resetPassword',
-    async (credentials, thunkAPI) => {
+    async (arg, thunkAPI) => {
       try {
-        const { data } = await instance.post(`/api/auth/password/reset`, credentials);
+        const { data } = await instance.post(`/api/auth/password/reset`, arg,  { headers: { 'Content-Type': 'application/json' } });
         return { user: data.user };
   
       } catch (error) {

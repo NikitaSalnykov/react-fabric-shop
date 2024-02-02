@@ -133,15 +133,13 @@ export const authSlice = createSlice({
       state.isRequestActive = true;
     });
 
-    builder.addCase(forgotPassword.fulfilled, (state, action) => {
-      state.user = action.payload.user;
+    builder.addCase(forgotPassword.fulfilled, (state) => {
       state.isLoggedIn = true;
       state.error = null;
       state.isRequestActive = false;
     });
 
-    builder.addCase(forgotPassword.rejected, (state, action) => {
-      state.error = action.payload;
+    builder.addCase(forgotPassword.rejected, (state) => {
       state.isRequestActive = false;
     });
 

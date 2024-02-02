@@ -16,6 +16,7 @@ import FavoritesPage from './pages/FavoritesPage/FavoritesPage';
 import { AdminMain } from './pages/Admin/AdminMain';
 import { BlogPost } from './pages/BlogPost/BlogPost';
 import ForgotPage from './pages/ForgotPage/ForgotPage';
+import ResetPasswordPage from './pages/ResetPasswordPage/ResetPasswordPage';
 
 const Product = lazy(() => import('pages/Product/Product'));
 const Category = lazy(() => import('pages/Category/Category'));
@@ -76,10 +77,10 @@ function App() {
             }
           />
           <Route
-            path="/reset-password"
+            path="/reset-password/:id"
             element={
               <PublicRoute restricted>
-                <LoginPage />
+                <ResetPasswordPage />
               </PublicRoute>
             }
           />

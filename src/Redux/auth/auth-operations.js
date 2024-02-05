@@ -106,9 +106,11 @@ export const forgotPassword = createAsyncThunk(
   'auth/forgotPassword',
   async (arg, thunkAPI) => {
     try {
-      await instance.post(`/api/auth/password/forgot`, arg,  { headers: { 'Content-Type': 'application/json' } });
+      const { data } = await instance.post(`/api/auth/password/forgot`, arg,  { headers: { 'Content-Type': 'application/json' } });
+      console.log(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.status);
+
     }
   }
 )

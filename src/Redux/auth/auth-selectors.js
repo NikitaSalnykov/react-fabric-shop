@@ -9,3 +9,5 @@ export const getRefresh = (state) => state.auth.isRefresh;
 export const getUser = (state) => state.auth.user;
 
 export const getIsRequest = (state) => state.auth.isRequestActive;
+
+export const getPasswordCompleted = (state) => state.auth.isPasswordCompleted;

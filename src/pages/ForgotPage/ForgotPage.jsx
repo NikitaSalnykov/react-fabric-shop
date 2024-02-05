@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { forgotPassword, login } from '../../Redux/auth/auth-operations';
 import { useEffect, useState } from 'react';
 import { LoginSchma } from '../../schemas/LoginSchma';
-import { getIsLoggedIn, getIsRequest } from '../../Redux/auth/auth-selectors';
+import { getAuthError, getIsLoggedIn, getIsRequest } from '../../Redux/auth/auth-selectors';
 import { authSlice } from '../../Redux/auth/auth-slice';
+import { ForgotSchma } from '../../schemas/ForgotSchma';
+import Svg from '../../components/Svg/Svg';
+import { LoaderSpin } from '../../components/Loader/LoaderSpin/LoaderSpin';
 
 const errorTextStyle =
   'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal bottom-[-20px] left-[-10px] xl:left-[85px]';
@@ -13,6 +16,10 @@ const errorTextStyle =
 const ForgotPage = () => {
   const dispatch = useDispatch();
   const isRequest = useSelector(getIsRequest);
+  const isAuthError = useSelector(getAuthError);
+  const [isMassageSent, setIsMassageSent] = useState(false)
+  const [timer, setTimer] = useState(30);
+  const [stopTimer, setStopTimer] = useState(true)
 
   useEffect(() => {
     dispatch(authSlice.actions.resetHttpError());
@@ -25,12 +32,50 @@ const ForgotPage = () => {
 
     validateOnChange: false,
     validateOnBlur: true,
-    // validationSchema: LoginSchma,
+    validationSchema: ForgotSchma,
 
     onSubmit: ({ email }) => {
-      dispatch(forgotPassword({email}));
-    },
+      try {
+        dispatch(forgotPassword({ email }));
+        setIsMassageSent(true) 
+      } catch (error) {
+        console.error('Ошибка при отправке запроса на восстановление:', error);
+      }
+    }
   });
+
+
+
+  useEffect(() => {
+    let interval;
+
+    if (stopTimer) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+    }
+
+    return () => clearInterval(interval);
+  }, [stopTimer]);
+
+  useEffect(() => {
+    if (timer === 0) {
+      setStopTimer(false);
+    }
+  }, [timer]);
+
+    useEffect(() => {
+    if (timer === 0) {
+      setStopTimer(false);
+    }
+  }, [timer]);
+
+  const handleResendClick = () => {
+    console.log(formikValues['email']);
+    dispatch(forgotPassword(formikValues['email']));
+    setStopTimer(true);
+    setTimer(30);
+  };
 
   const errors = formik.errors;
   const formikValues = formik.values;
@@ -49,7 +94,7 @@ const ForgotPage = () => {
               <h3 className="text-xl font-medium text-gray-900 ">
                 Забыли пароль?
               </h3>
-              <div>
+              {!isMassageSent  && <div>
                 <label
                   htmlFor="email"
                   className="text-sm font-medium text-gray-900 block mb-2 "
@@ -67,20 +112,56 @@ const ForgotPage = () => {
                   value={formikValues['email']}
                   onChange={formik.handleChange}
                 />
-                {errors['email'] && (
+                {errors['email']  && (
                   <p className={errorTextStyle}>{errors['email']}</p>
                 )}
-              </div>
+              </div>}
              
-              <button
-                type="submit"
-                disabled={isRequest}
-                className={`w-full text-white bg-blue hover:bg-red focus:ring-4 focus:ring-red font-medium rounded-lg text-sm px-5 py-2.5 text-center  ${
-                  isRequest && 'animate-pulse bg-red'
-                }`}
-              >
-                Отправить письмо
-              </button>
+              <div className="w-full ">
+              {!isMassageSent  ? (
+                <button
+                  type="submit"
+                  disabled={isRequest}
+                  className={` flex justify-center gap-2 w-full text-white bg-blue hover:bg-red focus:ring-4 focus:ring-red font-medium rounded-lg text-sm px-5 py-2.5 text-center  ${
+                    isRequest && 'animate-pulse bg-red'
+                  }`}
+                >
+                  Отправить письмо  {isRequest && <LoaderSpin size={"5"}/>}
+                </button>
+              ) : (
+                <div className="w-full ">
+                  <div className="pb-4">
+                    <div className="flex justify-center items-center gap-2">
+                      <Svg id={"icon-massage"} size={24} />
+                      <p className="text-lg font-medium text-center">
+                        Письмо отправлено!
+                      </p>
+                    </div>
+                    <p className="text-xl font-medium text-center">
+                      {formikValues['email']}
+                    </p>
+                  </div>
+                  <div className="flex gap-2 justify-center flex-wrap">
+                    <p className="text-[12px] font-medium mt-2 text-gray-500">
+                      Не пришло письмо?
+                    </p>
+                    {stopTimer ? <p
+                      className="text-[12px]  font-medium mt-2 underline"
+                    >
+                      {`Подождите ${timer} сек.`}
+                    </p> :
+                    <button
+                      type="button"
+                      className="text-[12px]  font-medium mt-2 underline"
+                      onClick={handleResendClick}
+                      disabled={stopTimer}
+                    >
+                      {'Отправить повторно'}
+                    </button>}
+                  </div>
+                </div>
+              )}
+            </div>
               <div className="text-sm font-medium text-gray-500 flex justify-center">
                 
                 <Link

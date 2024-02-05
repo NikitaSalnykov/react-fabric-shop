@@ -16,6 +16,7 @@ const initialState = {
   isLoggedIn: false,
   isRefresh: false,
   isRequestActive: false,
+  isPasswordCompleted: false,
 };
 
 export const authSlice = createSlice({
@@ -29,6 +30,10 @@ export const authSlice = createSlice({
     refreshToken: (state, action) => {
       state.token = action.payload;
     },
+
+      resetPasswordCompleted: (state) => {
+        state.isPasswordCompleted = false;
+      },
   },
   extraReducers: (builder) => {
     // register
@@ -134,12 +139,12 @@ export const authSlice = createSlice({
     });
 
     builder.addCase(forgotPassword.fulfilled, (state) => {
-      state.isLoggedIn = true;
       state.error = null;
       state.isRequestActive = false;
     });
 
-    builder.addCase(forgotPassword.rejected, (state) => {
+    builder.addCase(forgotPassword.rejected, (state, action) => {
+      state.error = action.payload;
       state.isRequestActive = false;
     });
 
@@ -152,9 +157,9 @@ export const authSlice = createSlice({
     
         builder.addCase(resetPassword.fulfilled, (state, action) => {
           state.user = action.payload.user;
-          state.isLoggedIn = true;
           state.error = null;
           state.isRequestActive = false;
+          state.isPasswordCompleted = true;
         });
     
         builder.addCase(resetPassword.rejected, (state, action) => {
@@ -163,3 +168,6 @@ export const authSlice = createSlice({
         });
   },
 });
+
+
+export const { resetPasswordCompleted } = authSlice.actions;

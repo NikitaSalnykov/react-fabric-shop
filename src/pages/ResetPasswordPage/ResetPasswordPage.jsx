@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { forgotPassword, login, resetPassword } from '../../Redux/auth/auth-operations';
 import { useEffect, useState } from 'react';
 import { LoginSchma } from '../../schemas/LoginSchma';
-import { getIsLoggedIn, getIsRequest } from '../../Redux/auth/auth-selectors';
-import { authSlice } from '../../Redux/auth/auth-slice';
+import { getIsLoggedIn, getIsRequest, getPasswordCompleted } from '../../Redux/auth/auth-selectors';
+import { authSlice, resetPasswordCompleted } from '../../Redux/auth/auth-slice';
+import { ResetPasswordSchma } from '../../schemas/ResetPasswordSchma';
+import Svg from '../../components/Svg/Svg';
 
 const errorTextStyle =
   'pl-4 absolute -bottom-5 text-rose-500 text-xs font-normal bottom-[-20px] left-[-10px] xl:left-[85px]';
@@ -17,13 +19,21 @@ const ResetPasswordPage = () => {
   console.log(id);
   const dispatch = useDispatch();
   const isRequest = useSelector(getIsRequest);
-
+  const isPasswordCompleted = useSelector(getPasswordCompleted)
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = useState(false);
+  const [isPasswordChanged, setIsPasswordChanged] = useState(false)
 
   useEffect(() => {
     dispatch(authSlice.actions.resetHttpError());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (isPasswordCompleted) {
+      dispatch(resetPasswordCompleted());
+      setIsPasswordChanged(true)
+    }
+  }, [isPasswordCompleted, dispatch]);
 
   const formik = useFormik({
     initialValues: {
@@ -33,7 +43,7 @@ const ResetPasswordPage = () => {
 
     validateOnChange: false,
     validateOnBlur: true,
-    // validationSchema: LoginSchma,
+    validationSchema: ResetPasswordSchma,
 
     onSubmit: ({ password }) => {
       dispatch(resetPassword({newPassword: password, resetToken: id}));
@@ -64,7 +74,7 @@ const ResetPasswordPage = () => {
       <div className="flex justify-center w-full">
         <div className="max-w-2xl">
           <div className=" md:w-[600px] bg-white shadow-md border border-gray-200 rounded-lg max-w-sm p-4 sm:p-6 lg:p-8 ">
-            <form
+            {!isPasswordChanged ? <form
               className="space-y-6"
               noValidate
               autoComplete="off"
@@ -162,7 +172,19 @@ const ResetPasswordPage = () => {
                   Вернуться на страницу авторизации
                 </Link>
               </div>
-            </form>
+            </form> :
+            <div className='w-full flex flex-col justify-center'>
+              <div className="flex justify-center  mb-4 opacity-60"><Svg id={"icon-access"} fill={"blue"} stroke={"white"} size={68}/></div>
+               <h3 className="text-center text-xl font-medium text-gray-900  mb-6">
+                Ваш пароль успешно изменен!
+              </h3>
+              <Link
+                to={"/login"}
+                className={` w-full text-white bg-blue hover:bg-red focus:ring-4 focus:ring-red font-medium rounded-lg text-sm px-5 py-2.5 text-center `}
+              >
+                Авторизоваться
+              </Link>
+              </div>}
           </div>
         </div>
       </div>

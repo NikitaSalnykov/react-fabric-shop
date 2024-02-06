@@ -174,7 +174,7 @@ const ResetPasswordPage = () => {
               </div>
             </form> :
             <div className='w-full flex flex-col justify-center'>
-              <div className="flex justify-center  mb-4 opacity-60"><Svg id={"icon-access"} fill={"blue"} stroke={"white"} size={68}/></div>
+              <div className="flex justify-center  mb-4 opacity-60"><Svg id={"icon-access"} fill={"#007aff"} stroke={"white"} size={68}/></div>
                <h3 className="text-center text-xl font-medium text-gray-900  mb-6">
                 Ваш пароль успешно изменен!
               </h3>

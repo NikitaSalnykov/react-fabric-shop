@@ -8,28 +8,18 @@ const Faq = () => {
           Наши услуги
         </h4>
         <p className="text-center text-gray-600 text-sm mt-2">
-          Here are some of the frequently asked questions
+        Важная информация для наших клиентов
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 xl:gap-12 px-2 xl:px-12 mt-4">
           <div className="flex space-x-8 mt-8">
             <div>
-              <Svg id={'icon-fabric-about '} fill={'black'} size={32}></Svg>
+              <Svg id={'icon-main-fabric'} fill={'black'} size={32}></Svg>
             </div>
             <div>
               <h3 className="text-xl font-bold text-gray-700">Продукция</h3>
               <p className="text-gray-600 my-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                dignissimos. Neque eos, dignissimos provident reiciendis debitis
-                repudiandae commodi perferendis et itaque, similique fugiat
-                cumque impedit iusto vitae dolorum. Nostrum, fugit!
+              Наши товары отличаются высоким качеством, которое гарантируется заводом-производителем. Мы представляем только продукцию, прошедшую строгий контроль качества, покупая у нас, вы можете быть уверены в надежности и долговечности каждого изделия
               </p>
-              <a
-                href="#"
-                className="text-blue-600 hover:text-blue-800 hover:underline capitalize"
-                title="Read More"
-              >
-                Read More
-              </a>
             </div>
           </div>
 
@@ -40,66 +30,36 @@ const Faq = () => {
             <div id="delivery">
               <h3 className="text-xl font-bold text-gray-700">Доставка</h3>
               <p className="text-gray-600 my-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                dignissimos. Neque eos, dignissimos provident reiciendis debitis
-                repudiandae commodi perferendis et itaque, similique fugiat
-                cumque impedit iusto vitae dolorum. Nostrum, fugit!
+Мы предоставляем доставку любым удобным для вас способом. Независимо от вашего местоположения или предпочтений, мы готовы организовать доставку так, чтобы вы получили ваш заказ без проблем и в удобное для вас время
               </p>
-              <a
-                href="#"
-                className="text-blue-600 hover:text-blue-800 hover:underline capitalize"
-                title="Read More"
-              >
-                Read More
-              </a>
             </div>
           </div>
 
           <div className="flex space-x-8 mt-8">
             <div>
-              <Svg id={'icon-boxes'} size={38}></Svg>
+              <Svg id={'icon-boxes'} stroke={"black"} fill={'transparent'} size={38}></Svg>
             </div>
             <div id="pickup">
               <h3 className="text-xl font-bold text-gray-700">
                 Самовывоз с нашего склада
               </h3>
               <p className="text-gray-600 my-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                dignissimos. Neque eos, dignissimos provident reiciendis debitis
-                repudiandae commodi perferendis et itaque, similique fugiat
-                cumque impedit iusto vitae dolorum. Nostrum, fugit!
+              У нас также доступен самовывоз с нашего склада. Мы приглашаем вас лично посетить нас и ознакомиться с нашим ассортиментом товаров. У нас вы можете не только посмотреть на товары, но и получить консультацию от наших специалистов, чтобы сделать правильный выбор.
               </p>
-              <a
-                href="#"
-                className="text-blue-600 hover:text-blue-800 hover:underline capitalize"
-                title="Read More"
-              >
-                Read More
-              </a>
             </div>
           </div>
 
           <div className="flex space-x-8 mt-8">
             <div>
-              <Svg id={'icon-wholesale'} size={38}></Svg>
+              <Svg id={'icon-wholesale'} stroke={"white"} fill={'white'}  size={38}></Svg>
             </div>
             <div>
               <h3 className="text-xl font-bold text-gray-700">
                 Покупайте оптом и в розницу
               </h3>
-              <p className="text-gray-600 my-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                dignissimos. Neque eos, dignissimos provident reiciendis debitis
-                repudiandae commodi perferendis et itaque, similique fugiat
-                cumque impedit iusto vitae dolorum. Nostrum, fugit!
+              <p className="text-gray-600 my-2">             
+Покупайте у нас оптом или в розницу! Мы предлагаем как рулонные товары, так и продажу по метражу, чтобы удовлетворить любые потребности. Кроме того, для оптовых покупателей мы предоставляем специальные скидки, делая наши продукты еще более доступными и выгодными.
               </p>
-              <a
-                href="#"
-                className="text-blue-600 hover:text-blue-800 hover:underline capitalize"
-                title="Read More"
-              >
-                Read More
-              </a>
             </div>
           </div>
 
@@ -108,9 +68,9 @@ const Faq = () => {
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-12 w-12 text-blue-600"
-                fill="none"
+                fill="black"
                 viewBox="0 0 24 24"
-                stroke="currentColor"
+                stroke="white"
               >
                 <path
                   strokeLinecap="round"
@@ -125,18 +85,9 @@ const Faq = () => {
                 Акционные предложения постоянным покупателям
               </h3>
               <p className="text-gray-600 my-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                dignissimos. Neque eos, dignissimos provident reiciendis debitis
-                repudiandae commodi perferendis et itaque, similique fugiat
-                cumque impedit iusto vitae dolorum. Nostrum, fugit!
+                
+У нас всегда есть специальные акционные предложения для наших постоянных клиентов! Мы ценим ваше доверие и предлагаем вам приятные скидки и подарки в благодарность за вашу лояльность!
               </p>
-              <a
-                href="#"
-                className="text-blue-600 hover:text-blue-800 hover:underline capitalize"
-                title="Read More"
-              >
-                Read More
-              </a>
             </div>
           </div>
 
@@ -162,18 +113,8 @@ const Faq = () => {
                 Возврат и гарантия качества
               </h3>
               <p className="text-gray-600 my-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae,
-                dignissimos. Neque eos, dignissimos provident reiciendis debitis
-                repudiandae commodi perferendis et itaque, similique fugiat
-                cumque impedit iusto vitae dolorum. Nostrum, fugit!
+              Мы гарантируем качество наших товаров и предоставляем вам возможность возврата в случае необходимости. Если вы не удовлетворены приобретенным товаром или возникли проблемы с качеством, обратитесь к нам, и мы с удовольствием поможем вам решить этот вопрос. Ваши желания - наш приоритет.
               </p>
-              <a
-                href="#"
-                className="text-blue-600 hover:text-blue-800 hover:underline capitalize"
-                title="Read More"
-              >
-                Read More
-              </a>
             </div>
           </div>
         </div>

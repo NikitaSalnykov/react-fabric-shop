@@ -62,10 +62,10 @@ export const ProductCard = ({product}) => {
 {product.category !== "Фурнитура" ? <TypeProductSwitcher product={product}/> :
     <Price price={product.price} discount={product.discount} orientation='row' size='small'/>
   }                </div>
-                              {product.discount > 0 && <div className={`absolute top-4 left-4 w-12 h-12 rounded-full bg-red flex justify-center items-center cursor-pointer `}>
+                              {product.discount > 0 && <div className={`absolute top-6 left-6 w-12 h-12 rounded-full bg-red flex justify-center items-center cursor-pointer `}>
                              <p className='flex justify-center items-center gap-[1px] text-white font-semibold'><span className=' text-[10px]'>-</span>{product.discount}<span className=' text-[10px]'>%</span></p>
                               </div>}
-                              <div onClick={() => handleFavorite(product)} className={`absolute top-4 right-4 w-10 h-10 rounded-full bg-white flex justify-center items-center  ${favoritesStyle.some((item) => item._id === product._id) ? " opacity-80" : "opacity-40"} hover:opacity-80 cursor-pointer `}>
+                              <div onClick={() => handleFavorite(product)} className={`absolute top-6 right-6 w-10 h-10 rounded-full bg-white flex justify-center items-center  ${favoritesStyle.some((item) => item._id === product._id) ? " opacity-80" : "opacity-40"} hover:opacity-80 cursor-pointer `}>
                               <Svg id={'icon-favorite-product'} size={22} 
                                fill={`${
                                 favoritesStyle.some((item) => item._id === product._id)

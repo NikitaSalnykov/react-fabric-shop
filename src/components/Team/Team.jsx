@@ -1,30 +1,29 @@
 const people = [
   {
     name: 'Михаил Сальников',
-    role: 'Co-Founder',
+    role: 'Управляющий',
     imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      'https://s3.eu-central-1.amazonaws.com/uploads.mangoweb.org/shared-prod/visegradfund.org/uploads/2021/08/placeholder-male.jpg',
   },
   {
     name: 'Ксения Сальникова',
-    role: 'Co-Founder',
+    role: 'Менеджер',
     imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
+      'https://i0.wp.com/fotilitystudios.com/wp-content/uploads/2021/09/generic_female.png?fit=888%2C888&ssl=1',
   },
   // More people...
 ];
 
 const Team = () => {
   return (
-    <div className="py-8 sm:py-16">
-      <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-20 px-6 lg:px-8 lg:grid-cols-2 items-center">
+    <div className="pb-2 md:pb-4">
+      <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-8 px-6 lg:px-8 lg:grid-cols-2 items-center">
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
             Наша команда
           </h2>
           <p className="mt-6 text-lg leading-8 text-gray-600">
-            Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae
-            elementum enim vitae ullamcorper suspendisse.
+            Мы — небольшая, но страстная команда, специализирующаяся на текстиле уже более 10 лет.  Мы всегда готовы помочь воплотить ваши идеи в реальность, помогая Вам создавать уникальные текстильные изделия. Приглашаем вас присоединиться к нам и ощутить магию текстиля в каждой детали!
           </p>
         </div>
         <ul

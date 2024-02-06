@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../../Redux/auth/auth-operations';
 import { useEffect, useState } from 'react';
 import { LoginSchma } from '../../schemas/LoginSchma';
-import { getIsLoggedIn, getIsRequest } from '../../Redux/auth/auth-selectors';
+import { getAuthError, getIsLoggedIn, getIsRequest } from '../../Redux/auth/auth-selectors';
 import { authSlice } from '../../Redux/auth/auth-slice';
 
 const errorTextStyle =
@@ -13,7 +13,9 @@ const errorTextStyle =
 const LoginPage = () => {
   const dispatch = useDispatch();
   const isRequest = useSelector(getIsRequest);
+  const isAuthError = useSelector(getAuthError);
 
+  
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   useEffect(() => {
@@ -74,7 +76,7 @@ const LoginPage = () => {
                   name="email"
                   id="email"
                   className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ${
-                    errors['email'] && 'border-red'
+                    errors['email'] || isAuthError && 'border-red'
                   }`}
                   placeholder="name@mail.com"
                   value={formikValues['email']}
@@ -99,7 +101,7 @@ const LoginPage = () => {
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   className={`bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  ${
-                    errors['password'] && 'border-red'
+                    errors['password'] || isAuthError && 'border-red'
                   }`}
                   required=""
                 />
@@ -135,7 +137,8 @@ const LoginPage = () => {
                   Забыли пароль?
                 </Link>
               </div>
-              <button
+                <div className="relative">
+                <button
                 type="submit"
                 disabled={isRequest}
                 className={`w-full text-white bg-blue hover:bg-red focus:ring-4 focus:ring-red font-medium rounded-lg text-sm px-5 py-2.5 text-center  ${
@@ -144,6 +147,8 @@ const LoginPage = () => {
               >
                 Войти
               </button>
+              {isAuthError && <p className={`${errorTextStyle}`}>Данные для пароля или эл.почты неверны</p>}
+            </div>
               <div className="text-sm font-medium text-gray-500">
                 Ещё не зарегистрированы?{' '}
                 <Link

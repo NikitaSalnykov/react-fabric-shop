@@ -1,10 +1,9 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
-import { forgotPassword, login } from '../../Redux/auth/auth-operations';
+import { forgotPassword } from '../../Redux/auth/auth-operations';
 import { useEffect, useState } from 'react';
-import { LoginSchma } from '../../schemas/LoginSchma';
-import { getAuthError, getIsLoggedIn, getIsRequest } from '../../Redux/auth/auth-selectors';
+import { getAuthError, getIsRequest } from '../../Redux/auth/auth-selectors';
 import { authSlice } from '../../Redux/auth/auth-slice';
 import { ForgotSchma } from '../../schemas/ForgotSchma';
 import Svg from '../../components/Svg/Svg';
@@ -18,6 +17,7 @@ const ForgotPage = () => {
   const isRequest = useSelector(getIsRequest);
   const isAuthError = useSelector(getAuthError);
   const [isMassageSent, setIsMassageSent] = useState(false)
+  const [confirmEmail, setConfirmEmail] = useState(false)
   const [timer, setTimer] = useState(30);
   const [stopTimer, setStopTimer] = useState(true)
 
@@ -37,14 +37,19 @@ const ForgotPage = () => {
     onSubmit: ({ email }) => {
       try {
         dispatch(forgotPassword({ email }));
-        setIsMassageSent(true) 
+        setConfirmEmail(true) 
       } catch (error) {
         console.error('Ошибка при отправке запроса на восстановление:', error);
       }
     }
   });
 
-
+  useEffect(() => {
+    if(confirmEmail && !isRequest) {
+      setIsMassageSent(true) 
+    }
+  }, [isRequest])
+  
 
   useEffect(() => {
     let interval;
@@ -131,8 +136,14 @@ const ForgotPage = () => {
               ) : (
                 <div className="w-full ">
                   <div className="pb-4">
+                  <div className="relative w-full flex justify-center mb-4">
+                  <Svg id={"icon-massage"} fill={"#007aff"} stroke={"white"} size={68}/>
+                  <div className="absolute top-0 right-[35%] bg-[#21df0f] rounded-full w-6 h-6">
+                  <Svg id={'icon-check'} size={24} stroke={'white'} fill={'transparent'}/>
+                  </div>
+                  </div>
+
                     <div className="flex justify-center items-center gap-2">
-                      <Svg id={"icon-massage"} size={24} />
                       <p className="text-lg font-medium text-center">
                         Письмо отправлено!
                       </p>
@@ -164,12 +175,18 @@ const ForgotPage = () => {
             </div>
               <div className="text-sm font-medium text-gray-500 flex justify-center">
                 
-                <Link
+{ !isMassageSent  ?               <Link
                   to="/login"
                   className="text-blue-700 hover:underline"
                 >
                   Вернуться на страницу авторизации
-                </Link>
+                </Link> : 
+                              <Link
+                              to={"/login"}
+                              className={` w-full text-white bg-blue hover:bg-red focus:ring-4 focus:ring-red font-medium rounded-lg text-sm px-5 py-2.5 text-center `}
+                            >
+                              Авторизоваться
+                            </Link>}
               </div>
             </form>
           </div>

@@ -7,6 +7,7 @@ import {
   update,
   forgotPassword,
   resetPassword,
+  fetchUsers
 } from './auth-operations';
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   isRefresh: false,
   isRequestActive: false,
   isPasswordCompleted: false,
+  arr: null,
 };
 
 export const authSlice = createSlice({
@@ -166,6 +168,26 @@ export const authSlice = createSlice({
           state.error = action.payload;
           state.isRequestActive = false;
         });
+
+        //getUsers
+
+        builder.addCase(fetchUsers.pending, (state) => {
+          state.error = null;
+          state.isRequestActive = true;
+        });
+    
+        builder.addCase(fetchUsers.fulfilled, (state, action) => {
+          state.arr = action.payload;
+          state.error = null;
+          state.isRequestActive = false;
+          state.isPasswordCompleted = true;
+        });
+    
+        builder.addCase(fetchUsers.rejected, (state, action) => {
+          state.error = action.payload;
+          state.isRequestActive = false;
+        });
+    
   },
 });
 

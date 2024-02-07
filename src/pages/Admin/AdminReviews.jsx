@@ -1,18 +1,49 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { Fragment, useEffect } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { getReviews, getIsLoadingReview } from '../../Redux/reviews/reviewsSelectors';
 import { deleteReview, fetchReviews } from '../../Redux/reviews/reviewsOperation';
 import { Menu, Transition } from '@headlessui/react';
 import { formattedDate } from '../../helpers/formattedDate';
+import { getFilterName } from '../../Redux/filter/filterSlice';
+import { Filter } from '../../components/Filter/Filter';
+import { Pagination } from '../../components/Pagination/Pagination';
 
 const AdminReviews = () => {
   const dispatch = useDispatch();
   const reviews = useSelector(getReviews);
   const isLoadingReviews = useSelector(getIsLoadingReview);
+  const filterName = useSelector(getFilterName);
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 10;
 
   useEffect(() => {
     dispatch(fetchReviews());
   }, [dispatch]);
+
+  const handleClickPage = (target) => {
+    setCurrentPage(target.selected + 1);
+  };  
+
+  const filteredReviews = (items) => {
+    if (!reviews) return items;
+    const searchFields = ['author'];
+    return items.filter((el) =>
+      searchFields.some((field) =>
+        el[field].toLowerCase().includes(filterName.toLowerCase())
+      )
+    )
+    .sort((a, b) => {
+      const dateA = new Date(a.createdAt);
+      const dateB = new Date(b.createdAt);
+
+      // Сортировка от новых к старым
+      return dateB - dateA;
+    });
+  };
+
+  const paginatedReviews = (reviews) =>
+  filteredReviews(reviews).slice((currentPage - 1) * limit, currentPage * limit);
+
 
 
   return (
@@ -46,33 +77,11 @@ const AdminReviews = () => {
                 <p className=" animate-pulse">Идёт загрузка</p>
               )}
             </div>
-            <button
-              aria-expanded="false"
-              aria-haspopup="menu"
-              id=":r5:"
-              className="relative middle none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-blue-gray-500 hover:bg-blue-gray-500/10 active:bg-blue-gray-500/30"
-              type="button"
-            >
-              <span className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="currenColor"
-                  viewBox="0 0 24 24"
-                  strokeWidth="3"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                  className="h-6 w-6"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
-                  ></path>
-                </svg>
-              </span>
-            </button>
+            <div>
+              <Filter nameFilter={true}/>
+            </div>
           </div>
-          <div className="p-6 overflow-x-scroll px-0 pt-0 pb-[100px]">
+          <div className="p-6 overflow-x-scroll px-0 pt-0 pb-[10px]">
             <table className="w-full min-w-[640px] table-auto">
               <thead>
                 <tr>
@@ -105,7 +114,7 @@ const AdminReviews = () => {
               </thead>
               <tbody>
                 {reviews && !isLoadingReviews ? (
-                  reviews.map(
+                  paginatedReviews(reviews).map(
                     (el) =>
                       el && (
                         <tr key={el._id ? el._id : '-'}>
@@ -164,6 +173,10 @@ const AdminReviews = () => {
                 )}
               </tbody>
             </table>
+            {reviews && !isLoadingReviews && Math.ceil(filteredReviews(reviews).length / limit) > 1 && <Pagination
+                handleClickPage={handleClickPage}
+                totalPages={Math.ceil(filteredReviews(reviews).length / limit)}
+              />}
           </div>
         </div>
       </div>

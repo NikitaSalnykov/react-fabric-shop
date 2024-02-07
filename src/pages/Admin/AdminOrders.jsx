@@ -11,6 +11,7 @@ import { BasicModal } from '../../components/Modals/BasicModal/BasicModal';
 import DeleteOrder from '../../components/Modals/AdminModals/DeleteOrder';
 import { Filter } from '../../components/Filter/Filter';
 import { getFilterName } from '../../Redux/filter/filterSlice';
+import { Pagination } from '../../components/Pagination/Pagination';
 
 const AdminOrders = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,8 @@ const AdminOrders = () => {
   const [isModalDeleteOrderOpen, setModalDeleteOrderOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const filterName = useSelector(getFilterName);
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 10;
 
 
   useEffect(() => {
@@ -49,6 +52,17 @@ const AdminOrders = () => {
       return dateB - dateA;
     });
   };
+
+    
+  const handleClickPage = (target) => {
+    setCurrentPage(target.selected + 1);
+  };  
+
+    
+  const paginatedOrders = (orders) =>
+  filteredOrders(orders).slice((currentPage - 1) * limit, currentPage * limit);
+
+
 
   return (
     <div>
@@ -124,7 +138,7 @@ const AdminOrders = () => {
               </thead>
               <tbody>
                 {orders && !isLoadingOrders ? (
-                  filteredOrders(orders).map(
+                  paginatedOrders(orders).map(
                     (el) =>
                       el && (
                         <tr key={el._id ? el._id : '-'}>
@@ -237,6 +251,10 @@ const AdminOrders = () => {
                 )}
               </tbody>
             </table>
+            {orders && !isLoadingOrders && Math.ceil(filteredOrders(orders).length / limit) > 1 && <Pagination
+                handleClickPage={handleClickPage}
+                totalPages={Math.ceil(filteredOrders(orders).length / limit)}
+              />}
           </div>
         </div>
       </div>

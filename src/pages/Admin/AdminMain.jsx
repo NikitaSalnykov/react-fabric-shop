@@ -167,30 +167,37 @@ export const AdminMain = () => {
           <div className="flex p-2 gap-2 flex-wrap">
         <Link
         to='/admin/products'
-          className="w-29 h-14 bg-red rounded-[10px] flex justify-center items-center text-white p-2"
+          className="w-29 h-14 bg-[#ff4f75] rounded-[10px] flex justify-center items-center text-white p-2"
         >
           Список товаров
         </Link>
         <Link
                 to='/admin/orders'
 
-          className="w-29 h-14 bg-red rounded-[10px] flex justify-center items-center text-white p-2"
+          className="w-29 h-14 bg-[#ff3b5b] rounded-[10px] flex justify-center items-center text-white p-2"
         >
           Все заказы
         </Link>
         <Link
                         to='/admin/users'
 
-          className="w-29 h-14 bg-red rounded-[10px] flex justify-center items-center text-white p-2"
+          className="w-29 h-14 bg-[#ff4f75]  rounded-[10px] flex justify-center items-center text-white p-2"
         >
           Все пользователи
         </Link>
         <Link
                                 to='/admin/posts'
 
-          className="w-29 h-14 bg-red rounded-[10px] flex justify-center items-center text-white p-2"
+          className="w-29 h-14 bg-[#ff3b5b] rounded-[10px] flex justify-center items-center text-white p-2"
         >
           Список постов
+        </Link>
+        <Link
+                                to='/admin/posts'
+
+          className="w-29 h-14 bg-[#ff4f75] rounded-[10px] flex justify-center items-center text-white p-2"
+        >
+          Пользователи
         </Link>
       </div>
           <div className="flex flex-col pt-4 mb-12">

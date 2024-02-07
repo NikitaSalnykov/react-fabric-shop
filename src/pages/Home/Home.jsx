@@ -98,7 +98,10 @@ const Home = () => {
   return (
     <div className="container ">
       <div className="my-6 lg:my-12 text-center flex flex-col justify-center items-center">
-      <h1 class="mb-4 text-2xl font-extrabold text-gray-900  md:text-5xl lg:text-6xl"><span class=" text-6xl text-transparent bg-clip-text bg-gradient-to-r to-[#c367f9] from-[#ff4f75]">Dream Fatin</span> мир тканей</h1>
+      <div className="mb-4 text-4xl font-extrabold text-gray-900  md:text-5xl lg:text-6xl lg:flex lg:gap-4">
+      <h1 class=" text-6xl text-transparent bg-clip-text bg-gradient-to-r to-[#c367f9] from-[#ff4f75]">Dream Fatin</h1> 
+      <p className='font-bold lg:font-extrabold'>мир тканей</p>
+      </div>
 <p class="text-lg font-normal text-gray-500 lg:text-xl  md:w-[75%]">Ткани, вдохновляющие воображение и превращающие идеи в шедевры. От ярких и смелых решений до невероятной мягкости и роскоши</p>
       </div>
       <Hero />
@@ -114,10 +117,10 @@ const Home = () => {
      </div>
         <div>
         <h2 className='mb-6 text-xl font-bold tracking-tight text-gray-900 sm:text-2xl '>Отзывы:</h2>
-      {!reviewsIsLoading && !productIsLoading ? 
+      {!reviewsIsLoading ? 
       <div>
         {reviews && reviews.length > 0 && topRatedReviews(reviews).length > 0 ? <SwiperReviews reviews={topRatedReviews(reviews)} products={products}/> : 
-        <div className='mb-6'>Информация временно отсутвует</div>}
+        <div className='mb-6'>Отзывов на сайте пока что нет</div>}
       </div> 
       :
       <div className='mb-6'><SkeletonHeroReviews/></div>
@@ -126,7 +129,7 @@ const Home = () => {
 
       <div>
       <h2 className='mb-6 text-xl font-bold tracking-tight text-gray-900 sm:text-2xl '>Товары со скидкой:</h2>
-      { !productIsLoading ? 
+      { !productIsLoading  ? 
       <div>
         {products && products.length > 0 && discountProducts(products).length > 0 ? <SwiperCards products={discountProducts(products)}/> : 
         <div className='mb-6'>Информация временно отсутвует</div>}

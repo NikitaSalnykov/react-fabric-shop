@@ -11,3 +11,5 @@ export const getUser = (state) => state.auth.user;
 export const getIsRequest = (state) => state.auth.isRequestActive;
 
 export const getPasswordCompleted = (state) => state.auth.isPasswordCompleted;
+
+export const getUsers = (state) => state.auth.arr;

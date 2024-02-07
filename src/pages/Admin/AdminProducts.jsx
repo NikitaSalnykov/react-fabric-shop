@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom';
 import { categoryURL } from '../../helpers/categoryURL';
 import { Filter } from '../../components/Filter/Filter';
 import { getFilterName } from '../../Redux/filter/filterSlice';
+import { Pagination } from '../../components/Pagination/Pagination';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
@@ -34,6 +35,8 @@ const AdminProducts = () => {
   const [isModalEditProductOpen, setModalEditProductOpen] = useState(false);
   const [isModalDeleteProductOpen, setModalDeleteProductOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const limit = 10;
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -66,6 +69,16 @@ const AdminProducts = () => {
       return dateB - dateA;
     });
   };
+
+  
+  const handleClickPage = (target) => {
+    setCurrentPage(target.selected + 1);
+  };  
+
+    
+  const paginatedProducts = (product) =>
+  filteredProducts(product).slice((currentPage - 1) * limit, currentPage * limit);
+
 
   return (
     <div className="">
@@ -109,7 +122,7 @@ const AdminProducts = () => {
                 <p className=" animate-pulse">Идёт загрузка</p>
               )}
             </div>
-            <div className="">
+            <div>
               <Filter nameFilter={true}/>
             </div>
           </div>
@@ -146,7 +159,7 @@ const AdminProducts = () => {
               </thead>
               <tbody>
                 {products && !isLoadingProducts ? (
-                  filteredProducts(products).map(
+                  paginatedProducts(products).map(
                     (el) =>
                       el && (
                         <tr key={el._id ? el._id : '-'}>
@@ -290,6 +303,10 @@ const AdminProducts = () => {
                 )}
               </tbody>
             </table>
+            {products && !isLoadingProducts  && Math.ceil(filteredProducts(products).length / limit) > 1 && <Pagination
+                handleClickPage={handleClickPage}
+                totalPages={Math.ceil(filteredProducts(products).length / limit)}
+              />}
           </div>
         </div>
       </div>

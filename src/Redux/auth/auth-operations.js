@@ -127,3 +127,16 @@ export const forgotPassword = createAsyncThunk(
       }
     }
 );
+
+
+export const fetchUsers = createAsyncThunk(
+  'users/fetchUsers',
+  async (thunkAPI) => {
+    try {
+      const response = await instance.get(`/api/auth/users`);
+      return response.data;
+    } catch (evt) {
+      return thunkAPI.rejectWithValue(evt.message);
+    }
+  }
+);

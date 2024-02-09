@@ -117,7 +117,7 @@ const Home = () => {
      </div>
         <div>
         <h2 className='mb-6 text-xl font-bold tracking-tight text-gray-900 sm:text-2xl '>Отзывы:</h2>
-      {!reviewsIsLoading ? 
+      {!reviewsIsLoading && !productIsLoading ? 
       <div>
         {reviews && reviews.length > 0 && topRatedReviews(reviews).length > 0 ? <SwiperReviews reviews={topRatedReviews(reviews)} products={products}/> : 
         <div className='mb-6'>Отзывов на сайте пока что нет</div>}

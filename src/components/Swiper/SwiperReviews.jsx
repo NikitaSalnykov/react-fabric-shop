@@ -19,7 +19,7 @@ export const SwiperReviews = ({ reviews, products }) => {
   const [openPhotos, setOpenPhotos] = useState(false);
 
   const filteredProduct = (productId) => {
-    return products.find((product) => product.id === productId) || {};
+    return products.find((product) => product._id === productId) || {};
   };
     
   const handleSlideChange = () => {

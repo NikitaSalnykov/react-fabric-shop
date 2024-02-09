@@ -135,8 +135,6 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
         user,
         
       };
-
-      console.log(newOrder);
       dispatch(createOrder({ order: newOrder }));
     },
   });

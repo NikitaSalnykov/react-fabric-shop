@@ -137,7 +137,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
       };
 
       console.log(newOrder);
-      // dispatch(createOrder({ order: newOrder }));
+      dispatch(createOrder({ order: newOrder }));
     },
   });
 

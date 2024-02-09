@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useParams } from 'react-router-dom';
-
+import ImagePlaceholder from "../../images/placeholders/product-placeholder.webp"
 import { getPostById } from "../../Redux/posts/postsOperation";
 import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,7 +31,7 @@ useEffect(() => {
    </div>
        <div className="flex justify-center items-center overflow-hidden rounded-lg shadow-md  w-full h-[400px]">
        <img
-                   src={post.mainPhoto}
+                   src={post.mainPhoto  || ImagePlaceholder}
                    className="object-cover w-[100%] h-[100%]"
                  />
        </div>

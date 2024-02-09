@@ -2,6 +2,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay, Scrollbar, Pagination  } from 'swiper/modules';
 import {ProductCard} from '../ProductCard/ProductCard'
+import ImagePlaceholder from "../../images/placeholders/product-placeholder.webp"
 
 // Import Swiper styles
 import 'swiper/css';
@@ -17,8 +18,10 @@ export const SwiperReviews = ({ reviews, products }) => {
   const [readMore, setReadMore] = useState(false);
   const [openPhotos, setOpenPhotos] = useState(false);
 
-  const filteredProduct = (id) => products.filter(product => product._id === id)[0];
-  
+  const filteredProduct = (productId) => {
+    return products.find((product) => product.id === productId) || {};
+  };
+    
   const handleSlideChange = () => {
     setReadMore(false);
     setOpenPhotos(false);
@@ -26,7 +29,7 @@ export const SwiperReviews = ({ reviews, products }) => {
 
   return (
     <>
-      {reviews && (
+      {reviews && products && (
         <Swiper
           className="flex justify-center items-center w-full rounded-xl mb-4"
           modules={[Autoplay, Scrollbar, Navigation, Pagination]}
@@ -103,7 +106,7 @@ export const SwiperReviews = ({ reviews, products }) => {
           <p className=' font-semibold text-sm mb-2 opacity-70'>Отзыв к товару: </p>
         <div className="flex justify-start items-center gap-2 mb-4">
           <div className=" w-8 h-8 rounded-full overflow-hidden">
-            <img src={filteredProduct(review.productId).mainPhoto} alt={filteredProduct(review.productId).name} />
+            <img src={filteredProduct(review.productId).mainPhoto ? filteredProduct(review.productId).mainPhoto : ImagePlaceholder} alt={filteredProduct(review.productId).name} />
           </div>
           <Link to={`/categories/${categoryURL(filteredProduct(review.productId).category)}/${filteredProduct(review.productId)._id}`}>
           <p className=' font-bold'>{filteredProduct(review.productId).name}</p>

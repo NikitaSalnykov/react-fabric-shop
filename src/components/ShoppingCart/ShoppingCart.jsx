@@ -36,7 +36,7 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
   const isOrderCreated = useSelector(getIsOrderCreated);
   const isLoadingOrder = useSelector(getIsLoadingOrders);
   const ordersCount = useSelector(getOrdersCount);
-  const orderNumber = `${dayOfMonth}${ordersCount}`;
+  const orderNumber = `${dayOfMonth}${ordersCount ? ordersCount : "00"}`;
 
   useEffect(() => {
     dispatch(fetchOrdersCount());
@@ -115,7 +115,11 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
             el.product.color
           }, категория: ${el.product.category}, Тип: ${el.product.category !== "Фурнитура" ? (el.type === "roll" ? "рулон" : "метраж") : "шт."}, количество: ${
             el.count
-          }, цена: ${el.product.discount && el.product.discount > 0 ? resultPrice(el.type && el.type === "roll" ? el.product.price : el.product.pricePerMeter, el.product.discount) : resultPrice(el.type && el.type !== "roll" ? el.product.price : el.product.pricePerMeter)} ${el.product.discount && el.product.discount > 0 ? `Включая скидку ${el.product.discount}%` : ``}.`;
+          }, цена: ${el.product.discount && el.product.discount > 0 
+            ? 
+            resultPrice(el.type && el.type === "roll" ? el.product.price : el.product.pricePerMeter, el.product.discount) 
+            :
+            resultPrice(el.type && el.type === "roll" ? el.product.price : el.product.pricePerMeter)} ${el.product.discount && el.product.discount > 0 ? `Включая скидку ${el.product.discount}%` : ``}.`;
         })
         .join(' ');
       const newOrder = {
@@ -131,7 +135,9 @@ const ShoppingCart = ({ onToggleBasket, isBasketOpen }) => {
         user,
         
       };
-      dispatch(createOrder({ order: newOrder }));
+
+      console.log(newOrder);
+      // dispatch(createOrder({ order: newOrder }));
     },
   });
 

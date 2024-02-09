@@ -7,6 +7,7 @@ import { useParams } from 'react-router-dom';
 import { deleteFavorite, getFavorite, setFavorite } from "../../Redux/favorites/favoriteSlice";
 import Svg from "../Svg/Svg";
 import { Price } from "../../pages/Price/Price";
+import ImagePlaceholder from "../../images/placeholders/product-placeholder.webp"
 
 const categoryURL = (category) => {
   const result = categories.find((el) => el.name === category);
@@ -47,7 +48,7 @@ export const ProductCard = ({product}) => {
               >
                 <div className="shadow-md h-[200px] md:h-[250px] md:h-300px aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                   <img
-                    src={product.mainPhoto}
+                    src={product.mainPhoto ? product.mainPhoto : ImagePlaceholder }
                     alt={product.name}
                     className="h-full w-full object-cover object-center group-hover:opacity-75 sm:h-[280px]"
                   />

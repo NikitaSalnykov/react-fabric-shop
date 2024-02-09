@@ -15,6 +15,7 @@ import { resultPrice } from '../../helpers/resultPrice';
 import { Price } from '../Price/Price';
 import { ReviewCart } from '../../components/ReviewCart/ReviewCart';
 import { ReviewsList } from '../../components/ReviewsList/ReviewsList';
+import ImagePlaceholder from "../../images/placeholders/product-placeholder.webp"
 
 const Product = () => {
   const { id } = useParams();
@@ -167,7 +168,7 @@ const Product = () => {
                           >
                             <img
                               className="w-[50px] h-[50px]  rounded-[90px]  object-cover"
-                              src={el.mainPhoto}
+                              src={el.mainPhoto || ImagePlaceholder}
                               alt={el.name}
                             />
                           </Link>

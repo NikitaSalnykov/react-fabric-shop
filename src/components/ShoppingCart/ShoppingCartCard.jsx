@@ -7,6 +7,7 @@ import { categoryURL } from '../../helpers/categoryURL';
 import { resultPrice } from '../../helpers/resultPrice';
 import { Price } from '../../pages/Price/Price';
 import { deleteFavorite, getFavorite, setFavorite } from '../../Redux/favorites/favoriteSlice';
+import ImagePlaceholder from "../../images/placeholders/product-placeholder.webp"
 
 const ShoppingCartCard = ({ product, closeModal }) => {
 
@@ -37,7 +38,7 @@ const ShoppingCartCard = ({ product, closeModal }) => {
         <div className="flex gap-4 items-center">
           <div className="w-[50px] h-[50px] rounded-[50%] md:w-[200px] md:h-[200px] overflow-hidden md:rounded-xl">
             <img
-              src={product.product.mainPhoto}
+              src={product.product.mainPhoto ? product.product.mainPhoto : ImagePlaceholder}
               alt="Black Leather Bag"
               className="w-[100%] h-[100%] object-cover"
             />

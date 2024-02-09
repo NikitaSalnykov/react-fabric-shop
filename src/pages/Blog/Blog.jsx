@@ -8,6 +8,7 @@ import SkeletonProfileOrders from '../../components/Loader/SkeletonProfileOrders
 import { formattedDate } from '../../helpers/formattedDate';
 import { Link } from 'react-router-dom';
 import SkeletonBlog from '../../components/Loader/SkeletonBlog';
+import ImagePlaceholder from "../../images/placeholders/product-placeholder.webp"
 
 const Blog = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ const Blog = () => {
         <div className="w-full md:w-1/2">
           <div className=" overflow-hidden rounded-lg shadow-md  w-[100%] h-[300px]">
             <img
-              src={mainPost[0].mainPhoto}
+              src={mainPost[0].mainPhoto ? mainPost[0].mainPhoto : ImagePlaceholder}
               className="object-cover w-[100%] h-[100%]"
             />
           </div>

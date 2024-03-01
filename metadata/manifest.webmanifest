@@ -1,11 +1,11 @@
 {
-  "name": "YourPet",
-  "short_name": "YourPet",
-  "start_url": "https://borysshabazov.github.io/YourPet/",
+  "name": "DreamFatin",
+  "short_name": "DreamFatin",
+  "start_url": "https://nikitasalnykov.github.io/react-fabric-shop/",
   "display": "standalone",
   "theme_color": "#ffffff",
   "background_color": "#fff",
-  "description": "This site is dedicated to the limitless world of pets that make our lives better every day.",
+  "description": "Лучший выбор фатина и остальных тканей на Dream Fatin",
   "icons": [
     {
       "src": "./logo_48.png",
